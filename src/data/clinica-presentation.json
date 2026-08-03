@@ -1,0 +1,3995 @@
+{
+ "title": "Clínica San Rafael - Proyecto Final SC-503",
+ "theme": "cyberpunk",
+ "visualStyle": "mundos tematicos 3d",
+ "scenes": [
+  {
+   "id": "s1",
+   "title": "Clínica San Rafael",
+   "content": "Proyecto Final SC-503: Administración de Bases de Datos.",
+   "environment": "hospital",
+   "cameraPosition": [
+    0,
+    12,
+    28
+   ],
+   "cameraTarget": [
+    0,
+    0,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "hospital",
+    "reflectiveFloor": true,
+    "rain": true,
+    "traffic": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.4,
+    "buildings": [
+     {
+      "id": "b1",
+      "position": [
+       -7,
+       0,
+       -4
+      ],
+      "size": [
+       2.2,
+       9,
+       2.2
+      ],
+      "label": "San José",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "b2",
+      "position": [
+       0,
+       0,
+       -6
+      ],
+      "size": [
+       2.2,
+       9,
+       2.2
+      ],
+      "label": "Heredia",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.12
+     },
+     {
+      "id": "b3",
+      "position": [
+       7,
+       0,
+       -4
+      ],
+      "size": [
+       2.2,
+       9,
+       2.2
+      ],
+      "label": "Alajuela",
+      "color": "#ec4899",
+      "entranceDelay": 0.24
+     },
+     {
+      "id": "b4",
+      "position": [
+       -4,
+       0,
+       3
+      ],
+      "size": [
+       1.8,
+       6,
+       1.8
+      ],
+      "label": "50 Consultorios",
+      "color": "#10b981",
+      "entranceDelay": 0.36
+     },
+     {
+      "id": "b5",
+      "position": [
+       4,
+       0,
+       3
+      ],
+      "size": [
+       1.8,
+       6,
+       1.8
+      ],
+      "label": "60 Médicos",
+      "color": "#f59e0b",
+      "entranceDelay": 0.48
+     }
+    ],
+    "holograms": [
+     {
+      "id": "h1",
+      "position": [
+       0,
+       10,
+       0
+      ],
+      "content": "BASE DE DATOS ORACLE",
+      "color": "#22d3ee",
+      "size": [
+       4,
+       0.8
+      ]
+     }
+    ],
+    "drones": [
+     {
+      "id": "d1",
+      "path": [
+       [
+        -8,
+        7,
+        -6
+       ],
+       [
+        0,
+        10,
+        0
+       ],
+       [
+        8,
+        7,
+        -6
+       ],
+       [
+        0,
+        5,
+        6
+       ]
+      ],
+      "color": "#facc15",
+      "speed": 0.8,
+      "size": 0.12
+     }
+    ]
+   },
+   "world": "Ciudad Médica",
+   "bullets": [
+    "Proyecto final del curso SC-503 Administración de Bases de Datos, Universidad Fidélitas, II Cuatrimestre 2026.",
+    "Grupo G: Aaron García Basabe, Samuel Rodríguez Fernández, María Catalina Valverde Arroyo y Reyner Fabián Valverde Barboza.",
+    "Profesor: Ing. Kevin Hernández Mendoza.",
+    "Se diseña, implementa y administra una base de datos Oracle para la Clínica San Rafael, una clínica privada con tres sedes.",
+    "Entorno: Oracle Autonomous Database (nube) con SQL Developer y consola Oracle Cloud."
+   ]
+  },
+  {
+   "id": "s2",
+   "title": "El Contexto",
+   "content": "Clínica médica privada ficticia con operación diaria centrada en citas, facturas, recetas y exámenes.",
+   "environment": "hospital",
+   "cameraPosition": [
+    8,
+    6,
+    12
+   ],
+   "cameraTarget": [
+    0,
+    2,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "hospital",
+    "showGrid": true,
+    "fogDensity": 0.015,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "sedes",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       4,
+       7,
+       4
+      ],
+      "label": "3 Sedes",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "cons",
+      "position": [
+       -6,
+       0,
+       3
+      ],
+      "size": [
+       2,
+       5,
+       2
+      ],
+      "label": "Consultorios",
+      "color": "#10b981",
+      "entranceDelay": 0.2
+     },
+     {
+      "id": "med",
+      "position": [
+       6,
+       0,
+       3
+      ],
+      "size": [
+       2,
+       5,
+       2
+      ],
+      "label": "Especialistas",
+      "color": "#f59e0b",
+      "entranceDelay": 0.3
+     }
+    ],
+    "dataTables": [
+     {
+      "id": "stats",
+      "position": [
+       0,
+       4.5,
+       5
+      ],
+      "headers": [
+       "Recurso",
+       "Cantidad"
+      ],
+      "rows": [
+       [
+        "Sedes",
+        "3"
+       ],
+       [
+        "Consultorios",
+        "50"
+       ],
+       [
+        "Médicos",
+        "60"
+       ],
+       [
+        "Especialidades",
+        "50"
+       ]
+      ],
+      "color": "#22d3ee",
+      "entranceDelay": 0.5
+     }
+    ]
+   },
+   "world": "Ciudad Médica",
+   "bullets": [
+    "La Clínica San Rafael es una clínica médica privada con tres sedes que atiende consulta externa, laboratorio y farmacia.",
+    "La operación gira alrededor de la cita médica: el paciente agenda con un médico en un consultorio, recibe atención, se factura y puede derivar en recetas y exámenes.",
+    "Hoy la información se administra con hojas de cálculo independientes por sede y expedientes físicos en papel.",
+    "El alcance cubre citas, facturación con cobertura de seguros, recetas y resultados de laboratorio.",
+    "Quedan fuera: hospitalización, planillas, inventario de farmacia e historia clínica completa."
+   ]
+  },
+  {
+   "id": "s3",
+   "title": "Problema 1: Duplicidad de Citas",
+   "content": "Sin control centralizado, dos recepcionistas pueden asignar el mismo médico a la misma hora.",
+   "environment": "hospital",
+   "cameraPosition": [
+    0,
+    8,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    2,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "hospital",
+    "showGrid": true,
+    "rain": true,
+    "fogDensity": 0.025,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "p1",
+      "position": [
+       -4,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Excel Sede 1",
+      "color": "#334155",
+      "entranceDelay": 0
+     },
+     {
+      "id": "p2",
+      "position": [
+       4,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Excel Sede 2",
+      "color": "#334155",
+      "entranceDelay": 0.15
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       -4,
+       6,
+       0
+      ],
+      "to": [
+       4,
+       6,
+       0
+      ],
+      "color": "#ef4444",
+      "animated": true,
+      "curved": true,
+      "entranceDelay": 0.5
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hp1",
+      "position": [
+       0,
+       8.5,
+       0
+      ],
+      "content": "DOBLE ASIGNACIÓN",
+      "color": "#ef4444"
+     }
+    ]
+   },
+   "world": "Ciudad Médica",
+   "bullets": [
+    "Cada sede maneja su propia agenda en hojas de cálculo sin validación centralizada.",
+    "Un mismo médico puede quedar asignado a dos citas a la misma hora en sedes distintas.",
+    "No existe ninguna restricción técnica que impida la doble asignación.",
+    "Solución en el modelo: restricción UNIQUE sobre la combinación (ID_MEDICO, FECHA_HORA) en la tabla CITA."
+   ],
+   "code": [
+    "CONSTRAINT UQ_CITA_MEDICO_FECHA",
+    "  UNIQUE (ID_MEDICO, FECHA_HORA)"
+   ],
+   "codeTitle": "Restricción en CITA"
+  },
+  {
+   "id": "s4",
+   "title": "Problema 2: Facturación Inconsistente",
+   "content": "Cálculo manual de montos cubiertos por seguros genera errores y pérdida de cuentas por cobrar.",
+   "environment": "hospital",
+   "cameraPosition": [
+    0,
+    8,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    2,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "hospital",
+    "showGrid": true,
+    "fogDensity": 0.025,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "fac1",
+      "position": [
+       -4,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Factura A",
+      "color": "#475569",
+      "entranceDelay": 0
+     },
+     {
+      "id": "fac2",
+      "position": [
+       4,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Factura B",
+      "color": "#475569",
+      "entranceDelay": 0.15
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hf1",
+      "position": [
+       -4,
+       8,
+       0
+      ],
+      "content": "₡120.000",
+      "color": "#ef4444"
+     },
+     {
+      "id": "hf2",
+      "position": [
+       4,
+       8,
+       0
+      ],
+      "content": "₡115.000",
+      "color": "#ef4444"
+     },
+     {
+      "id": "hf3",
+      "position": [
+       0,
+       9,
+       0
+      ],
+      "content": "MISMO SERVICIO",
+      "color": "#ef4444"
+     }
+    ]
+   },
+   "world": "Ciudad Médica",
+   "bullets": [
+    "El mismo procedimiento se cobra con montos distintos según la sede: ₡120.000 en una y ₡115.000 en otra.",
+    "Los precios viven duplicados en cada hoja de cálculo, sin un catálogo único.",
+    "La cobertura de la aseguradora se aplica a mano, con errores frecuentes.",
+    "Solución: catálogo único PROCEDIMIENTO con precio oficial y cálculo de cobertura desde ASEGURADORA (COBERTURA_PCT).",
+    "La coherencia se valida: el total de cada factura debe coincidir con la suma de sus líneas de detalle."
+   ]
+  },
+  {
+   "id": "s5",
+   "title": "Problema 3: Sin Trazabilidad",
+   "content": "Recetas y resultados de laboratorio no quedan vinculados a la cita que los originó.",
+   "environment": "hospital",
+   "cameraPosition": [
+    0,
+    8,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    2,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "hospital",
+    "showGrid": true,
+    "fogDensity": 0.025,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "t1",
+      "position": [
+       -4,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Receta",
+      "color": "#334155",
+      "entranceDelay": 0
+     },
+     {
+      "id": "t2",
+      "position": [
+       0,
+       0,
+       -3
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Cita",
+      "color": "#334155",
+      "entranceDelay": 0.1
+     },
+     {
+      "id": "t3",
+      "position": [
+       4,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Examen",
+      "color": "#334155",
+      "entranceDelay": 0.2
+     }
+    ],
+    "holograms": [
+     {
+      "id": "ht1",
+      "position": [
+       0,
+       9,
+       -3
+      ],
+      "content": "SIN VÍNCULO",
+      "color": "#ef4444"
+     }
+    ]
+   },
+   "world": "Ciudad Médica",
+   "bullets": [
+    "Recetas y resultados de exámenes se archivan en papel, sin vínculo con la cita que los originó.",
+    "No es posible reconstruir la atención completa de un paciente: qué se recetó, qué examen se pidió y cuál fue su resultado.",
+    "Solución: RECETA y RESULTADO_EXAMEN referencian a CITA mediante llaves foráneas.",
+    "Toda receta y todo resultado quedan trazados a un paciente, un médico y una fecha concreta."
+   ]
+  },
+  {
+   "id": "s6",
+   "title": "La Solución: Oracle ADB",
+   "content": "Base de datos relacional en la nube con integridad referencial, concurrencia y seguridad.",
+   "environment": "cosmos",
+   "cameraPosition": [
+    0,
+    10,
+    20
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "cosmos",
+    "fogDensity": 0.01,
+    "entranceDuration": 1.3,
+    "buildings": [
+     {
+      "id": "sol-oracle",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       4,
+       10,
+       4
+      ],
+      "label": "Oracle ADB",
+      "color": "#f59e0b",
+      "entranceDelay": 0
+     },
+     {
+      "id": "sol-sql",
+      "position": [
+       -7,
+       0,
+       4
+      ],
+      "size": [
+       2.2,
+       5,
+       2.2
+      ],
+      "label": "SQL Dev",
+      "color": "#3b82f6",
+      "entranceDelay": 0.2
+     },
+     {
+      "id": "sol-cloud",
+      "position": [
+       7,
+       0,
+       4
+      ],
+      "size": [
+       2.2,
+       5,
+       2.2
+      ],
+      "label": "Cloud",
+      "color": "#22d3ee",
+      "entranceDelay": 0.35
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       -7,
+       5,
+       4
+      ],
+      "to": [
+       0,
+       8,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "entranceDelay": 0.6
+     },
+     {
+      "from": [
+       7,
+       5,
+       4
+      ],
+      "to": [
+       0,
+       8,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "entranceDelay": 0.75
+     }
+    ],
+    "energyCores": [
+     [
+      0,
+      12.5,
+      0
+     ]
+    ]
+   },
+   "world": "Nebulosa Oracle",
+   "bullets": [
+    "Una base de datos relacional Oracle resuelve los tres problemas: integridad referencial, catálogos únicos y trazabilidad total.",
+    "Control de concurrencia: las tres sedes trabajan sobre la misma información al mismo tiempo.",
+    "Único punto de verdad con respaldo, auditoría y seguridad centralizada.",
+    "Se usa Oracle Autonomous Database (Transaction Processing) en Oracle Cloud, el entorno oficial del curso.",
+    "Herramientas: SQL Developer como cliente y la consola de Oracle Cloud para administración del servicio."
+   ]
+  },
+  {
+   "id": "s6b",
+   "title": "Almacenamiento y Tablespaces",
+   "content": "DATA para datos, DBFS_DATA para índices. El espacio se gobierna con cuotas.",
+   "environment": "datacenter",
+   "cameraPosition": [
+    0,
+    11,
+    21
+   ],
+   "cameraTarget": [
+    0,
+    4,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "datacenter",
+    "fogDensity": 0.014,
+    "entranceDuration": 1.2,
+    "buildings": [
+     {
+      "id": "ts-data",
+      "position": [
+       -4,
+       0,
+       0
+      ],
+      "size": [
+       3.2,
+       9,
+       2.4
+      ],
+      "label": "DATA",
+      "color": "#0f172a",
+      "entranceDelay": 0.1
+     },
+     {
+      "id": "ts-dbfs",
+      "position": [
+       4,
+       0,
+       0
+      ],
+      "size": [
+       3.2,
+       7,
+       2.4
+      ],
+      "label": "DBFS_DATA",
+      "color": "#0f172a",
+      "entranceDelay": 0.3
+     },
+     {
+      "id": "ts-quota",
+      "position": [
+       0,
+       0,
+       -6
+      ],
+      "size": [
+       2.2,
+       5,
+       2
+      ],
+      "label": "Cuotas",
+      "color": "#134e4a",
+      "entranceDelay": 0.5
+     }
+    ],
+    "showStars": false,
+    "holograms": [
+     {
+      "id": "h-ts",
+      "position": [
+       0,
+       10,
+       0
+      ],
+      "size": [
+       7,
+       2
+      ],
+      "color": "#34d399",
+      "content": "100 MB → 1 GB",
+      "rotationSpeed": 0.3
+     }
+    ]
+   },
+   "world": "Centro de Respaldo",
+   "bullets": [
+    "El dimensionamiento parte del volumen inicial: 13 tablas con máximo 150 filas de ~1 KB, con margen amplio para índices y crecimiento.",
+    "En un entorno convencional se crearía un tablespace propio de 100 MB con autoextensión hasta 1 GB.",
+    "En Autonomous Database los tablespaces los administra Oracle: se trabaja sobre DATA (datos) y DBFS_DATA (índices).",
+    "El control de espacio se hace con cuotas por usuario en lugar de tablespaces dedicados.",
+    "El script 01_Tablespace.sql verifica los tablespaces disponibles y su espacio libre (Evidencias 1 y 2)."
+   ],
+   "code": [
+    "CREATE TABLESPACE TS_CLINICA",
+    "  DATAFILE SIZE 100M",
+    "  AUTOEXTEND ON NEXT 50M MAXSIZE 1G",
+    "  EXTENT MANAGEMENT LOCAL",
+    "  SEGMENT SPACE MANAGEMENT AUTO;"
+   ],
+   "codeTitle": "Opción on-premise (referencia)"
+  },
+  {
+   "id": "s7",
+   "title": "13 Tablas en Total",
+   "content": "8 tablas de dimensiones describen catálogos. 5 tablas de hechos registran transacciones.",
+   "environment": "neural",
+   "cameraPosition": [
+    0,
+    14,
+    22
+   ],
+   "cameraTarget": [
+    0,
+    4,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "neural",
+    "fogDensity": 0.012,
+    "entranceDuration": 1.2,
+    "buildings": [
+     {
+      "id": "dim-esp",
+      "position": [
+       -7,
+       0,
+       -4
+      ],
+      "size": [
+       1.6,
+       4.5,
+       1.6
+      ],
+      "label": "Especialidad",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "dim-ase",
+      "position": [
+       -3.5,
+       0,
+       -6
+      ],
+      "size": [
+       1.6,
+       4.5,
+       1.6
+      ],
+      "label": "Aseguradora",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.05
+     },
+     {
+      "id": "dim-con",
+      "position": [
+       0,
+       0,
+       -7
+      ],
+      "size": [
+       1.6,
+       4.5,
+       1.6
+      ],
+      "label": "Consultorio",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.1
+     },
+     {
+      "id": "dim-med",
+      "position": [
+       3.5,
+       0,
+       -6
+      ],
+      "size": [
+       1.6,
+       4.5,
+       1.6
+      ],
+      "label": "Médico",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.15
+     },
+     {
+      "id": "dim-pac",
+      "position": [
+       7,
+       0,
+       -4
+      ],
+      "size": [
+       1.6,
+       4.5,
+       1.6
+      ],
+      "label": "Paciente",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.2
+     },
+     {
+      "id": "dim-pro",
+      "position": [
+       -7,
+       0,
+       4
+      ],
+      "size": [
+       1.6,
+       4.5,
+       1.6
+      ],
+      "label": "Procedimiento",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.25
+     },
+     {
+      "id": "dim-medc",
+      "position": [
+       -3.5,
+       0,
+       6
+      ],
+      "size": [
+       1.6,
+       4.5,
+       1.6
+      ],
+      "label": "Medicamento",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.3
+     },
+     {
+      "id": "dim-exa",
+      "position": [
+       0,
+       0,
+       7
+      ],
+      "size": [
+       1.6,
+       4.5,
+       1.6
+      ],
+      "label": "Examen Lab",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.35
+     },
+     {
+      "id": "hecho-cita",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       11,
+       3
+      ],
+      "label": "CITA",
+      "color": "#f59e0b",
+      "entranceDelay": 0.5
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       -7,
+       4.5,
+       -4
+      ],
+      "to": [
+       0,
+       9,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "curved": true,
+      "entranceDelay": 0.8
+     },
+     {
+      "from": [
+       0,
+       4.5,
+       -7
+      ],
+      "to": [
+       0,
+       9,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "entranceDelay": 0.85
+     },
+     {
+      "from": [
+       7,
+       4.5,
+       -4
+      ],
+      "to": [
+       0,
+       9,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "curved": true,
+      "entranceDelay": 0.9
+     },
+     {
+      "from": [
+       -7,
+       4.5,
+       4
+      ],
+      "to": [
+       0,
+       9,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "curved": true,
+      "entranceDelay": 0.95
+     },
+     {
+      "from": [
+       0,
+       4.5,
+       7
+      ],
+      "to": [
+       0,
+       9,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "entranceDelay": 1.0
+     }
+    ],
+    "holograms": [
+     {
+      "id": "h-dim",
+      "position": [
+       -7,
+       6.5,
+       -4
+      ],
+      "content": "8 DIMENSIONES",
+      "color": "#0ea5e9"
+     },
+     {
+      "id": "h-cita",
+      "position": [
+       0,
+       7.5,
+       0
+      ],
+      "content": "HECHO CENTRAL",
+      "color": "#f59e0b"
+     }
+    ]
+   },
+   "world": "Red Neural del Modelo",
+   "bullets": [
+    "El modelo se organiza en 8 tablas de dimensiones (catálogos estables) y 5 tablas de hechos (transacciones).",
+    "Dimensiones: ESPECIALIDAD, ASEGURADORA, CONSULTORIO, MEDICO, PACIENTE, PROCEDIMIENTO, MEDICAMENTO y EXAMEN_LAB.",
+    "Llaves primarias sustitutas NUMBER(10) en todas las tablas: simplifican relaciones y evitan propagar datos de negocio como la cédula.",
+    "Cada tabla contiene entre 50 y 150 registros, según lo exige el proyecto.",
+    "PACIENTE es la dimensión más grande: 150 registros con cédula única, datos de contacto y aseguradora opcional."
+   ]
+  },
+  {
+   "id": "s8",
+   "title": "5 Tablas de Hechos",
+   "content": "CITA genera facturas, detalles, recetas y resultados de laboratorio.",
+   "environment": "neural",
+   "cameraPosition": [
+    0,
+    12,
+    18
+   ],
+   "cameraTarget": [
+    0,
+    4,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "neural",
+    "fogDensity": 0.012,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "h-cita",
+      "position": [
+       0,
+       0,
+       -4
+      ],
+      "size": [
+       3,
+       9,
+       3
+      ],
+      "label": "CITA",
+      "color": "#f59e0b",
+      "entranceDelay": 0
+     },
+     {
+      "id": "h-fac",
+      "position": [
+       -6,
+       0,
+       2
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "FACTURA",
+      "color": "#ec4899",
+      "entranceDelay": 0.25
+     },
+     {
+      "id": "h-det",
+      "position": [
+       -9,
+       0,
+       4
+      ],
+      "size": [
+       2,
+       4.5,
+       2
+      ],
+      "label": "DETALLE",
+      "color": "#ec4899",
+      "entranceDelay": 0.4
+     },
+     {
+      "id": "h-rec",
+      "position": [
+       6,
+       0,
+       2
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "RECETA",
+      "color": "#10b981",
+      "entranceDelay": 0.55
+     },
+     {
+      "id": "h-res",
+      "position": [
+       6,
+       0,
+       -2
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "RESULTADO",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.7
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       0,
+       9,
+       -4
+      ],
+      "to": [
+       -6,
+       6,
+       2
+      ],
+      "color": "#ec4899",
+      "animated": true,
+      "entranceDelay": 0.9
+     },
+     {
+      "from": [
+       -6,
+       6,
+       2
+      ],
+      "to": [
+       -9,
+       4.5,
+       4
+      ],
+      "color": "#ec4899",
+      "animated": true,
+      "entranceDelay": 1.0
+     },
+     {
+      "from": [
+       0,
+       9,
+       -4
+      ],
+      "to": [
+       6,
+       6,
+       2
+      ],
+      "color": "#10b981",
+      "animated": true,
+      "entranceDelay": 1.05
+     },
+     {
+      "from": [
+       0,
+       9,
+       -4
+      ],
+      "to": [
+       6,
+       6,
+       -2
+      ],
+      "color": "#8b5cf6",
+      "animated": true,
+      "entranceDelay": 1.1
+     }
+    ]
+   },
+   "world": "Red Neural del Modelo",
+   "bullets": [
+    "CITA es el hecho central (150 registros): agenda y resultado de la atención médica.",
+    "FACTURA (120) y DETALLE_FACTURA (150): cobro de procedimientos con la cobertura del seguro aplicada.",
+    "RECETA (130): medicamentos indicados en cada cita.",
+    "RESULTADO_EXAMEN (100): exámenes de laboratorio vinculados a la cita.",
+    "Total del esquema: 13 tablas y 1 250 registros coherentes entre sí."
+   ]
+  },
+  {
+   "id": "s9",
+   "title": "Integridad Referencial",
+   "content": "13 llaves foráneas vinculan facturas, recetas y resultados a una cita real.",
+   "environment": "neural",
+   "cameraPosition": [
+    0,
+    10,
+    18
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "neural",
+    "reflectiveFloor": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "i1",
+      "position": [
+       -5,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "PACIENTE",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "i2",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "CITA",
+      "color": "#f59e0b",
+      "entranceDelay": 0.15
+     },
+     {
+      "id": "i3",
+      "position": [
+       5,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "FACTURA",
+      "color": "#ec4899",
+      "entranceDelay": 0.3
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       -5,
+       7,
+       0
+      ],
+      "to": [
+       0,
+       7,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "entranceDelay": 0.5
+     },
+     {
+      "from": [
+       0,
+       7,
+       0
+      ],
+      "to": [
+       5,
+       7,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "entranceDelay": 0.65
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hi1",
+      "position": [
+       0,
+       9,
+       0
+      ],
+      "content": "13 FOREIGN KEYS",
+      "color": "#22d3ee"
+     }
+    ]
+   },
+   "world": "Red Neural del Modelo",
+   "bullets": [
+    "Trece relaciones de llave foránea garantizan la integridad referencial de todo el modelo.",
+    "CITA referencia a PACIENTE, MEDICO y CONSULTORIO: ninguna cita puede existir sin sus tres protagonistas.",
+    "FACTURA referencia a CITA y PACIENTE; DETALLE_FACTURA a FACTURA y PROCEDIMIENTO.",
+    "RECETA une CITA con MEDICAMENTO; RESULTADO_EXAMEN une CITA con EXAMEN_LAB.",
+    "PACIENTE→ASEGURADORA es la única relación opcional (acepta NULL): en la realidad cerca del 30% de pacientes no está asegurado."
+   ]
+  },
+  {
+   "id": "s10",
+   "title": "Restricciones Clave",
+   "content": "Restricciones que evitan doble cita y validan el total de la factura.",
+   "environment": "neural",
+   "cameraPosition": [
+    0,
+    10,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "neural",
+    "reflectiveFloor": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "r1",
+      "position": [
+       -4,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "UQ_CITA_MEDICO_HORA",
+      "color": "#10b981",
+      "entranceDelay": 0
+     },
+     {
+      "id": "r2",
+      "position": [
+       4,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "CK_FACTURA_TOTAL",
+      "color": "#10b981",
+      "entranceDelay": 0.2
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hr1",
+      "position": [
+       -4,
+       9.5,
+       0
+      ],
+      "content": "NO DOBLE CITA",
+      "color": "#10b981"
+     },
+     {
+      "id": "hr2",
+      "position": [
+       4,
+       9.5,
+       0
+      ],
+      "content": "TOTAL CORRECTO",
+      "color": "#10b981"
+     }
+    ]
+   },
+   "world": "Red Neural del Modelo",
+   "bullets": [
+    "UNIQUE (ID_MEDICO, FECHA_HORA) en CITA: elimina la doble asignación de médicos, el problema 1.",
+    "CHECK de dominios discretos: estado de la cita (Programada, Atendida, Cancelada, Ausente), estado de la factura y género.",
+    "Los dominios se controlan con CHECK en lugar de tablas adicionales para no complicar el modelo.",
+    "CEDULA con NOT NULL y UNIQUE en PACIENTE: una sola identidad por persona.",
+    "La coherencia factura-detalle se verifica en la carga: total de FACTURA = suma de DETALLE_FACTURA."
+   ],
+   "code": [
+    "ESTADO VARCHAR2(15) CHECK (ESTADO IN",
+    "  ('Programada','Atendida',",
+    "   'Cancelada','Ausente'))"
+   ],
+   "codeTitle": "Dominio del estado de la cita"
+  },
+  {
+   "id": "s10b",
+   "title": "Implementación: 16 Scripts",
+   "content": "Toda la construcción es reproducible: 16 scripts numerados ejecutados en orden.",
+   "environment": "cyberpunk",
+   "cameraPosition": [
+    0,
+    12,
+    23
+   ],
+   "cameraTarget": [
+    0,
+    4,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "cyberpunk",
+    "fogDensity": 0.014,
+    "entranceDuration": 1.2,
+    "buildings": [
+     {
+      "id": "scr-01",
+      "position": [
+       -10.5,
+       0,
+       -3
+      ],
+      "size": [
+       1.5,
+       3.7,
+       1.5
+      ],
+      "label": "01",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.08
+     },
+     {
+      "id": "scr-02",
+      "position": [
+       -7.5,
+       0,
+       -3
+      ],
+      "size": [
+       1.5,
+       4.9,
+       1.5
+      ],
+      "label": "02",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.16
+     },
+     {
+      "id": "scr-03",
+      "position": [
+       -4.5,
+       0,
+       -3
+      ],
+      "size": [
+       1.5,
+       6.1,
+       1.5
+      ],
+      "label": "03",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.24
+     },
+     {
+      "id": "scr-04",
+      "position": [
+       -1.5,
+       0,
+       -3
+      ],
+      "size": [
+       1.5,
+       2.5,
+       1.5
+      ],
+      "label": "04",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.32
+     },
+     {
+      "id": "scr-05",
+      "position": [
+       1.5,
+       0,
+       -3
+      ],
+      "size": [
+       1.5,
+       3.7,
+       1.5
+      ],
+      "label": "05",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.4
+     },
+     {
+      "id": "scr-06",
+      "position": [
+       4.5,
+       0,
+       -3
+      ],
+      "size": [
+       1.5,
+       4.9,
+       1.5
+      ],
+      "label": "06",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.48
+     },
+     {
+      "id": "scr-07",
+      "position": [
+       7.5,
+       0,
+       -3
+      ],
+      "size": [
+       1.5,
+       6.1,
+       1.5
+      ],
+      "label": "07",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.56
+     },
+     {
+      "id": "scr-08",
+      "position": [
+       10.5,
+       0,
+       -3
+      ],
+      "size": [
+       1.5,
+       2.5,
+       1.5
+      ],
+      "label": "08",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.64
+     },
+     {
+      "id": "scr-09",
+      "position": [
+       -10.5,
+       0,
+       4
+      ],
+      "size": [
+       1.5,
+       3.7,
+       1.5
+      ],
+      "label": "09",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.72
+     },
+     {
+      "id": "scr-10",
+      "position": [
+       -7.5,
+       0,
+       4
+      ],
+      "size": [
+       1.5,
+       4.9,
+       1.5
+      ],
+      "label": "10",
+      "color": "#f59e0b",
+      "entranceDelay": 0.8
+     },
+     {
+      "id": "scr-11",
+      "position": [
+       -4.5,
+       0,
+       4
+      ],
+      "size": [
+       1.5,
+       6.1,
+       1.5
+      ],
+      "label": "11",
+      "color": "#f59e0b",
+      "entranceDelay": 0.88
+     },
+     {
+      "id": "scr-12",
+      "position": [
+       -1.5,
+       0,
+       4
+      ],
+      "size": [
+       1.5,
+       2.5,
+       1.5
+      ],
+      "label": "12",
+      "color": "#f59e0b",
+      "entranceDelay": 0.96
+     },
+     {
+      "id": "scr-13",
+      "position": [
+       1.5,
+       0,
+       4
+      ],
+      "size": [
+       1.5,
+       3.7,
+       1.5
+      ],
+      "label": "13",
+      "color": "#f59e0b",
+      "entranceDelay": 1.04
+     },
+     {
+      "id": "scr-14",
+      "position": [
+       4.5,
+       0,
+       4
+      ],
+      "size": [
+       1.5,
+       4.9,
+       1.5
+      ],
+      "label": "14",
+      "color": "#f59e0b",
+      "entranceDelay": 1.12
+     },
+     {
+      "id": "scr-15",
+      "position": [
+       7.5,
+       0,
+       4
+      ],
+      "size": [
+       1.5,
+       6.1,
+       1.5
+      ],
+      "label": "15",
+      "color": "#f59e0b",
+      "entranceDelay": 1.2
+     },
+     {
+      "id": "scr-16",
+      "position": [
+       10.5,
+       0,
+       4
+      ],
+      "size": [
+       1.5,
+       2.5,
+       1.5
+      ],
+      "label": "16",
+      "color": "#f59e0b",
+      "entranceDelay": 1.28
+     }
+    ],
+    "showStars": false,
+    "holograms": [
+     {
+      "id": "h-scr",
+      "position": [
+       0,
+       9.5,
+       0.5
+      ],
+      "size": [
+       8,
+       2
+      ],
+      "color": "#22d3ee",
+      "content": "01→09 AVANCE · 10→16 FINAL",
+      "rotationSpeed": 0.25
+     }
+    ],
+    "traffic": true,
+    "neonIntensity": 1.1
+   },
+   "world": "Ciudad de Scripts",
+   "bullets": [
+    "La implementación se organizó en 16 scripts numerados que se ejecutan en orden.",
+    "Scripts 01-03 (conexión ADMIN): verificación de tablespaces, perfiles y usuarios con roles.",
+    "Scripts 04-09 (conexión CLINICA_ADMIN): tablas de dimensiones y hechos, índices, privilegios, carga de datos y verificación.",
+    "Scripts 10-16 (entrega final): auditoría, encriptación y VPD, respaldos, vistas materializadas, monitoreo, optimización y verificación final.",
+    "Las tablas se crean con TABLESPACE DATA y las llaves primarias con USING INDEX TABLESPACE DBFS_DATA.",
+    "Además de los índices de las PK y UNIQUE, se crearon 12 índices secundarios orientados a las consultas más frecuentes."
+   ]
+  },
+  {
+   "id": "s10c",
+   "title": "Carga de Datos: 1 250 Registros",
+   "content": "La altura de cada torre es su cantidad real de registros cargados.",
+   "environment": "cyberpunk",
+   "cameraPosition": [
+    0,
+    13,
+    26
+   ],
+   "cameraTarget": [
+    0,
+    4,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "cyberpunk",
+    "fogDensity": 0.014,
+    "entranceDuration": 1.2,
+    "buildings": [
+     {
+      "id": "ld-0",
+      "position": [
+       -12.0,
+       0,
+       -1.5
+      ],
+      "size": [
+       1.4,
+       2.7777777777777777,
+       1.4
+      ],
+      "label": "ESPECIALIDAD · 50",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.1
+     },
+     {
+      "id": "ld-1",
+      "position": [
+       -10.0,
+       0,
+       1.5
+      ],
+      "size": [
+       1.4,
+       2.7777777777777777,
+       1.4
+      ],
+      "label": "ASEGURADORA · 50",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.17
+     },
+     {
+      "id": "ld-2",
+      "position": [
+       -8.0,
+       0,
+       -1.5
+      ],
+      "size": [
+       1.4,
+       2.7777777777777777,
+       1.4
+      ],
+      "label": "CONSULTORIO · 50",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.24
+     },
+     {
+      "id": "ld-3",
+      "position": [
+       -6.0,
+       0,
+       1.5
+      ],
+      "size": [
+       1.4,
+       3.3333333333333335,
+       1.4
+      ],
+      "label": "MEDICO · 60",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.31
+     },
+     {
+      "id": "ld-4",
+      "position": [
+       -4.0,
+       0,
+       -1.5
+      ],
+      "size": [
+       1.4,
+       8.333333333333334,
+       1.4
+      ],
+      "label": "PACIENTE · 150",
+      "color": "#f59e0b",
+      "entranceDelay": 0.38
+     },
+     {
+      "id": "ld-5",
+      "position": [
+       -2.0,
+       0,
+       1.5
+      ],
+      "size": [
+       1.4,
+       4.444444444444445,
+       1.4
+      ],
+      "label": "PROCEDIMIENTO · 80",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.45
+     },
+     {
+      "id": "ld-6",
+      "position": [
+       0.0,
+       0,
+       -1.5
+      ],
+      "size": [
+       1.4,
+       5.555555555555555,
+       1.4
+      ],
+      "label": "MEDICAMENTO · 100",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.52
+     },
+     {
+      "id": "ld-7",
+      "position": [
+       2.0,
+       0,
+       1.5
+      ],
+      "size": [
+       1.4,
+       3.3333333333333335,
+       1.4
+      ],
+      "label": "EXAMEN_LAB · 60",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.59
+     },
+     {
+      "id": "ld-8",
+      "position": [
+       4.0,
+       0,
+       -1.5
+      ],
+      "size": [
+       1.4,
+       8.333333333333334,
+       1.4
+      ],
+      "label": "CITA · 150",
+      "color": "#f59e0b",
+      "entranceDelay": 0.66
+     },
+     {
+      "id": "ld-9",
+      "position": [
+       6.0,
+       0,
+       1.5
+      ],
+      "size": [
+       1.4,
+       6.666666666666667,
+       1.4
+      ],
+      "label": "FACTURA · 120",
+      "color": "#f59e0b",
+      "entranceDelay": 0.73
+     },
+     {
+      "id": "ld-10",
+      "position": [
+       8.0,
+       0,
+       -1.5
+      ],
+      "size": [
+       1.4,
+       8.333333333333334,
+       1.4
+      ],
+      "label": "DETALLE_FACT · 150",
+      "color": "#f59e0b",
+      "entranceDelay": 0.8
+     },
+     {
+      "id": "ld-11",
+      "position": [
+       10.0,
+       0,
+       1.5
+      ],
+      "size": [
+       1.4,
+       7.222222222222222,
+       1.4
+      ],
+      "label": "RECETA · 130",
+      "color": "#f59e0b",
+      "entranceDelay": 0.87
+     },
+     {
+      "id": "ld-12",
+      "position": [
+       12.0,
+       0,
+       -1.5
+      ],
+      "size": [
+       1.4,
+       5.555555555555555,
+       1.4
+      ],
+      "label": "RESULT_EXAMEN · 100",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.94
+     }
+    ],
+    "showStars": false,
+    "holograms": [
+     {
+      "id": "h-ld",
+      "position": [
+       0,
+       11,
+       0
+      ],
+      "size": [
+       7,
+       2
+      ],
+      "color": "#fbbf24",
+      "content": "50 ≤ N ≤ 150 ✓",
+      "rotationSpeed": 0.3
+     }
+    ]
+   },
+   "world": "Ciudad de Scripts",
+   "bullets": [
+    "Los datos de prueba se generaron de forma programática con un script reproducible.",
+    "Cada tabla queda dentro del rango exigido de 50 a 150 registros: 600 registros en dimensiones y 650 en hechos.",
+    "Coherencia transaccional: facturas, recetas y resultados solo se generaron para citas en estado Atendida.",
+    "Los totales de cada factura cuadran con la suma de sus líneas de detalle.",
+    "Tras la carga, el script 09 valida conteos por tabla, integridad referencial y coherencia de facturas (Evidencias 8, 9 y 10)."
+   ]
+  },
+  {
+   "id": "s11",
+   "title": "Perfiles de Usuario",
+   "content": "Tres perfiles limitan sesiones, tiempos de inactividad y fortaleza de contraseñas.",
+   "environment": "vault",
+   "cameraPosition": [
+    0,
+    10,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "vault",
+    "showGrid": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "prof-admin",
+      "position": [
+       -6,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "ADMIN",
+      "color": "#ef4444",
+      "entranceDelay": 0
+     },
+     {
+      "id": "prof-app",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "APP",
+      "color": "#3b82f6",
+      "entranceDelay": 0.15
+     },
+     {
+      "id": "prof-cons",
+      "position": [
+       6,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "CONSULTA",
+      "color": "#10b981",
+      "entranceDelay": 0.3
+     }
+    ],
+    "dataTables": [
+     {
+      "id": "perfiles",
+      "position": [
+       0,
+       5,
+       5
+      ],
+      "headers": [
+       "Perfil",
+       "Sesiones",
+       "Idle"
+      ],
+      "rows": [
+       [
+        "ADMIN",
+        "3",
+        "30 min"
+       ],
+       [
+        "APP",
+        "10",
+        "15 min"
+       ],
+       [
+        "CONSULTA",
+        "5",
+        "20 min"
+       ]
+      ],
+      "color": "#f59e0b",
+      "entranceDelay": 0.5
+     }
+    ]
+   },
+   "world": "Bóveda de Seguridad",
+   "bullets": [
+    "La seguridad aplica el principio de mínimo privilegio: cada usuario recibe solo los permisos indispensables.",
+    "Tres perfiles limitan recursos y endurecen contraseñas: PERFIL_CLINICA_ADMIN, PERFIL_CLINICA_APP y PERFIL_CLINICA_CONSULTA.",
+    "El perfil del administrador es el más restrictivo: 3 sesiones, 3 intentos fallidos, contraseña cada 60 días.",
+    "La aplicación permite 10 sesiones concurrentes y la consulta 5, con bloqueo de cuenta de 1 día tras intentos fallidos.",
+    "El perfil de la aplicación incorpora una política de contraseñas propia mediante PASSWORD_VERIFY_FUNCTION (FN_VALIDA_PASSWORD_CLINICA)."
+   ],
+   "code": [
+    "CREATE PROFILE PERFIL_CLINICA_APP LIMIT",
+    "  SESSIONS_PER_USER 10",
+    "  IDLE_TIME 15",
+    "  FAILED_LOGIN_ATTEMPTS 5",
+    "  PASSWORD_VERIFY_FUNCTION",
+    "    FN_VALIDA_PASSWORD_CLINICA;"
+   ],
+   "codeTitle": "02_Perfiles.sql"
+  },
+  {
+   "id": "s12",
+   "title": "Usuarios y Roles",
+   "content": "Tres usuarios: administrador, aplicación y consulta. Mínimo privilegio.",
+   "environment": "vault",
+   "cameraPosition": [
+    0,
+    10,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "vault",
+    "reflectiveFloor": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "usr-admin",
+      "position": [
+       -6,
+       0,
+       0
+      ],
+      "size": [
+       2.8,
+       8,
+       2.8
+      ],
+      "label": "CLINICA_ADMIN",
+      "color": "#ef4444",
+      "entranceDelay": 0
+     },
+     {
+      "id": "usr-app",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       2.8,
+       8,
+       2.8
+      ],
+      "label": "CLINICA_APP",
+      "color": "#3b82f6",
+      "entranceDelay": 0.2
+     },
+     {
+      "id": "usr-cons",
+      "position": [
+       6,
+       0,
+       0
+      ],
+      "size": [
+       2.8,
+       8,
+       2.8
+      ],
+      "label": "CLINICA_CONSULTA",
+      "color": "#10b981",
+      "entranceDelay": 0.4
+     }
+    ],
+    "dataTables": [
+     {
+      "id": "roles",
+      "position": [
+       0,
+       5.5,
+       5
+      ],
+      "headers": [
+       "Rol",
+       "Permisos"
+      ],
+      "rows": [
+       [
+        "ROL_GESTION",
+        "SELECT/INSERT/UPDATE"
+       ],
+       [
+        "ROL_LECTURA",
+        "Solo SELECT"
+       ]
+      ],
+      "color": "#f59e0b",
+      "entranceDelay": 0.6
+     }
+    ]
+   },
+   "world": "Bóveda de Seguridad",
+   "bullets": [
+    "CLINICA_ADMIN: dueño del esquema, crea objetos y carga datos. Cuota de 100 MB en DATA y 50 MB en DBFS_DATA.",
+    "CLINICA_APP: usuario de la aplicación de recepción y facturación (CRUD), sin cuota de espacio.",
+    "CLINICA_CONSULTA: reportes gerenciales de solo lectura, sin cuota.",
+    "Los privilegios de objeto se otorgan a dos roles, no a usuarios: ROL_CLINICA_GESTION (CRUD) y ROL_CLINICA_LECTURA (SELECT).",
+    "La entrega final corrigió el esquema del Avance 1: se agregaron CREATE MATERIALIZED VIEW y EXEMPT ACCESS POLICY a CLINICA_ADMIN.",
+    "La revisión periódica de accesos se hace consultando DBA_SYS_PRIVS y DBA_ROLE_PRIVS."
+   ],
+   "code": [
+    "GRANT SELECT, INSERT, UPDATE",
+    "  ON PACIENTE TO ROL_CLINICA_GESTION;",
+    "GRANT SELECT",
+    "  ON FACTURA TO ROL_CLINICA_LECTURA;"
+   ],
+   "codeTitle": "03/06 — Privilegios por rol"
+  },
+  {
+   "id": "s13",
+   "title": "Auditoría Unificada",
+   "content": "Cuatro políticas registran accesos, cambios en pacientes, facturas y operaciones admin.",
+   "environment": "vault",
+   "cameraPosition": [
+    0,
+    10,
+    18
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "vault",
+    "showGrid": true,
+    "fogDensity": 0.015,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "aud1",
+      "position": [
+       -6,
+       0,
+       -2
+      ],
+      "size": [
+       2.2,
+       6,
+       2.2
+      ],
+      "label": "Accesos",
+      "color": "#8b5cf6",
+      "entranceDelay": 0
+     },
+     {
+      "id": "aud2",
+      "position": [
+       -2,
+       0,
+       -4
+      ],
+      "size": [
+       2.2,
+       6,
+       2.2
+      ],
+      "label": "Pacientes",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.1
+     },
+     {
+      "id": "aud3",
+      "position": [
+       2,
+       0,
+       -4
+      ],
+      "size": [
+       2.2,
+       6,
+       2.2
+      ],
+      "label": "Facturas",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.2
+     },
+     {
+      "id": "aud4",
+      "position": [
+       6,
+       0,
+       -2
+      ],
+      "size": [
+       2.2,
+       6,
+       2.2
+      ],
+      "label": "Admin",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.3
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       -6,
+       6,
+       -2
+      ],
+      "to": [
+       0,
+       8,
+       2
+      ],
+      "color": "#f59e0b",
+      "animated": true,
+      "entranceDelay": 0.5
+     },
+     {
+      "from": [
+       -2,
+       6,
+       -4
+      ],
+      "to": [
+       0,
+       8,
+       2
+      ],
+      "color": "#f59e0b",
+      "animated": true,
+      "entranceDelay": 0.6
+     },
+     {
+      "from": [
+       2,
+       6,
+       -4
+      ],
+      "to": [
+       0,
+       8,
+       2
+      ],
+      "color": "#f59e0b",
+      "animated": true,
+      "entranceDelay": 0.7
+     },
+     {
+      "from": [
+       6,
+       6,
+       -2
+      ],
+      "to": [
+       0,
+       8,
+       2
+      ],
+      "color": "#f59e0b",
+      "animated": true,
+      "entranceDelay": 0.8
+     }
+    ],
+    "holograms": [
+     {
+      "id": "ha1",
+      "position": [
+       0,
+       10,
+       2
+      ],
+      "content": "UNIFIED_AUDIT_TRAIL",
+      "color": "#f59e0b"
+     }
+    ]
+   },
+   "world": "Bóveda de Seguridad",
+   "bullets": [
+    "La auditoría rastrea quién realiza cada acción sobre los objetos y usuarios de la base.",
+    "En Autonomous Database la auditoría unificada viene activa; se agregaron 4 políticas propias, todas con alcance BY USER.",
+    "POL_CLINICA_PACIENTES audita SELECT, INSERT, UPDATE y DELETE sobre la tabla PACIENTE.",
+    "POL_CLINICA_ADMINISTRACION audita privilegios de alto riesgo: CREATE USER, DROP ANY TABLE y ALTER SYSTEM.",
+    "Los resultados quedan en UNIFIED_AUDIT_TRAIL; las consultas siempre se filtran por fecha y usuario por el tamaño de la vista (Evidencias 11-13)."
+   ],
+   "code": [
+    "CREATE AUDIT POLICY POL_CLINICA_PACIENTES",
+    "  ACTIONS SELECT, INSERT, UPDATE, DELETE",
+    "  ON CLINICA_ADMIN.PACIENTE;",
+    "AUDIT POLICY POL_CLINICA_PACIENTES;"
+   ],
+   "codeTitle": "10_Auditoria.sql"
+  },
+  {
+   "id": "s14",
+   "title": "Auditoría de Grano Fino (FGA)",
+   "content": "Auditoría de grano fino sobre facturas mayores a ₡100.000.",
+   "environment": "vault",
+   "cameraPosition": [
+    0,
+    10,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "vault",
+    "showGrid": true,
+    "fogDensity": 0.015,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "fga",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       4,
+       9,
+       4
+      ],
+      "label": "FGA",
+      "color": "#f59e0b",
+      "entranceDelay": 0
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hfga",
+      "position": [
+       0,
+       10.5,
+       0
+      ],
+      "content": "TOTAL > 100000",
+      "color": "#f59e0b"
+     },
+     {
+      "id": "hfga2",
+      "position": [
+       0,
+       -1,
+       4
+      ],
+      "content": "DBMS_FGA.ADD_POLICY",
+      "color": "#22d3ee"
+     }
+    ]
+   },
+   "world": "Bóveda de Seguridad",
+   "bullets": [
+    "La auditoría de grano fino (FGA) solo registra cuando se cumple una condición de negocio, no cada acceso.",
+    "Política POL_FGA_FACTURAS_ALTAS: vigila la columna TOTAL de FACTURA cuando TOTAL > 100000.",
+    "Permite detectar consultas sobre facturas de montos altos sin llenar el rastro con ruido.",
+    "El rastro se consulta en DBA_FGA_AUDIT_TRAIL (Evidencia 14)."
+   ],
+   "code": [
+    "DBMS_FGA.ADD_POLICY(",
+    "  object_name  => 'FACTURA',",
+    "  policy_name  => 'POL_FGA_FACTURAS_ALTAS',",
+    "  audit_condition => 'TOTAL > 100000',",
+    "  audit_column => 'TOTAL');"
+   ],
+   "codeTitle": "10_Auditoria.sql — FGA"
+  },
+  {
+   "id": "s15",
+   "title": "Cifrado TDE AES256",
+   "content": "TDE AES256 en teléfono, correo y observaciones clínicas.",
+   "environment": "vault",
+   "cameraPosition": [
+    0,
+    10,
+    18
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "vault",
+    "fogDensity": 0.01,
+    "entranceDuration": 1.2,
+    "buildings": [
+     {
+      "id": "cif1",
+      "position": [
+       -4,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "Teléfono",
+      "color": "#22d3ee",
+      "entranceDelay": 0
+     },
+     {
+      "id": "cif2",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "Correo",
+      "color": "#22d3ee",
+      "entranceDelay": 0.15
+     },
+     {
+      "id": "cif3",
+      "position": [
+       4,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "Observaciones",
+      "color": "#22d3ee",
+      "entranceDelay": 0.3
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hcif",
+      "position": [
+       0,
+       10,
+       0
+      ],
+      "content": "AES256",
+      "color": "#f59e0b"
+     }
+    ]
+   },
+   "world": "Bóveda de Seguridad",
+   "bullets": [
+    "TDE protege la información en reposo: los datos se guardan cifrados en el archivo físico.",
+    "En Autonomous el cifrado de tablespaces viene activado por defecto; el keystore lo administra Oracle (Evidencia 15).",
+    "Adicionalmente se cifraron con AES256 las columnas sensibles: TELEFONO y CORREO de PACIENTE y OBSERVACIONES de RESULTADO_EXAMEN.",
+    "Se eligieron esas columnas por ser los datos personales y sensibles del modelo.",
+    "Verificación en USER_ENCRYPTED_COLUMNS: 3 columnas con AES256 (Evidencia 16)."
+   ],
+   "code": [
+    "ALTER TABLE PACIENTE MODIFY",
+    "  (TELEFONO ENCRYPT USING 'AES256');",
+    "ALTER TABLE PACIENTE MODIFY",
+    "  (CORREO ENCRYPT USING 'AES256');"
+   ],
+   "codeTitle": "11_Encriptacion_VPD.sql"
+  },
+  {
+   "id": "s16",
+   "title": "Enmascaramiento",
+   "content": "Vista que oculta teléfono y correo para recepción.",
+   "environment": "vault",
+   "cameraPosition": [
+    0,
+    10,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "vault",
+    "fogDensity": 0.01,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "mask",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       4,
+       8,
+       4
+      ],
+      "label": "Vista Recepción",
+      "color": "#f59e0b",
+      "entranceDelay": 0
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hm1",
+      "position": [
+       -3,
+       9,
+       0
+      ],
+      "content": "5555****",
+      "color": "#22d3ee"
+     },
+     {
+      "id": "hm2",
+      "position": [
+       3,
+       9,
+       0
+      ],
+      "content": "ab***@mail.com",
+      "color": "#22d3ee"
+     }
+    ]
+   },
+   "world": "Bóveda de Seguridad",
+   "bullets": [
+    "Complemento del cifrado físico: los datos de contacto se enmascaran al presentarse a recepción y reportería.",
+    "La vista VW_PACIENTE_RECEPCION muestra el teléfono como 5555**** y el correo como ab***@mail.com.",
+    "Los usuarios finales consultan la vista, nunca la tabla base.",
+    "El enmascaramiento se implementa con SUBSTR y REGEXP_REPLACE sobre las columnas sensibles."
+   ],
+   "code": [
+    "SUBSTR(TELEFONO, 1, 4) || '****'",
+    "  AS TELEFONO_OCULTO,",
+    "REGEXP_REPLACE(CORREO,",
+    "  '(^.{2})[^@]*(@.*$)', '\\1***\\2')",
+    "  AS CORREO_OCULTO"
+   ],
+   "codeTitle": "VW_PACIENTE_RECEPCION"
+  },
+  {
+   "id": "s17",
+   "title": "Control de Acceso por Fila (VPD)",
+   "content": "Cada aseguradora ve solo sus pacientes afiliados.",
+   "environment": "vault",
+   "cameraPosition": [
+    0,
+    10,
+    18
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "vault",
+    "showGrid": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "vpd-pac",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       3.5,
+       9,
+       3.5
+      ],
+      "label": "PACIENTE",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "vpd-ase1",
+      "position": [
+       -7,
+       0,
+       4
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Aseg. 1",
+      "color": "#10b981",
+      "entranceDelay": 0.3
+     },
+     {
+      "id": "vpd-ase2",
+      "position": [
+       7,
+       0,
+       4
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "Aseg. 2",
+      "color": "#ec4899",
+      "entranceDelay": 0.5
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       0,
+       8,
+       0
+      ],
+      "to": [
+       -7,
+       6,
+       4
+      ],
+      "color": "#10b981",
+      "animated": true,
+      "entranceDelay": 0.7
+     },
+     {
+      "from": [
+       0,
+       8,
+       0
+      ],
+      "to": [
+       7,
+       6,
+       4
+      ],
+      "color": "#ec4899",
+      "animated": true,
+      "entranceDelay": 0.9
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hvpd",
+      "position": [
+       0,
+       10.5,
+       0
+      ],
+      "content": "DBMS_RLS.ADD_POLICY",
+      "color": "#22d3ee"
+     }
+    ]
+   },
+   "world": "Bóveda de Seguridad",
+   "bullets": [
+    "Los privilegios controlan objetos completos; VPD decide qué filas ve cada usuario dentro de una misma tabla.",
+    "Política FILTRO_ASEGURADORA sobre PACIENTE: cada aseguradora solo ve a sus afiliados.",
+    "La función política agrega el predicado ID_ASEGURADORA = SYS_CONTEXT según el identificador de la sesión.",
+    "La política queda registrada en DBA_POLICIES (Evidencia 17).",
+    "Prueba: con DBMS_SESSION.SET_IDENTIFIER se simula cada aseguradora y la consulta devuelve solo sus pacientes (Evidencia 18)."
+   ],
+   "code": [
+    "RETURN ",
+    "  'ID_ASEGURADORA =",
+    "   SYS_CONTEXT(''USERENV'',",
+    "   ''CLIENT_IDENTIFIER'')';"
+   ],
+   "codeTitle": "Función de política VPD"
+  },
+  {
+   "id": "s18",
+   "title": "Respaldos Automáticos",
+   "content": "Respaldo semanal completo + incrementales diarios. 60 días de retención.",
+   "environment": "datacenter",
+   "cameraPosition": [
+    0,
+    10,
+    18
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "datacenter",
+    "fogDensity": 0.01,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "res1",
+      "position": [
+       -5,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       7,
+       3
+      ],
+      "label": "Completo",
+      "color": "#3b82f6",
+      "entranceDelay": 0
+     },
+     {
+      "id": "res2",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       7,
+       3
+      ],
+      "label": "Incremental",
+      "color": "#3b82f6",
+      "entranceDelay": 0.15
+     },
+     {
+      "id": "res3",
+      "position": [
+       5,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       7,
+       3
+      ],
+      "label": "60 Días",
+      "color": "#3b82f6",
+      "entranceDelay": 0.3
+     }
+    ],
+    "dataTables": [
+     {
+      "id": "rpo",
+      "position": [
+       0,
+       5,
+       5
+      ],
+      "headers": [
+       "Métrica",
+       "Valor"
+      ],
+      "rows": [
+       [
+        "RPO",
+        "24 horas"
+       ],
+       [
+        "RTO",
+        "4 horas"
+       ]
+      ],
+      "color": "#22d3ee",
+      "entranceDelay": 0.5
+     }
+    ]
+   },
+   "world": "Centro de Respaldo",
+   "bullets": [
+    "El plan combina respaldos automáticos del servicio con respaldos lógicos propios y pruebas de recuperación.",
+    "Autonomous realiza respaldos físicos automáticos: completo semanal e incrementales diarios, con retención de 60 días.",
+    "RPO de 24 horas: como máximo se pierde un día de trabajo, cubierto por los incrementales diarios.",
+    "RTO de 4 horas: tiempo objetivo para restaurar el servicio.",
+    "Los respaldos se verifican en la consola Oracle Cloud y en V$BACKUP_SET_DETAILS (Evidencia 19)."
+   ]
+  },
+  {
+   "id": "s19",
+   "title": "Data Pump y Flashback",
+   "content": "Data Pump exporta el esquema. Flashback recupera datos y tablas borradas.",
+   "environment": "datacenter",
+   "cameraPosition": [
+    0,
+    10,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "datacenter",
+    "fogDensity": 0.01,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "dp",
+      "position": [
+       -4,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "Data Pump",
+      "color": "#8b5cf6",
+      "entranceDelay": 0
+     },
+     {
+      "id": "fb",
+      "position": [
+       4,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "Flashback",
+      "color": "#f59e0b",
+      "entranceDelay": 0.2
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hdp",
+      "position": [
+       -4,
+       10,
+       0
+      ],
+      "content": "EXPORT",
+      "color": "#8b5cf6"
+     },
+     {
+      "id": "hfb",
+      "position": [
+       4,
+       10,
+       0
+      ],
+      "content": "TO BEFORE DROP",
+      "color": "#f59e0b"
+     }
+    ]
+   },
+   "world": "Centro de Respaldo",
+   "bullets": [
+    "Respaldo lógico complementario: exportación del esquema completo con Data Pump al directorio del servicio.",
+    "Permite restaurar objetos puntuales sin depender del respaldo físico completo (Evidencia 20).",
+    "Flashback Query consulta los datos tal como estaban en un momento anterior (AS OF TIMESTAMP).",
+    "Flashback Table recuperó una tabla borrada por accidente con TO BEFORE DROP (Evidencia 21).",
+    "Ambas pruebas demuestran recuperación ante errores humanos sin restaurar toda la base."
+   ],
+   "code": [
+    "SELECT ID_FACTURA, ESTADO FROM FACTURA",
+    "  AS OF TIMESTAMP",
+    "  (SYSTIMESTAMP - INTERVAL '10' MINUTE);",
+    "FLASHBACK TABLE PRUEBA_RESPALDO",
+    "  TO BEFORE DROP;"
+   ],
+   "codeTitle": "12_Respaldos_Recuperacion.sql"
+  },
+  {
+   "id": "s20",
+   "title": "Vistas Materializadas",
+   "content": "Tres vistas materializadas aceleran reportes con refresco FAST y COMPLETE.",
+   "environment": "control",
+   "cameraPosition": [
+    0,
+    10,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "control",
+    "showGrid": true,
+    "fogDensity": 0.015,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "mv1",
+      "position": [
+       -5,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "Pendientes",
+      "color": "#ef4444",
+      "entranceDelay": 0
+     },
+     {
+      "id": "mv2",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "Mensual",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.2
+     },
+     {
+      "id": "mv3",
+      "position": [
+       5,
+       0,
+       0
+      ],
+      "size": [
+       3,
+       8,
+       3
+      ],
+      "label": "Por Especialidad",
+      "color": "#10b981",
+      "entranceDelay": 0.4
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hmv1",
+      "position": [
+       -5,
+       10,
+       0
+      ],
+      "content": "FAST",
+      "color": "#ef4444"
+     },
+     {
+      "id": "hmv2",
+      "position": [
+       0,
+       10,
+       0
+      ],
+      "content": "COMPLETE",
+      "color": "#8b5cf6"
+     },
+     {
+      "id": "hmv3",
+      "position": [
+       5,
+       10,
+       0
+      ],
+      "content": "COMPLETE",
+      "color": "#10b981"
+     }
+    ]
+   },
+   "world": "Sala de Control",
+   "bullets": [
+    "Una vista materializada almacena físicamente el resultado de una consulta: no la re-ejecuta en cada acceso.",
+    "Se crearon 3 vistas materializadas para los reportes gerenciales más frecuentes.",
+    "VWM_FACTURAS_PENDIENTES usa refresco incremental FAST apoyado en un MATERIALIZED VIEW LOG sobre FACTURA.",
+    "Las otras dos usan refresco COMPLETE bajo demanda con DBMS_MVIEW.REFRESH.",
+    "Estado verificado en USER_MVIEWS: las 3 en estado FRESH, refrescadas el 25-JUL-26 (Evidencia 22)."
+   ],
+   "code": [
+    "CREATE MATERIALIZED VIEW",
+    "  VWM_FACTURAS_PENDIENTES",
+    "  BUILD IMMEDIATE",
+    "  REFRESH FAST ON DEMAND AS",
+    "SELECT ID_FACTURA, ID_PACIENTE,",
+    "       FECHA_EMISION, TOTAL",
+    "FROM FACTURA",
+    "WHERE ESTADO = 'Pendiente';"
+   ],
+   "codeTitle": "13_Vistas_Materializadas.sql"
+  },
+  {
+   "id": "s21",
+   "title": "Desnormalización Controlada",
+   "content": "RESUMEN_PACIENTE une paciente y aseguradora para lecturas rápidas.",
+   "environment": "control",
+   "cameraPosition": [
+    0,
+    10,
+    16
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "control",
+    "showGrid": true,
+    "fogDensity": 0.015,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "dn1",
+      "position": [
+       -4,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "PACIENTE",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "dn2",
+      "position": [
+       4,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       6,
+       2.5
+      ],
+      "label": "ASEGURADORA",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.15
+     },
+     {
+      "id": "dn3",
+      "position": [
+       0,
+       0,
+       4
+      ],
+      "size": [
+       3,
+       7,
+       3
+      ],
+      "label": "RESUMEN_PACIENTE",
+      "color": "#f59e0b",
+      "entranceDelay": 0.35
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       -4,
+       6,
+       0
+      ],
+      "to": [
+       0,
+       7,
+       4
+      ],
+      "color": "#f59e0b",
+      "animated": true,
+      "entranceDelay": 0.6
+     },
+     {
+      "from": [
+       4,
+       6,
+       0
+      ],
+      "to": [
+       0,
+       7,
+       4
+      ],
+      "color": "#f59e0b",
+      "animated": true,
+      "entranceDelay": 0.75
+     }
+    ]
+   },
+   "world": "Sala de Control",
+   "bullets": [
+    "La desnormalización reintroduce redundancia de forma intencional para reducir uniones y acelerar lecturas.",
+    "Tabla RESUMEN_PACIENTE: paciente con su aseguradora, plan y cobertura ya unidos (LEFT JOIN precalculado).",
+    "La consulta de recepción pasa de unir dos tablas a leer una sola.",
+    "Su control exige documentar la redundancia y refrescarla de forma coordinada (Evidencia 23)."
+   ],
+   "code": [
+    "CREATE TABLE RESUMEN_PACIENTE AS",
+    "SELECT P.ID_PACIENTE, P.CEDULA,",
+    "       A.NOMBRE AS ASEGURADORA,",
+    "       A.TIPO_PLAN, A.COBERTURA_PCT",
+    "FROM PACIENTE P",
+    "LEFT JOIN ASEGURADORA A",
+    "  ON A.ID_ASEGURADORA = P.ID_ASEGURADORA;"
+   ],
+   "codeTitle": "13 — Desnormalización"
+  },
+  {
+   "id": "s22",
+   "title": "Monitoreo",
+   "content": "Vistas dinámicas vigilan disponibilidad, desempeño y capacidad.",
+   "environment": "control",
+   "cameraPosition": [
+    0,
+    10,
+    18
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "control",
+    "reflectiveFloor": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "mon1",
+      "position": [
+       -5,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "Disponibilidad",
+      "color": "#10b981",
+      "entranceDelay": 0
+     },
+     {
+      "id": "mon2",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "Desempeño",
+      "color": "#3b82f6",
+      "entranceDelay": 0.15
+     },
+     {
+      "id": "mon3",
+      "position": [
+       5,
+       0,
+       0
+      ],
+      "size": [
+       2.5,
+       7,
+       2.5
+      ],
+      "label": "Capacidad",
+      "color": "#f59e0b",
+      "entranceDelay": 0.3
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hmon",
+      "position": [
+       0,
+       9,
+       0
+      ],
+      "content": "ALERTA AL 80%",
+      "color": "#22d3ee"
+     }
+    ]
+   },
+   "world": "Sala de Control",
+   "bullets": [
+    "El plan de monitoreo cubre tres dimensiones: disponibilidad, rendimiento y capacidad.",
+    "Disponibilidad: estado de la instancia (V$INSTANCE) y sesiones activas (V$SESSION) — Evidencia 24.",
+    "Rendimiento: consultas de mayor consumo de CPU del esquema vía V$SQL (Evidencia 25).",
+    "Capacidad: espacio por segmento (DBA_SEGMENTS) y uso de cuota (DBA_TS_QUOTAS) con alerta al 80%.",
+    "Herramientas: SQL Developer como cliente principal y las gráficas de la consola Oracle Cloud (Performance Hub)."
+   ],
+   "code": [
+    "SELECT USERNAME, TABLESPACE_NAME,",
+    "  ROUND(BYTES/1024/1024,2) USADO_MB,",
+    "  ROUND(BYTES/MAX_BYTES*100,1) PCT_USO",
+    "FROM DBA_TS_QUOTAS",
+    "WHERE USERNAME = 'CLINICA_ADMIN';"
+   ],
+   "codeTitle": "14_Monitoreo.sql"
+  },
+  {
+   "id": "s23",
+   "title": "Optimización de Consultas",
+   "content": "Optimización de fechas, índices basados en funciones y proyección de columnas.",
+   "environment": "control",
+   "cameraPosition": [
+    0,
+    10,
+    18
+   ],
+   "cameraTarget": [
+    0,
+    3,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "control",
+    "reflectiveFloor": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.1,
+    "buildings": [
+     {
+      "id": "opt1",
+      "position": [
+       -6,
+       0,
+       0
+      ],
+      "size": [
+       2.8,
+       7,
+       2.8
+      ],
+      "label": "Rango Fechas",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "opt2",
+      "position": [
+       0,
+       0,
+       0
+      ],
+      "size": [
+       2.8,
+       7,
+       2.8
+      ],
+      "label": "Índice Función",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.2
+     },
+     {
+      "id": "opt3",
+      "position": [
+       6,
+       0,
+       0
+      ],
+      "size": [
+       2.8,
+       7,
+       2.8
+      ],
+      "label": "SELECT *",
+      "color": "#ec4899",
+      "entranceDelay": 0.4
+     }
+    ],
+    "dataTables": [
+     {
+      "id": "opt-res",
+      "position": [
+       0,
+       5.5,
+       5
+      ],
+      "headers": [
+       "Caso",
+       "Resultado"
+      ],
+      "rows": [
+       [
+        "TO_CHAR",
+        "INDEX RANGE SCAN"
+       ],
+       [
+        "UPPER",
+        "IDX función + stats"
+       ],
+       [
+        "SELECT *",
+        "Menos bytes"
+       ]
+      ],
+      "color": "#22d3ee",
+      "entranceDelay": 0.6
+     }
+    ]
+   },
+   "world": "Sala de Control",
+   "bullets": [
+    "Oracle usa un optimizador basado en costos; el plan de ejecución se lee con EXPLAIN PLAN distinguiendo access de filter.",
+    "Caso 1 — citas por mes: TO_CHAR sobre la fecha forzaba TABLE ACCESS FULL; reescrito como rango de fechas usa INDEX RANGE SCAN.",
+    "Caso 2 — pacientes por apellido: UPPER(APELLIDO1) invalidaba el índice; se creó un índice basado en función y se recolectaron estadísticas.",
+    "Caso 3 — estado de cuenta: SELECT * traía todas las columnas (y activaba el paso SYS_AUDIT de la FGA); proyectar solo 4 columnas reduce bytes por fila.",
+    "En los tres casos la versión optimizada resuelve por índice o lee menos datos (Evidencias 27-31)."
+   ],
+   "code": [
+    "CREATE INDEX IDX_PACIENTE_APELLIDO_UPPER",
+    "  ON PACIENTE (UPPER(APELLIDO1));",
+    "EXEC DBMS_STATS.GATHER_TABLE_STATS(",
+    "  'CLINICA_ADMIN', 'PACIENTE');"
+   ],
+   "codeTitle": "15_Optimizacion.sql — Caso 2"
+  },
+  {
+   "id": "s23b",
+   "title": "Hallazgos en Autonomous",
+   "content": "Lo que el servicio administrado decide por su cuenta, documentado.",
+   "environment": "control",
+   "cameraPosition": [
+    0,
+    11,
+    22
+   ],
+   "cameraTarget": [
+    0,
+    4,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "control",
+    "fogDensity": 0.014,
+    "entranceDuration": 1.2,
+    "buildings": [
+     {
+      "id": "hz-1",
+      "position": [
+       -7.5,
+       0,
+       0
+      ],
+      "size": [
+       2.4,
+       6,
+       2.4
+      ],
+      "label": "TABLESPACE ignorado",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.1
+     },
+     {
+      "id": "hz-2",
+      "position": [
+       -2.5,
+       0,
+       -3
+      ],
+      "size": [
+       2.4,
+       7,
+       2.4
+      ],
+      "label": "Paralelismo auto",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.25
+     },
+     {
+      "id": "hz-3",
+      "position": [
+       2.5,
+       0,
+       -3
+      ],
+      "size": [
+       2.4,
+       7,
+       2.4
+      ],
+      "label": "Costo de la FGA",
+      "color": "#f59e0b",
+      "entranceDelay": 0.4
+     },
+     {
+      "id": "hz-4",
+      "position": [
+       7.5,
+       0,
+       0
+      ],
+      "size": [
+       2.4,
+       6,
+       2.4
+      ],
+      "label": "FULL SCAN óptimo",
+      "color": "#0ea5e9",
+      "entranceDelay": 0.55
+     }
+    ],
+    "showStars": false,
+    "holograms": [
+     {
+      "id": "h-hz",
+      "position": [
+       0,
+       9,
+       -1
+      ],
+      "size": [
+       7,
+       2
+      ],
+      "color": "#7dd3fc",
+      "content": "4 HALLAZGOS",
+      "rotationSpeed": 0.3
+     }
+    ]
+   },
+   "world": "Sala de Control",
+   "bullets": [
+    "La ejecución en Autonomous Database dejó cuatro hallazgos documentados.",
+    "Ignora la cláusula TABLESPACE: objetos declarados en DBFS_DATA terminaron en DATA, ubicados por el servicio.",
+    "Paralelismo automático: el servicio asigna grado de paralelismo según recursos, abaratando las lecturas completas.",
+    "La auditoría fina tiene costo visible: consultas sobre la columna vigilada agregan el paso SYS_AUDIT al plan.",
+    "Con tablas pequeñas (150 filas en 4-5 bloques) el FULL SCAN no es un defecto: el optimizador lo elige por ser más barato."
+   ]
+  },
+  {
+   "id": "s24",
+   "title": "Resultados Finales",
+   "content": "42 índices, 1.250 registros, auditoría, cifrado AES256, VPD y vistas materializadas.",
+   "environment": "cosmos",
+   "cameraPosition": [
+    0,
+    18,
+    28
+   ],
+   "cameraTarget": [
+    0,
+    0,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "cosmos",
+    "fogDensity": 0.008,
+    "entranceDuration": 1.4,
+    "buildings": [
+     {
+      "id": "r1",
+      "position": [
+       -6,
+       0,
+       -4
+      ],
+      "size": [
+       2.2,
+       7,
+       2.2
+      ],
+      "label": "13 Tablas",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "r2",
+      "position": [
+       -2,
+       0,
+       -6
+      ],
+      "size": [
+       2.2,
+       7,
+       2.2
+      ],
+      "label": "42 Índices",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.08
+     },
+     {
+      "id": "r3",
+      "position": [
+       2,
+       0,
+       -6
+      ],
+      "size": [
+       2.2,
+       7,
+       2.2
+      ],
+      "label": "1.250 Registros",
+      "color": "#ec4899",
+      "entranceDelay": 0.16
+     },
+     {
+      "id": "r4",
+      "position": [
+       6,
+       0,
+       -4
+      ],
+      "size": [
+       2.2,
+       7,
+       2.2
+      ],
+      "label": "5 Políticas",
+      "color": "#f59e0b",
+      "entranceDelay": 0.24
+     },
+     {
+      "id": "r5",
+      "position": [
+       -6,
+       0,
+       4
+      ],
+      "size": [
+       2.2,
+       7,
+       2.2
+      ],
+      "label": "AES256",
+      "color": "#22d3ee",
+      "entranceDelay": 0.32
+     },
+     {
+      "id": "r6",
+      "position": [
+       -2,
+       0,
+       6
+      ],
+      "size": [
+       2.2,
+       7,
+       2.2
+      ],
+      "label": "VPD",
+      "color": "#10b981",
+      "entranceDelay": 0.4
+     },
+     {
+      "id": "r7",
+      "position": [
+       2,
+       0,
+       6
+      ],
+      "size": [
+       2.2,
+       7,
+       2.2
+      ],
+      "label": "3 MV",
+      "color": "#a855f7",
+      "entranceDelay": 0.48
+     },
+     {
+      "id": "r8",
+      "position": [
+       6,
+       0,
+       4
+      ],
+      "size": [
+       2.2,
+       7,
+       2.2
+      ],
+      "label": "3.69 MB",
+      "color": "#f43f5e",
+      "entranceDelay": 0.56
+     }
+    ],
+    "connections": [
+     {
+      "from": [
+       -6,
+       7,
+       -4
+      ],
+      "to": [
+       0,
+       11,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "curved": true,
+      "entranceDelay": 0.8
+     },
+     {
+      "from": [
+       6,
+       7,
+       -4
+      ],
+      "to": [
+       0,
+       11,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "curved": true,
+      "entranceDelay": 0.9
+     },
+     {
+      "from": [
+       -6,
+       7,
+       4
+      ],
+      "to": [
+       0,
+       11,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "curved": true,
+      "entranceDelay": 1.0
+     },
+     {
+      "from": [
+       6,
+       7,
+       4
+      ],
+      "to": [
+       0,
+       11,
+       0
+      ],
+      "color": "#22d3ee",
+      "animated": true,
+      "curved": true,
+      "entranceDelay": 1.1
+     }
+    ],
+    "energyCores": [
+     [
+      0,
+      13,
+      0
+     ]
+    ]
+   },
+   "world": "Nebulosa Oracle",
+   "bullets": [
+    "Verificación final ejecutada el 25 de julio de 2026 sobre la instancia del proyecto (script 16).",
+    "Auditoría: 4 políticas unificadas habilitadas BY USER + 1 política FGA activa sobre FACTURA.TOTAL.",
+    "Cifrado: 3 columnas AES256. Acceso por fila: política FILTRO_ASEGURADORA habilitada.",
+    "Vistas materializadas: 3 en estado FRESH. Índices: 42 en total, incluido 1 basado en función.",
+    "Volumen: 13 tablas y 1 250 registros. Capacidad: 3,69 MB usados de 50 MB de cuota (7,4%).",
+    "Las pruebas de seguridad y rendimiento confirmaron el funcionamiento de todos los controles."
+   ]
+  },
+  {
+   "id": "s25",
+   "title": "Conclusiones y Trabajo Futuro",
+   "content": "Ciclo completo de administración. Futuro: Scheduler, particionamiento y dashboards.",
+   "environment": "cosmos",
+   "cameraPosition": [
+    0,
+    14,
+    28
+   ],
+   "cameraTarget": [
+    0,
+    0,
+    0
+   ],
+   "interactiveElements": [],
+   "visualConfig": {
+    "theme": "cosmos",
+    "reflectiveFloor": true,
+    "rain": true,
+    "traffic": true,
+    "fogDensity": 0.02,
+    "entranceDuration": 1.4,
+    "buildings": [
+     {
+      "id": "c1",
+      "position": [
+       -7,
+       0,
+       -4
+      ],
+      "size": [
+       2.2,
+       9,
+       2.2
+      ],
+      "label": "Scheduler",
+      "color": "#0ea5e9",
+      "entranceDelay": 0
+     },
+     {
+      "id": "c2",
+      "position": [
+       -2,
+       0,
+       -7
+      ],
+      "size": [
+       2.2,
+       10,
+       2.2
+      ],
+      "label": "Particionar",
+      "color": "#8b5cf6",
+      "entranceDelay": 0.1
+     },
+     {
+      "id": "c3",
+      "position": [
+       3,
+       0,
+       -6
+      ],
+      "size": [
+       2.2,
+       9,
+       2.2
+      ],
+      "label": "Dashboards",
+      "color": "#10b981",
+      "entranceDelay": 0.2
+     },
+     {
+      "id": "c4",
+      "position": [
+       7,
+       0,
+       -4
+      ],
+      "size": [
+       2.2,
+       8,
+       2.2
+      ],
+      "label": "Alertas",
+      "color": "#ec4899",
+      "entranceDelay": 0.3
+     }
+    ],
+    "holograms": [
+     {
+      "id": "hfin",
+      "position": [
+       0,
+       11,
+       0
+      ],
+      "content": "¡GRACIAS!",
+      "color": "#22d3ee",
+      "size": [
+       3,
+       0.8
+      ]
+     }
+    ],
+    "drones": [
+     {
+      "id": "df1",
+      "path": [
+       [
+        -9,
+        7,
+        -7
+       ],
+       [
+        0,
+        11,
+        0
+       ],
+       [
+        9,
+        7,
+        -7
+       ],
+       [
+        0,
+        5,
+        7
+       ]
+      ],
+      "color": "#facc15",
+      "speed": 0.8,
+      "size": 0.12
+     }
+    ]
+   },
+   "world": "Nebulosa Oracle",
+   "bullets": [
+    "El proyecto transformó la gestión manual y fragmentada de la clínica en una base de datos íntegra, segura y trazable.",
+    "La nube cambia el rol del DBA: menos administración física, más seguridad, auditoría y optimización.",
+    "Perfiles, usuarios y roles bajo mínimo privilegio + auditoría + cifrado + VPD cierran el ciclo de administración.",
+    "Trabajo futuro: automatizar mantenimiento con DBMS_SCHEDULER, alertas de monitoreo y crecimiento del modelo hacia historia clínica.",
+    "¡Gracias! Preguntas bienvenidas."
+   ]
+  }
+ ]
+}

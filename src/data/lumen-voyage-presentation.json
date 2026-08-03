@@ -1,0 +1,70 @@
+{
+  "title": "Lumen Health — Viaje a las profundidades de los datos",
+  "theme": "lumen-voyage",
+  "visualStyle": "submarine-cinematic",
+  "scenes": [
+    {
+      "id": "scene-1",
+      "title": "Extracción",
+      "world": "Arrecife de datos",
+      "content": "Los datos surgen de múltiples fuentes como corrientes que convergen en el arrecife: historias clínicas, dispositivos, laboratorios y registros administrativos.",
+      "bullets": [
+        "Conexión a múltiples fuentes de datos",
+        "Captura de información cruda y no estructurada",
+        "Preservación de la trazabilidad y origen"
+      ],
+      "environment": "lumen-voyage",
+      "cameraPosition": [0, 4, 30],
+      "cameraTarget": [0, 2, -5],
+      "interactiveElements": [],
+      "visualConfig": {
+        "backgroundColor": "#0d5f80",
+        "accentColor": "#38bdf8",
+        "exposure": 0.98,
+        "fogDensity": 0.015
+      }
+    },
+    {
+      "id": "scene-2",
+      "title": "Transformación",
+      "world": "Bosque bioluminiscente",
+      "content": "En las profundidades, los datos crudos atraviesan el templo de transformación. Allí se limpian, normalizan y enriquecen, cambiando de forma.",
+      "bullets": [
+        "Limpieza y validación de datos",
+        "Normalización de formatos y estructuras",
+        "Conversión de datos brutos en información estructurada"
+      ],
+      "environment": "lumen-voyage",
+      "cameraPosition": [-4.0, 2.6, 8.5],
+      "cameraTarget": [0, 2.2, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "backgroundColor": "#0f0a1e",
+        "accentColor": "#10b981",
+        "exposure": 1.1,
+        "fogDensity": 0.018
+      }
+    },
+    {
+      "id": "scene-3",
+      "title": "Carga",
+      "world": "Ciudad abisal del Data Warehouse",
+      "content": "Los datos ya transformados descienden hacia la ciudad abisal, donde se almacenan de forma segura, organizada y lista para ser consultados.",
+      "bullets": [
+        "Almacenamiento estructurado en el Data Warehouse",
+        "Integridad y disponibilidad permanente",
+        "Base para análisis y toma de decisiones"
+      ],
+      "environment": "lumen-voyage",
+      "cameraPosition": [0, 14, 55],
+      "cameraTarget": [0, 2.5, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "backgroundColor": "#020617",
+        "accentColor": "#f59e0b",
+        "exposure": 1.05,
+        "fogDensity": 0.02
+      }
+    }
+  ]
+}

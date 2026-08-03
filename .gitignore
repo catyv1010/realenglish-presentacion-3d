@@ -1,0 +1,32 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# sobras de la copia (no subir)
+dev-server.log
+Clinica_San_Rafael_Presentacion.pdf
+PLAN_LUMEN_*.md
+peces_3d_procedural.html
+screenshot-scenes.cjs
+/*.png

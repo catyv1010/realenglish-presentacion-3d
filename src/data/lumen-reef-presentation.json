@@ -1,0 +1,70 @@
+{
+  "title": "Lumen Health — El Arrecife de la Memoria",
+  "theme": "lumen-reef",
+  "visualStyle": "mundo submarino bioluminiscente cinematografico",
+  "scenes": [
+    {
+      "id": "lr1",
+      "title": "Llegada al Arrecife",
+      "content": "Bienvenido a Lumen Health. Este arrecife submarino es un Data Warehouse vivo: cada manantial es una fuente de datos, los filtros son el proceso ETL y la perla central es donde todo converge.",
+      "world": "Arrecife de la Memoria",
+      "environment": "lumen-reef",
+      "cameraPosition": [0, 6, -18],
+      "cameraTarget": [0, 1, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-reef",
+        "backgroundColor": "#020617",
+        "accentColor": "#22d3ee",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.95,
+        "isExplorable": true,
+        "entranceDuration": 2.5
+      }
+    },
+    {
+      "id": "lr2",
+      "title": "Cuenca de los Manantiales",
+      "content": "Cada manantial representa una fuente interna de datos. Acércate para ver qué información aporta al ecosistema de Lumen Health.",
+      "world": "Arrecife de la Memoria",
+      "environment": "lumen-reef",
+      "cameraPosition": [-8, 4, -13],
+      "cameraTarget": [-5, 1.5, -9],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-reef",
+        "backgroundColor": "#020617",
+        "accentColor": "#22d3ee",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.95,
+        "isExplorable": true,
+        "entranceDuration": 1.8
+      }
+    },
+    {
+      "id": "lr3",
+      "title": "Primer Filtro ETL",
+      "content": "Los datos no pueden usarse en bruto. La esponja extrae, la anémona transforma y la corriente turquesa carga la información purificada hacia el corazón del arrecife.",
+      "world": "Arrecife de la Memoria",
+      "environment": "lumen-reef",
+      "cameraPosition": [0, 4, 20],
+      "cameraTarget": [0, 1, 14],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-reef",
+        "backgroundColor": "#020617",
+        "accentColor": "#2dd4bf",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.95,
+        "isExplorable": true,
+        "entranceDuration": 1.8
+      }
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "title": "Lumen Health — Galería Premium",
+  "theme": "museum",
+  "visualStyle": "galeria premium pbr",
+  "scenes": [
+    {
+      "id": "lm1",
+      "title": "Lumen Health",
+      "world": "Galería de la Mente",
+      "content": "Plataforma digital ficticia de salud mental. Telepsicología, suscripción de bienestar y marketplace psicoeducativo.",
+      "bullets": [
+        "Plataforma digital de salud mental.",
+        "Telepsicología, suscripción de bienestar y marketplace psicoeducativo.",
+        "Proyecto SC-602: Data Warehouse y Bases de Datos Multidimensionales."
+      ],
+      "environment": "museum",
+      "cameraPosition": [4.5, 4, 10.5],
+      "cameraTarget": [0, 2.8, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "museum",
+        "model": "/models/brain.glb",
+        "backgroundColor": "#2b1f14",
+        "accentColor": "#d4a373",
+        "modelScale": 1,
+        "exposure": 0.35,
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.028,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lm2",
+      "title": "El Problema: Datos en Silos",
+      "world": "Fragmentos Aislados",
+      "content": "Cada línea de servicio guarda sus datos por separado. No hay panorama completo ni análisis cruzado.",
+      "bullets": [
+        "Cada línea de servicio guarda sus datos por separado.",
+        "No existe panorama completo ni análisis cruzado.",
+        "Reportes manuales: lentos y propensos a errores."
+      ],
+      "environment": "museum",
+      "cameraPosition": [-5, 4.2, 11.5],
+      "cameraTarget": [0, 3, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "museum",
+        "model": "/models/DamagedHelmet.glb",
+        "backgroundColor": "#2b1f14",
+        "accentColor": "#ef4444",
+        "modelScale": 0.85,
+        "exposure": 0.75,
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.03,
+        "entranceDuration": 1.4
+      }
+    },
+    {
+      "id": "lm3",
+      "title": "La Solución: Data Warehouse",
+      "world": "La Luz Central",
+      "content": "Repositorio central separado de los sistemas operacionales. Junta todas las fuentes, conserva la historia y organiza los datos para análisis.",
+      "bullets": [
+        "Repositorio central separado de los sistemas operacionales.",
+        "Integra todas las fuentes y conserva la historia.",
+        "Organiza los datos para responder preguntas de negocio."
+      ],
+      "environment": "museum",
+      "cameraPosition": [4.5, 4.5, 10],
+      "cameraTarget": [0, 3.2, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "museum",
+        "model": "/models/Lantern.glb",
+        "backgroundColor": "#2b1f14",
+        "accentColor": "#f59e0b",
+        "modelScale": 2.2,
+        "exposure": 0.75,
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.025,
+        "entranceDuration": 1.6
+      }
+    },
+    {
+      "id": "lm4",
+      "title": "OLTP vs OLAP",
+      "world": "Preservación del Tiempo",
+      "content": "OLTP opera: registra citas, pagos y suscripciones en tiempo real. OLAP analiza: lee grandes volúmenes para resumir y comparar.",
+      "bullets": [
+        "OLTP opera: registra citas, pagos y suscripciones en tiempo real.",
+        "OLAP analiza: resume y compara grandes volúmenes.",
+        "Frase clave: el OLTP opera, el OLAP analiza."
+      ],
+      "environment": "museum",
+      "cameraPosition": [-4.5, 4, 10.5],
+      "cameraTarget": [0, 2.8, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "museum",
+        "model": "/models/MosquitoInAmber.glb",
+        "backgroundColor": "#2b1f14",
+        "accentColor": "#a78bfa",
+        "modelScale": 1.25,
+        "exposure": 0.75,
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.028,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lm5",
+      "title": "Esquema en Estrella",
+      "world": "Arquitectura del Futuro",
+      "content": "Tabla de hechos central rodeada de dimensiones satélite. Las dimensiones se conectan solo con el hecho, no entre ellas.",
+      "bullets": [
+        "Tabla de hechos central rodeada de dimensiones satélite.",
+        "Las dimensiones se conectan solo con el hecho.",
+        "Consultas simples, rápidas y fáciles de entender."
+      ],
+      "environment": "museum",
+      "cameraPosition": [4.5, 4.2, 10.5],
+      "cameraTarget": [0, 3, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "museum",
+        "model": "/models/SciFiHelmet/SciFiHelmet.gltf",
+        "backgroundColor": "#2b1f14",
+        "accentColor": "#22d3ee",
+        "modelScale": 1,
+        "exposure": 0.75,
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.025,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lm6",
+      "title": "Impacto y Despegue",
+      "world": "Logro Alcanzado",
+      "content": "Con el Data Warehouse, Lumen Health puede tomar decisiones basadas en datos, anticipar tendencias y escalar su impacto en salud mental.",
+      "bullets": [
+        "Decisiones basadas en datos consolidados.",
+        "Capacidad de anticipar tendencias y patrones.",
+        "Escalabilidad del impacto en salud mental."
+      ],
+      "environment": "museum",
+      "cameraPosition": [-4.5, 4.5, 10.5],
+      "cameraTarget": [0, 3.2, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "museum",
+        "model": "/models/FlightHelmet/FlightHelmet.gltf",
+        "backgroundColor": "#2b1f14",
+        "accentColor": "#34d399",
+        "modelScale": 1,
+        "exposure": 0.75,
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.025,
+        "entranceDuration": 1.6
+      }
+    }
+  ]
+}

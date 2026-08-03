@@ -1,0 +1,133 @@
+{
+  "title": "Lumen Health — Microcosmos de Datos",
+  "theme": "lumen-bio",
+  "visualStyle": "microcosmos organico bioluminiscente cinematico",
+  "scenes": [
+    {
+      "id": "lb1",
+      "title": "Bienvenido al Microcosmos",
+      "content": "Lumen Health es un organismo vivo de datos. Cada fuente es una célula, cada conexión es un axón, y el Data Warehouse es el núcleo que coordina todo para transformar información en conocimiento.",
+      "world": "Microcosmos Vivo",
+      "environment": "lumen-bio",
+      "cameraPosition": [0, 10, -22],
+      "cameraTarget": [0, 2, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-bio",
+        "backgroundColor": "#03040a",
+        "accentColor": "#22d3ee",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 2
+      }
+    },
+    {
+      "id": "lb2",
+      "title": "Célula de Citas Médicas",
+      "content": "La célula de Citas guarda cada atención: quién atiende, a quién, en qué fecha, con qué especialidad y cuánto dura. Es una de las fuentes más ricas del organismo.",
+      "world": "Microcosmos Vivo",
+      "environment": "lumen-bio",
+      "cameraPosition": [-14, 5, -8],
+      "cameraTarget": [-8, 1, -4],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-bio",
+        "backgroundColor": "#03040a",
+        "accentColor": "#22d3ee",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lb3",
+      "title": "Axón ETL: Extracción y Transformación",
+      "content": "Los datos crudos no pueden circular libremente. El axón ETL extrae, limpia, valida duplicados, normaliza formatos y transporta la información purificada hacia el núcleo.",
+      "world": "Microcosmos Vivo",
+      "environment": "lumen-bio",
+      "cameraPosition": [-10, 5, -2],
+      "cameraTarget": [0, 2.5, 4],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-bio",
+        "backgroundColor": "#03040a",
+        "accentColor": "#f59e0b",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lb4",
+      "title": "El Núcleo: Data Warehouse",
+      "content": "El núcleo es el Data Warehouse: un repositorio unificado, histórico y orientado al análisis. Aquí convergen todas las señales del organismo para responder preguntas estratégicas.",
+      "world": "Microcosmos Vivo",
+      "environment": "lumen-bio",
+      "cameraPosition": [8, 6, 12],
+      "cameraTarget": [0, 2, 4],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-bio",
+        "backgroundColor": "#03040a",
+        "accentColor": "#0ea5e9",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lb5",
+      "title": "Tabla de Hechos y Anillos de Proteínas",
+      "content": "En el corazón del núcleo reside la tabla de hechos, con medidas como número de citas y tiempo de atención. A su alrededor orbitan seis anillos dimensionales: tiempo, paciente, profesional, especialidad, sede y estado.",
+      "world": "Microcosmos Vivo",
+      "environment": "lumen-bio",
+      "cameraPosition": [0, 7, 11],
+      "cameraTarget": [0, 2, 4],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-bio",
+        "backgroundColor": "#03040a",
+        "accentColor": "#fbbf24",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lb6",
+      "title": "Oculus de KPIs",
+      "content": "El oculus supervisa la salud del organismo: tasas de absentismo, satisfacción del paciente, ocupación de profesionales y cumplimiento de metas. Conocimiento que mejora decisiones.",
+      "world": "Microcosmos Vivo",
+      "environment": "lumen-bio",
+      "cameraPosition": [17, 7, 8],
+      "cameraTarget": [11, 4, 4],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-bio",
+        "backgroundColor": "#03040a",
+        "accentColor": "#10b981",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.018,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    }
+  ]
+}

@@ -1,0 +1,2038 @@
+{
+  "title": "Lumen Health - Data Warehouse SC-602",
+  "theme": "cyberpunk",
+  "visualStyle": "cinematic",
+  "scenes": [
+    {
+      "id": "lh1",
+      "title": "Lumen Health",
+      "content": "Plataforma digital ficticia de salud mental.\nTelepsicología, suscripción de bienestar y marketplace psicoeducativo.\nProyecto SC-602: Data Warehouse y Bases de Datos Multidimensionales.",
+      "environment": "cyberpunk",
+      "cameraPosition": [
+        0,
+        12,
+        28
+      ],
+      "cameraTarget": [
+        0,
+        0,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cyberpunk",
+        "reflectiveFloor": true,
+        "rain": true,
+        "traffic": true,
+        "fogDensity": 0.02,
+        "entranceDuration": 1.4,
+        "buildings": [
+          {
+            "id": "b1",
+            "position": [
+              -7,
+              0,
+              -4
+            ],
+            "size": [
+              2.2,
+              9,
+              2.2
+            ],
+            "label": "Telepsicología",
+            "color": "#0ea5e9",
+            "entranceDelay": 0
+          },
+          {
+            "id": "b2",
+            "position": [
+              0,
+              0,
+              -6
+            ],
+            "size": [
+              2.2,
+              9,
+              2.2
+            ],
+            "label": "Suscripción",
+            "color": "#8b5cf6",
+            "entranceDelay": 0.12
+          },
+          {
+            "id": "b3",
+            "position": [
+              7,
+              0,
+              -4
+            ],
+            "size": [
+              2.2,
+              9,
+              2.2
+            ],
+            "label": "Marketplace",
+            "color": "#ec4899",
+            "entranceDelay": 0.24
+          }
+        ],
+        "holograms": [
+          {
+            "id": "h1",
+            "position": [
+              0,
+              10,
+              0
+            ],
+            "content": "SALUD MENTAL DIGITAL",
+            "color": "#22d3ee",
+            "size": [
+              4,
+              0.8
+            ]
+          }
+        ],
+        "drones": [
+          {
+            "id": "d1",
+            "path": [
+              [
+                -8,
+                7,
+                -6
+              ],
+              [
+                0,
+                10,
+                0
+              ],
+              [
+                8,
+                7,
+                -6
+              ],
+              [
+                0,
+                5,
+                6
+              ]
+            ],
+            "color": "#facc15",
+            "speed": 0.8,
+            "size": 0.12
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh2",
+      "title": "El Problema: Datos en Silos",
+      "content": "Cada línea de servicio guarda sus datos por separado.\nNo hay panorama completo ni análisis cruzado.\nLos reportes se arman a mano: lentos y propensos a errores.",
+      "environment": "cyberpunk",
+      "cameraPosition": [
+        0,
+        8,
+        16
+      ],
+      "cameraTarget": [
+        0,
+        2,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cyberpunk",
+        "showGrid": true,
+        "fogDensity": 0.025,
+        "entranceDuration": 1.1,
+        "buildings": [
+          {
+            "id": "p1",
+            "position": [
+              -4,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Citas",
+            "color": "#334155",
+            "entranceDelay": 0
+          },
+          {
+            "id": "p2",
+            "position": [
+              0,
+              0,
+              -3
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Suscripciones",
+            "color": "#334155",
+            "entranceDelay": 0.12
+          },
+          {
+            "id": "p3",
+            "position": [
+              4,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Ventas",
+            "color": "#334155",
+            "entranceDelay": 0.24
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hp1",
+            "position": [
+              0,
+              8.5,
+              0
+            ],
+            "content": "DATOS SEPARADOS",
+            "color": "#ef4444"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh3",
+      "title": "La Solución: Data Warehouse",
+      "content": "Repositorio central separado de los sistemas operacionales.\nJunta todas las fuentes, conserva la historia y organiza los datos para análisis.\nPermite responder preguntas de negocio de forma rápida.",
+      "environment": "cosmos",
+      "cameraPosition": [
+        0,
+        10,
+        20
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cosmos",
+        "fogDensity": 0.01,
+        "entranceDuration": 1.3,
+        "buildings": [
+          {
+            "id": "sol-dw",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              4,
+              10,
+              4
+            ],
+            "label": "Data Warehouse",
+            "color": "#f59e0b",
+            "entranceDelay": 0
+          },
+          {
+            "id": "sol-oltp",
+            "position": [
+              -7,
+              0,
+              4
+            ],
+            "size": [
+              2.2,
+              5,
+              2.2
+            ],
+            "label": "OLTP",
+            "color": "#3b82f6",
+            "entranceDelay": 0.2
+          },
+          {
+            "id": "sol-olap",
+            "position": [
+              7,
+              0,
+              4
+            ],
+            "size": [
+              2.2,
+              5,
+              2.2
+            ],
+            "label": "OLAP",
+            "color": "#22d3ee",
+            "entranceDelay": 0.35
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -7,
+              5,
+              4
+            ],
+            "to": [
+              0,
+              8,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.6
+          },
+          {
+            "from": [
+              0,
+              8,
+              0
+            ],
+            "to": [
+              7,
+              5,
+              4
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.75
+          }
+        ],
+        "energyCores": [
+          [
+            0,
+            12.5,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lh4",
+      "title": "OLTP vs OLAP",
+      "content": "OLTP opera: registra citas, pagos y suscripciones en tiempo real.\nOLAP analiza: lee grandes volúmenes para resumir y comparar.\nFrase clave: el OLTP opera, el OLAP analiza.",
+      "environment": "neural",
+      "cameraPosition": [
+        0,
+        10,
+        16
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "neural",
+        "showGrid": true,
+        "fogDensity": 0.015,
+        "entranceDuration": 1.1,
+        "buildings": [
+          {
+            "id": "oltp",
+            "position": [
+              -5,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              8,
+              3
+            ],
+            "label": "OLTP",
+            "color": "#3b82f6",
+            "entranceDelay": 0
+          },
+          {
+            "id": "olap",
+            "position": [
+              5,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              8,
+              3
+            ],
+            "label": "OLAP",
+            "color": "#e879f9",
+            "entranceDelay": 0.2
+          }
+        ],
+        "holograms": [
+          {
+            "id": "ho1",
+            "position": [
+              -5,
+              9.5,
+              0
+            ],
+            "content": "TRANSACCIONES",
+            "color": "#3b82f6"
+          },
+          {
+            "id": "ho2",
+            "position": [
+              5,
+              9.5,
+              0
+            ],
+            "content": "ANÁLISIS",
+            "color": "#e879f9"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh5",
+      "title": "Esquema en Estrella",
+      "content": "Tabla de hechos central rodeada de dimensiones satélite.\nLas dimensiones se conectan solo con el hecho, no entre ellas.\nHace las consultas simples, rápidas y fáciles de entender.",
+      "environment": "neural",
+      "cameraPosition": [
+        0,
+        14,
+        22
+      ],
+      "cameraTarget": [
+        0,
+        4,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "neural",
+        "fogDensity": 0.012,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "dim-tiempo",
+            "position": [
+              -7,
+              0,
+              -4
+            ],
+            "size": [
+              1.6,
+              4.5,
+              1.6
+            ],
+            "label": "Tiempo",
+            "color": "#0ea5e9",
+            "entranceDelay": 0
+          },
+          {
+            "id": "dim-usuario",
+            "position": [
+              -3.5,
+              0,
+              -6
+            ],
+            "size": [
+              1.6,
+              4.5,
+              1.6
+            ],
+            "label": "Usuario",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.05
+          },
+          {
+            "id": "dim-prof",
+            "position": [
+              0,
+              0,
+              -7
+            ],
+            "size": [
+              1.6,
+              4.5,
+              1.6
+            ],
+            "label": "Profesional",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.1
+          },
+          {
+            "id": "dim-prod",
+            "position": [
+              3.5,
+              0,
+              -6
+            ],
+            "size": [
+              1.6,
+              4.5,
+              1.6
+            ],
+            "label": "Producto",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.15
+          },
+          {
+            "id": "dim-region",
+            "position": [
+              7,
+              0,
+              -4
+            ],
+            "size": [
+              1.6,
+              4.5,
+              1.6
+            ],
+            "label": "Región",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.2
+          },
+          {
+            "id": "dim-trast",
+            "position": [
+              0,
+              0,
+              7
+            ],
+            "size": [
+              1.6,
+              4.5,
+              1.6
+            ],
+            "label": "Trastorno",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.25
+          },
+          {
+            "id": "hecho",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              11,
+              3
+            ],
+            "label": "HECHO",
+            "color": "#f59e0b",
+            "entranceDelay": 0.5
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -7,
+              4.5,
+              -4
+            ],
+            "to": [
+              0,
+              9,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              0,
+              4.5,
+              -7
+            ],
+            "to": [
+              0,
+              9,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.85
+          },
+          {
+            "from": [
+              7,
+              4.5,
+              -4
+            ],
+            "to": [
+              0,
+              9,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.9
+          },
+          {
+            "from": [
+              0,
+              4.5,
+              7
+            ],
+            "to": [
+              0,
+              9,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.95
+          }
+        ],
+        "holograms": [
+          {
+            "id": "h-dim",
+            "position": [
+              -7,
+              6.5,
+              -4
+            ],
+            "content": "DIMENSIONES",
+            "color": "#0ea5e9"
+          },
+          {
+            "id": "h-cita",
+            "position": [
+              0,
+              7.5,
+              0
+            ],
+            "content": "HECHO CENTRAL",
+            "color": "#f59e0b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh6",
+      "title": "Tabla de Hechos vs Dimensión",
+      "content": "Hecho: guarda lo que pasó y se mide en números. Responde ¿qué tanto?\nDimensión: da contexto. Responde ¿quién, cuándo, dónde, qué?\nEjemplo: una transacción de un usuario en una fecha y región.",
+      "environment": "neural",
+      "cameraPosition": [
+        0,
+        10,
+        16
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "neural",
+        "showGrid": true,
+        "fogDensity": 0.015,
+        "entranceDuration": 1.1,
+        "buildings": [
+          {
+            "id": "h1",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              8,
+              3
+            ],
+            "label": "HECHO",
+            "color": "#f59e0b",
+            "entranceDelay": 0
+          },
+          {
+            "id": "d1",
+            "position": [
+              -5,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Usuario",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.25
+          },
+          {
+            "id": "d2",
+            "position": [
+              5,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Tiempo",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.4
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -5,
+              6,
+              0
+            ],
+            "to": [
+              0,
+              7,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.7
+          },
+          {
+            "from": [
+              5,
+              6,
+              0
+            ],
+            "to": [
+              0,
+              7,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.85
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh7",
+      "title": "Granularidad",
+      "content": "Es el nivel de detalle de cada fila del hecho.\nfact_transacciones: una fila = un evento.\nfact_estado_usuario: una fila = un usuario en un día.",
+      "environment": "cyberpunk",
+      "cameraPosition": [
+        0,
+        10,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cyberpunk",
+        "reflectiveFloor": true,
+        "fogDensity": 0.02,
+        "entranceDuration": 1.1,
+        "buildings": [
+          {
+            "id": "g1",
+            "position": [
+              -4,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              8,
+              3
+            ],
+            "label": "1 evento",
+            "color": "#10b981",
+            "entranceDelay": 0
+          },
+          {
+            "id": "g2",
+            "position": [
+              4,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              8,
+              3
+            ],
+            "label": "1 usuario/día",
+            "color": "#8b5cf6",
+            "entranceDelay": 0.2
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hg1",
+            "position": [
+              -4,
+              9.5,
+              0
+            ],
+            "content": "EVENTO",
+            "color": "#10b981"
+          },
+          {
+            "id": "hg2",
+            "position": [
+              4,
+              9.5,
+              0
+            ],
+            "content": "SNAPSHOT",
+            "color": "#8b5cf6"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh8",
+      "title": "Surrogate Key vs Business Key",
+      "content": "Business Key: identificador del sistema de origen.\nSurrogate Key: llave interna generada por el DW.\nPermite versionar historial y hacer cruces más rápidos.",
+      "environment": "cyberpunk",
+      "cameraPosition": [
+        0,
+        10,
+        16
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cyberpunk",
+        "showGrid": true,
+        "fogDensity": 0.02,
+        "entranceDuration": 1.1,
+        "buildings": [
+          {
+            "id": "bk",
+            "position": [
+              -4,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              8,
+              3
+            ],
+            "label": "BK",
+            "color": "#475569",
+            "entranceDelay": 0
+          },
+          {
+            "id": "sk",
+            "position": [
+              4,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              8,
+              3
+            ],
+            "label": "SK",
+            "color": "#f59e0b",
+            "entranceDelay": 0.2
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hbk",
+            "position": [
+              -4,
+              9.5,
+              0
+            ],
+            "content": "ID ORIGEN",
+            "color": "#94a3b8"
+          },
+          {
+            "id": "hsk",
+            "position": [
+              4,
+              9.5,
+              0
+            ],
+            "content": "ID DW",
+            "color": "#f59e0b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh9",
+      "title": "SCD Tipo 2",
+      "content": "Guarda el historial de cambios sin borrar el pasado.\nSi un usuario cambia de plan gratis a premium, se crea una nueva versión.\nCada versión tiene fecha inicio, fecha fin y vigencia.",
+      "environment": "cosmos",
+      "cameraPosition": [
+        0,
+        10,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cosmos",
+        "fogDensity": 0.01,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "scd1",
+            "position": [
+              -4,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              6,
+              3
+            ],
+            "label": "Gratis 2023",
+            "color": "#22d3ee",
+            "entranceDelay": 0
+          },
+          {
+            "id": "scd2",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              8,
+              3
+            ],
+            "label": "Premium 2024",
+            "color": "#f59e0b",
+            "entranceDelay": 0.25
+          },
+          {
+            "id": "scd3",
+            "position": [
+              4,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              6,
+              3
+            ],
+            "label": "Familiar 2025",
+            "color": "#a855f7",
+            "entranceDelay": 0.5
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -4,
+              6,
+              0
+            ],
+            "to": [
+              0,
+              7,
+              0
+            ],
+            "color": "#f59e0b",
+            "animated": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              0,
+              8,
+              0
+            ],
+            "to": [
+              4,
+              6,
+              0
+            ],
+            "color": "#a855f7",
+            "animated": true,
+            "entranceDelay": 1.0
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hscd",
+            "position": [
+              0,
+              10,
+              0
+            ],
+            "content": "NO BORRO EL PASADO",
+            "color": "#f59e0b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh10",
+      "title": "Las 6 Dimensiones",
+      "content": "Tiempo, usuario, profesional, producto/servicio, región y trastorno.\nRegión se enriquece con INEC y Ministerio de Salud.\nTrastorno se enriquece con CIE-11 y prevalencias de la OMS.",
+      "environment": "neural",
+      "cameraPosition": [
+        0,
+        16,
+        26
+      ],
+      "cameraTarget": [
+        0,
+        4,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "neural",
+        "fogDensity": 0.012,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "d-tiempo",
+            "position": [
+              -6,
+              0,
+              -3
+            ],
+            "size": [
+              2,
+              5,
+              2
+            ],
+            "label": "Tiempo",
+            "color": "#0ea5e9",
+            "entranceDelay": 0
+          },
+          {
+            "id": "d-usuario",
+            "position": [
+              -2,
+              0,
+              -5
+            ],
+            "size": [
+              2,
+              5,
+              2
+            ],
+            "label": "Usuario",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.08
+          },
+          {
+            "id": "d-prof",
+            "position": [
+              2,
+              0,
+              -5
+            ],
+            "size": [
+              2,
+              5,
+              2
+            ],
+            "label": "Profesional",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.16
+          },
+          {
+            "id": "d-prod",
+            "position": [
+              6,
+              0,
+              -3
+            ],
+            "size": [
+              2,
+              5,
+              2
+            ],
+            "label": "Producto",
+            "color": "#0ea5e9",
+            "entranceDelay": 0.24
+          },
+          {
+            "id": "d-region",
+            "position": [
+              -3,
+              0,
+              4
+            ],
+            "size": [
+              2,
+              5,
+              2
+            ],
+            "label": "Región",
+            "color": "#10b981",
+            "entranceDelay": 0.32
+          },
+          {
+            "id": "d-trast",
+            "position": [
+              3,
+              0,
+              4
+            ],
+            "size": [
+              2,
+              5,
+              2
+            ],
+            "label": "Trastorno",
+            "color": "#ec4899",
+            "entranceDelay": 0.4
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh11",
+      "title": "Las 2 Tablas de Hechos",
+      "content": "fact_transacciones: eventos como citas, suscripciones y compras.\nfact_estado_usuario: snapshot diario de bienestar, riesgo y uso.\nCada una responde preguntas diferentes y no se deben mezclar.",
+      "environment": "neural",
+      "cameraPosition": [
+        0,
+        12,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        4,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "neural",
+        "fogDensity": 0.012,
+        "entranceDuration": 1.1,
+        "buildings": [
+          {
+            "id": "hf-trans",
+            "position": [
+              0,
+              0,
+              -4
+            ],
+            "size": [
+              3,
+              9,
+              3
+            ],
+            "label": "TRANSACCIONES",
+            "color": "#f59e0b",
+            "entranceDelay": 0
+          },
+          {
+            "id": "hf-estado",
+            "position": [
+              0,
+              0,
+              4
+            ],
+            "size": [
+              3,
+              9,
+              3
+            ],
+            "label": "ESTADO USUARIO",
+            "color": "#8b5cf6",
+            "entranceDelay": 0.25
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              0,
+              9,
+              -4
+            ],
+            "to": [
+              0,
+              9,
+              4
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.6
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hht1",
+            "position": [
+              0,
+              11,
+              -4
+            ],
+            "content": "EVENTOS",
+            "color": "#f59e0b"
+          },
+          {
+            "id": "hht2",
+            "position": [
+              0,
+              11,
+              4
+            ],
+            "content": "SNAPSHOT DIARIO",
+            "color": "#8b5cf6"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh12",
+      "title": "Fuentes de Datos Internas",
+      "content": "Cuatro fuentes operativas de Lumen Health.\nSistema transaccional, gestión de profesionales, catálogo de productos y sistema contable.\nSon el insumo principal del Data Warehouse.",
+      "environment": "cyberpunk",
+      "cameraPosition": [
+        0,
+        12,
+        22
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cyberpunk",
+        "reflectiveFloor": true,
+        "fogDensity": 0.02,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "f1",
+            "position": [
+              -6,
+              0,
+              -2
+            ],
+            "size": [
+              2.2,
+              6,
+              2.2
+            ],
+            "label": "Transaccional",
+            "color": "#3b82f6",
+            "entranceDelay": 0
+          },
+          {
+            "id": "f2",
+            "position": [
+              -2,
+              0,
+              -4
+            ],
+            "size": [
+              2.2,
+              6,
+              2.2
+            ],
+            "label": "Profesionales",
+            "color": "#3b82f6",
+            "entranceDelay": 0.1
+          },
+          {
+            "id": "f3",
+            "position": [
+              2,
+              0,
+              -4
+            ],
+            "size": [
+              2.2,
+              6,
+              2.2
+            ],
+            "label": "Catálogo",
+            "color": "#3b82f6",
+            "entranceDelay": 0.2
+          },
+          {
+            "id": "f4",
+            "position": [
+              6,
+              0,
+              -2
+            ],
+            "size": [
+              2.2,
+              6,
+              2.2
+            ],
+            "label": "Contable",
+            "color": "#3b82f6",
+            "entranceDelay": 0.3
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -6,
+              6,
+              -2
+            ],
+            "to": [
+              0,
+              8,
+              2
+            ],
+            "color": "#f59e0b",
+            "animated": true,
+            "entranceDelay": 0.5
+          },
+          {
+            "from": [
+              -2,
+              6,
+              -4
+            ],
+            "to": [
+              0,
+              8,
+              2
+            ],
+            "color": "#f59e0b",
+            "animated": true,
+            "entranceDelay": 0.6
+          },
+          {
+            "from": [
+              2,
+              6,
+              -4
+            ],
+            "to": [
+              0,
+              8,
+              2
+            ],
+            "color": "#f59e0b",
+            "animated": true,
+            "entranceDelay": 0.7
+          },
+          {
+            "from": [
+              6,
+              6,
+              -2
+            ],
+            "to": [
+              0,
+              8,
+              2
+            ],
+            "color": "#f59e0b",
+            "animated": true,
+            "entranceDelay": 0.8
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hfu",
+            "position": [
+              0,
+              10,
+              2
+            ],
+            "content": "FUENTES INTERNAS",
+            "color": "#f59e0b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh13",
+      "title": "Fuentes de Datos Externas",
+      "content": "OMS: prevalencias de trastornos mentales.\nMinisterio de Salud e INEC: cobertura y demografía regional.\nDan contexto para comparar la plataforma con la realidad del país.",
+      "environment": "cosmos",
+      "cameraPosition": [
+        0,
+        10,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cosmos",
+        "fogDensity": 0.01,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "e1",
+            "position": [
+              -5,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              7,
+              3
+            ],
+            "label": "OMS",
+            "color": "#22d3ee",
+            "entranceDelay": 0
+          },
+          {
+            "id": "e2",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              7,
+              3
+            ],
+            "label": "MINSAL",
+            "color": "#22d3ee",
+            "entranceDelay": 0.15
+          },
+          {
+            "id": "e3",
+            "position": [
+              5,
+              0,
+              0
+            ],
+            "size": [
+              3,
+              7,
+              3
+            ],
+            "label": "INEC",
+            "color": "#22d3ee",
+            "entranceDelay": 0.3
+          }
+        ],
+        "dataTables": [
+          {
+            "id": "ext",
+            "position": [
+              0,
+              5,
+              5
+            ],
+            "headers": [
+              "Fuente",
+              "Uso"
+            ],
+            "rows": [
+              [
+                "OMS",
+                "Prevalencias"
+              ],
+              [
+                "MINSAL",
+                "Cobertura"
+              ],
+              [
+                "INEC",
+                "Demografía"
+              ]
+            ],
+            "color": "#22d3ee",
+            "entranceDelay": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh14",
+      "title": "Proceso ETL",
+      "content": "Extracción, Transformación y Carga en Pentaho.\nSeis procesos: uno por fuente y etapa.\nLimpia, normaliza, calcula y carga en las tablas del DW.",
+      "environment": "cyberpunk",
+      "cameraPosition": [
+        0,
+        10,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cyberpunk",
+        "showGrid": true,
+        "fogDensity": 0.02,
+        "entranceDuration": 1.1,
+        "buildings": [
+          {
+            "id": "etl-e",
+            "position": [
+              -6,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "label": "Extraer",
+            "color": "#3b82f6",
+            "entranceDelay": 0
+          },
+          {
+            "id": "etl-t",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "label": "Transformar",
+            "color": "#8b5cf6",
+            "entranceDelay": 0.25
+          },
+          {
+            "id": "etl-l",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "label": "Cargar",
+            "color": "#10b981",
+            "entranceDelay": 0.5
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -6,
+              7,
+              0
+            ],
+            "to": [
+              0,
+              7,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              0,
+              7,
+              0
+            ],
+            "to": [
+              6,
+              7,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.95
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hetl",
+            "position": [
+              0,
+              9.5,
+              0
+            ],
+            "content": "PENTAHO",
+            "color": "#f59e0b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh15",
+      "title": "Áreas de Análisis",
+      "content": "Comercial: ingresos, servicios y adquisición.\nFinanciera: rentabilidad, márgenes y comparativos.\nClínico-operativa: bienestar, riesgo y uso.\nRegional-epidemiológica: cobertura y prevalencias.",
+      "environment": "neural",
+      "cameraPosition": [
+        0,
+        14,
+        26
+      ],
+      "cameraTarget": [
+        0,
+        4,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "neural",
+        "showGrid": true,
+        "fogDensity": 0.015,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "a1",
+            "position": [
+              -6,
+              0,
+              -3
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Comercial",
+            "color": "#0ea5e9",
+            "entranceDelay": 0
+          },
+          {
+            "id": "a2",
+            "position": [
+              -2,
+              0,
+              -5
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Financiera",
+            "color": "#10b981",
+            "entranceDelay": 0.1
+          },
+          {
+            "id": "a3",
+            "position": [
+              2,
+              0,
+              -5
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Clínica",
+            "color": "#f59e0b",
+            "entranceDelay": 0.2
+          },
+          {
+            "id": "a4",
+            "position": [
+              6,
+              0,
+              -3
+            ],
+            "size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "label": "Regional",
+            "color": "#ec4899",
+            "entranceDelay": 0.3
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -6,
+              6,
+              -3
+            ],
+            "to": [
+              0,
+              8,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.6
+          },
+          {
+            "from": [
+              -2,
+              6,
+              -5
+            ],
+            "to": [
+              0,
+              8,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.7
+          },
+          {
+            "from": [
+              2,
+              6,
+              -5
+            ],
+            "to": [
+              0,
+              8,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              6,
+              6,
+              -3
+            ],
+            "to": [
+              0,
+              8,
+              0
+            ],
+            "color": "#22d3ee",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh16",
+      "title": "Medidas Analíticas y Power BI",
+      "content": "Ingreso bruto, margen neto, variación año anterior.\nMedidas DAX recalculadas según filtros de tiempo y región.\nCuatro reportes conectados al modelo estrella.",
+      "environment": "cosmos",
+      "cameraPosition": [
+        0,
+        10,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cosmos",
+        "fogDensity": 0.01,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "pb1",
+            "position": [
+              -5,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "label": "Ingresos",
+            "color": "#f59e0b",
+            "entranceDelay": 0
+          },
+          {
+            "id": "pb2",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "label": "Márgenes",
+            "color": "#f59e0b",
+            "entranceDelay": 0.15
+          },
+          {
+            "id": "pb3",
+            "position": [
+              5,
+              0,
+              0
+            ],
+            "size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "label": "YoY",
+            "color": "#f59e0b",
+            "entranceDelay": 0.3
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hpb",
+            "position": [
+              0,
+              9,
+              0
+            ],
+            "content": "POWER BI",
+            "color": "#facc15"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh17",
+      "title": "Datos Sintéticos y Ética",
+      "content": "Lumen Health es ficticia y todos los datos son sintéticos.\nGenerados por procedimientos almacenados.\nCumple la Ley N.° 8968 de Protección de Datos Personales.",
+      "environment": "cyberpunk",
+      "cameraPosition": [
+        0,
+        10,
+        16
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cyberpunk",
+        "reflectiveFloor": true,
+        "fogDensity": 0.02,
+        "entranceDuration": 1.1,
+        "buildings": [
+          {
+            "id": "seg",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              4,
+              8,
+              4
+            ],
+            "label": "Privacidad",
+            "color": "#10b981",
+            "entranceDelay": 0
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hseg",
+            "position": [
+              0,
+              9.5,
+              0
+            ],
+            "content": "LEY 8968",
+            "color": "#10b981"
+          },
+          {
+            "id": "hseg2",
+            "position": [
+              0,
+              -1,
+              4
+            ],
+            "content": "DATOS SINTÉTICOS",
+            "color": "#22d3ee"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lh18",
+      "title": "Conclusiones y Trabajo Futuro",
+      "content": "Modelo dimensional en estrella con dos hechos y seis dimensiones.\nSeis fuentes integradas y procesos ETL definidos.\nFuturo: cubos OLAP, reportes Power BI y automatización de carga.",
+      "environment": "cyberpunk",
+      "cameraPosition": [
+        0,
+        14,
+        28
+      ],
+      "cameraTarget": [
+        0,
+        0,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "cyberpunk",
+        "reflectiveFloor": true,
+        "rain": true,
+        "traffic": true,
+        "fogDensity": 0.02,
+        "entranceDuration": 1.4,
+        "buildings": [
+          {
+            "id": "c1",
+            "position": [
+              -7,
+              0,
+              -4
+            ],
+            "size": [
+              2.2,
+              9,
+              2.2
+            ],
+            "label": "Cubos OLAP",
+            "color": "#0ea5e9",
+            "entranceDelay": 0
+          },
+          {
+            "id": "c2",
+            "position": [
+              -2,
+              0,
+              -7
+            ],
+            "size": [
+              2.2,
+              10,
+              2.2
+            ],
+            "label": "Power BI",
+            "color": "#8b5cf6",
+            "entranceDelay": 0.1
+          },
+          {
+            "id": "c3",
+            "position": [
+              3,
+              0,
+              -6
+            ],
+            "size": [
+              2.2,
+              9,
+              2.2
+            ],
+            "label": "ETL Auto",
+            "color": "#10b981",
+            "entranceDelay": 0.2
+          },
+          {
+            "id": "c4",
+            "position": [
+              7,
+              0,
+              -4
+            ],
+            "size": [
+              2.2,
+              8,
+              2.2
+            ],
+            "label": "Alertas",
+            "color": "#ec4899",
+            "entranceDelay": 0.3
+          }
+        ],
+        "holograms": [
+          {
+            "id": "hfin",
+            "position": [
+              0,
+              11,
+              0
+            ],
+            "content": "¡GRACIAS!",
+            "color": "#22d3ee",
+            "size": [
+              3,
+              0.8
+            ]
+          }
+        ],
+        "drones": [
+          {
+            "id": "df1",
+            "path": [
+              [
+                -9,
+                7,
+                -7
+              ],
+              [
+                0,
+                11,
+                0
+              ],
+              [
+                9,
+                7,
+                -7
+              ],
+              [
+                0,
+                5,
+                7
+              ]
+            ],
+            "color": "#facc15",
+            "speed": 0.8,
+            "size": 0.12
+          }
+        ]
+      }
+    }
+  ]
+}

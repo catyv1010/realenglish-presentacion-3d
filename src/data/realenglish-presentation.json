@@ -1,0 +1,2201 @@
+{
+  "title": "Real English CR — Proyecto Final SC-504",
+  "theme": "academia",
+  "visualStyle": "campus soleado de academia de inglés",
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Real English CR",
+      "content": "Bienvenidos al campus: una academia de inglés con cinco sedes y una sola base de datos.",
+      "world": "Unidad 1 · Welcome!",
+      "environment": "academia",
+      "bullets": [
+        "Real English CR es una academia ficticia de enseñanza del idioma inglés con presencia en cinco sedes distribuidas estratégicamente en Costa Rica: San José, Heredia, Cartago, Alajuela y Liberia.",
+        "Este es el proyecto final del curso SC-504 Lenguajes de Bases de Datos de la Universidad Fidélitas, desarrollado por el Grupo F: Granados González, Pérez Calderón, Rodríguez Arroyo y Valverde Arroyo.",
+        "La academia organiza toda su oferta con el Marco Común Europeo de Referencia (MCER): seis niveles que van desde A1 (principiante) hasta C2 (dominio pleno).",
+        "El corazón técnico es una base de datos transaccional en Oracle Cloud Autonomous Database, con todo el cuerpo del negocio programado en PL/SQL: funciones, procedimientos, paquetes, triggers, cursores y vistas.",
+        "El sitio web de la academia está construido con la plantilla Edulab (HTML5, CSS3, Bootstrap) en PHP con patrón MVC, y se conecta a Oracle mediante el driver oficial OCI8.",
+        "El diseño de datos parte de los esquemas didácticos HR y Academic de Oracle, adaptados al contexto costarricense: cédulas, teléfonos de ocho dígitos, montos en colones y pagos por SINPE Móvil.",
+        "El recorrido de hoy: el problema del negocio, el modelo de 15 tablas, la seguridad en tres niveles, el proceso estrella de matrícula, el sitio web y las pruebas ACID que demuestran que todo funciona."
+      ],
+      "cameraPosition": [
+        0,
+        10,
+        22
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "u1",
+            "position": [
+              0,
+              0,
+              -2
+            ],
+            "size": [
+              1.6,
+              7,
+              1.4
+            ],
+            "label": "SAN JOSÉ",
+            "color": "#525fe1",
+            "entranceDelay": 0,
+            "variant": "edificio"
+          },
+          {
+            "id": "u2",
+            "position": [
+              -6,
+              0,
+              0
+            ],
+            "size": [
+              1.5,
+              5.5,
+              1.3
+            ],
+            "label": "HEREDIA",
+            "color": "#f26b65",
+            "entranceDelay": 0.12,
+            "variant": "edificio"
+          },
+          {
+            "id": "u3",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "size": [
+              1.5,
+              5.5,
+              1.3
+            ],
+            "label": "CARTAGO",
+            "color": "#FF7700",
+            "entranceDelay": 0.24,
+            "variant": "edificio"
+          },
+          {
+            "id": "u4",
+            "position": [
+              -4,
+              0,
+              5
+            ],
+            "size": [
+              1.4,
+              4.5,
+              1.2
+            ],
+            "label": "ALAJUELA",
+            "color": "#8b93f8",
+            "entranceDelay": 0.36,
+            "variant": "edificio"
+          },
+          {
+            "id": "u5",
+            "position": [
+              4,
+              0,
+              5
+            ],
+            "size": [
+              1.4,
+              4.5,
+              1.2
+            ],
+            "label": "LIBERIA",
+            "color": "#f9a03f",
+            "entranceDelay": 0.48,
+            "variant": "edificio"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              0,
+              7,
+              -2
+            ],
+            "to": [
+              -6,
+              5.5,
+              0
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.7
+          },
+          {
+            "from": [
+              0,
+              7,
+              -2
+            ],
+            "to": [
+              6,
+              5.5,
+              0
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              0,
+              7,
+              -2
+            ],
+            "to": [
+              -4,
+              4.5,
+              5
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.9
+          },
+          {
+            "from": [
+              0,
+              7,
+              -2
+            ],
+            "to": [
+              4,
+              4.5,
+              5
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 1.0
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      }
+    },
+    {
+      "id": "s2",
+      "title": "El problema del negocio",
+      "content": "Una academia que crece en cinco sedes no puede vivir de hojas de cálculo sueltas.",
+      "world": "Unidad 2 · The Problem",
+      "environment": "academia",
+      "bullets": [
+        "La academia necesita administrar procesos que se cruzan entre sí todo el tiempo: registro de estudiantes clasificados por nivel MCER, contratación y asignación de profesores, apertura de grupos por horario y modalidad, matrícula, pagos, control de asistencia y evaluaciones.",
+        "Los grupos se ofrecen en tres modalidades (presencial, virtual e híbrida) y en distintos horarios, lo que multiplica las combinaciones posibles y los choques potenciales de aulas y profesores.",
+        "Sin un sistema integrado los riesgos son concretos y caros: grupos con sobrecupo porque dos personas matricularon al mismo tiempo, pagos que nadie registró, estudiantes matriculados sin cumplir prerrequisitos y cero trazabilidad de quién hizo qué.",
+        "Los pagos deben manejar los métodos reales del mercado costarricense: efectivo, tarjeta, transferencia bancaria y SINPE Móvil, siempre en colones.",
+        "El proceso más complejo del negocio —y por eso el elegido como proceso estrella del proyecto— es la matrícula: exige validar al estudiante, al grupo, el cupo y los duplicados, y generar el cobro, todo como una sola operación indivisible.",
+        "El enunciado del proyecto pide exactamente eso: implementar el proceso de mayor complejidad mediante procedimientos almacenados, funciones y triggers, codificados en el lenguaje del motor de base de datos.",
+        "La meta final: que las cinco sedes trabajen sobre los mismos datos, con las reglas del negocio guardadas dentro de la base de datos y no en la memoria de los empleados."
+      ],
+      "cameraPosition": [
+        0,
+        8,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        2.5,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "p1",
+            "position": [
+              -6,
+              0,
+              0
+            ],
+            "size": [
+              1.4,
+              4.5,
+              1.2
+            ],
+            "label": "MATRÍCULA",
+            "color": "#f26b65",
+            "entranceDelay": 0,
+            "variant": "globo"
+          },
+          {
+            "id": "p2",
+            "position": [
+              -2,
+              0,
+              -2
+            ],
+            "size": [
+              1.4,
+              5.5,
+              1.2
+            ],
+            "label": "PAGOS",
+            "color": "#525fe1",
+            "entranceDelay": 0.12,
+            "variant": "globo"
+          },
+          {
+            "id": "p3",
+            "position": [
+              2,
+              0,
+              -2
+            ],
+            "size": [
+              1.4,
+              5,
+              1.2
+            ],
+            "label": "ASISTENCIA",
+            "color": "#8b93f8",
+            "entranceDelay": 0.24,
+            "variant": "globo"
+          },
+          {
+            "id": "p4",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "size": [
+              1.4,
+              4,
+              1.2
+            ],
+            "label": "EVALUACIONES",
+            "color": "#f9a03f",
+            "entranceDelay": 0.36,
+            "variant": "globo"
+          },
+          {
+            "id": "p5",
+            "position": [
+              0,
+              0,
+              3
+            ],
+            "size": [
+              1.5,
+              3.2,
+              1.3
+            ],
+            "label": "AUDITORÍA",
+            "color": "#1a2d62",
+            "entranceDelay": 0.5,
+            "variant": "globo"
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      }
+    },
+    {
+      "id": "s3",
+      "title": "El modelo relacional: 15 tablas",
+      "content": "Quince entidades conectadas entre sí forman el mapa completo de la academia.",
+      "world": "Unidad 3 · The Blueprint",
+      "environment": "academia",
+      "bullets": [
+        "El modelo se organiza en tres familias. Los catálogos: REGIONES, SEDES, NIVELES (los seis del MCER), DEPARTAMENTOS, PUESTOS, AULAS y CURSOS, que definen la estructura de la academia.",
+        "Las personas: EMPLEADOS (30, entre profesores nativos, bilingües y personal administrativo) y ESTUDIANTES (100, cada uno con su cédula, correo, teléfono y nivel actual).",
+        "Las transaccionales, donde ocurre el negocio: GRUPOS, MATRICULAS, PAGOS, ASISTENCIA, EVALUACIONES y BITACORA.",
+        "Las entidades base provienen del esquema HR de Oracle (REGIONES, SEDES, DEPARTAMENTOS, PUESTOS, EMPLEADOS) y del esquema Academic (ESTUDIANTES, CURSOS, MATRICULAS); el resto se diseñó desde cero para el dominio de una academia de idiomas.",
+        "La adaptación costarricense está en los detalles: cédula con formato 1-XXXX-XXXX para nacionales, teléfonos de ocho dígitos, salarios y precios en colones, y SINPE Móvil como método de pago.",
+        "Toda la integridad referencial está garantizada con llaves foráneas, y cada restricción se nombró con la convención del curso: PK_ para primarias, FK_ para foráneas, UQ_ para únicas y CK_ para checks.",
+        "BITACORA es la única tabla que nace vacía, y es a propósito: la van llenando los triggers de auditoría con cada movimiento del sistema, como se verá en la Unidad 9.",
+        "Catorce secuencias generan los identificadores; los rangos son reconocibles a simple vista: estudiantes desde 11001, empleados desde 2001, grupos desde 30001."
+      ],
+      "cameraPosition": [
+        0,
+        11,
+        22
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "t1",
+            "position": [
+              -7,
+              0,
+              -3
+            ],
+            "size": [
+              1.2,
+              3.3,
+              1.1
+            ],
+            "label": "CATÁLOGOS ×7",
+            "color": "#22c55e",
+            "entranceDelay": 0,
+            "variant": "bloques"
+          },
+          {
+            "id": "t2",
+            "position": [
+              -2.5,
+              0,
+              -4
+            ],
+            "size": [
+              1.4,
+              5,
+              1.2
+            ],
+            "label": "EMPLEADOS",
+            "color": "#8b93f8",
+            "entranceDelay": 0.12,
+            "variant": "bloques"
+          },
+          {
+            "id": "t3",
+            "position": [
+              2.5,
+              0,
+              -4
+            ],
+            "size": [
+              1.5,
+              6,
+              1.3
+            ],
+            "label": "ESTUDIANTES",
+            "color": "#525fe1",
+            "entranceDelay": 0.24,
+            "variant": "bloques"
+          },
+          {
+            "id": "t4",
+            "position": [
+              7,
+              0,
+              -3
+            ],
+            "size": [
+              1.4,
+              5,
+              1.2
+            ],
+            "label": "GRUPOS",
+            "color": "#f9a03f",
+            "entranceDelay": 0.36,
+            "variant": "bloques"
+          },
+          {
+            "id": "t5",
+            "position": [
+              -4.5,
+              0,
+              2
+            ],
+            "size": [
+              1.5,
+              5.5,
+              1.3
+            ],
+            "label": "MATRICULAS",
+            "color": "#f26b65",
+            "entranceDelay": 0.48,
+            "variant": "bloques"
+          },
+          {
+            "id": "t6",
+            "position": [
+              0,
+              0,
+              3.5
+            ],
+            "size": [
+              1.5,
+              5.5,
+              1.3
+            ],
+            "label": "PAGOS",
+            "color": "#FF7700",
+            "entranceDelay": 0.6,
+            "variant": "bloques"
+          },
+          {
+            "id": "t7",
+            "position": [
+              4.5,
+              0,
+              2
+            ],
+            "size": [
+              1.4,
+              4,
+              1.2
+            ],
+            "label": "BITACORA",
+            "color": "#1a2d62",
+            "entranceDelay": 0.72,
+            "variant": "bloques"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              2.5,
+              6,
+              -4
+            ],
+            "to": [
+              -4.5,
+              5.5,
+              2
+            ],
+            "color": "#f26b65",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.9
+          },
+          {
+            "from": [
+              7,
+              5,
+              -3
+            ],
+            "to": [
+              -4.5,
+              5.5,
+              2
+            ],
+            "color": "#f9a03f",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 1.0
+          },
+          {
+            "from": [
+              -4.5,
+              5.5,
+              2
+            ],
+            "to": [
+              0,
+              5.5,
+              3.5
+            ],
+            "color": "#FF7700",
+            "animated": true,
+            "entranceDelay": 1.1
+          },
+          {
+            "from": [
+              0,
+              5.5,
+              3.5
+            ],
+            "to": [
+              4.5,
+              4,
+              2
+            ],
+            "color": "#1a2d62",
+            "animated": true,
+            "entranceDelay": 1.2
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      }
+    },
+    {
+      "id": "s4",
+      "title": "1 592 filas de datos de prueba",
+      "content": "Cada pila de libros crece según cuántas filas tiene su tabla.",
+      "world": "Unidad 4 · The Numbers",
+      "environment": "academia",
+      "bullets": [
+        "La carga inicial no es simbólica: son 1 592 filas de datos ficticios pero verosímiles, con nombres y apellidos comunes en Costa Rica, correos realistas y fechas coherentes entre sí.",
+        "Las cifras por tabla: 100 estudiantes, 30 empleados, 20 grupos, 12 cursos, 12 aulas, 10 departamentos, 10 puestos, 6 niveles, 5 regiones y 5 sedes.",
+        "El movimiento del negocio también viene cargado: 137 matrículas con sus 137 pagos asociados (uno por matrícula, como manda la regla de negocio).",
+        "Las tablas de mayor volumen son ASISTENCIA, con 768 registros diarios, y EVALUACIONES, con 340 entre quizzes, exámenes parciales y tareas.",
+        "De los 100 estudiantes, 86 están activos y 14 inactivos; los inactivos existen a propósito para demostrar en vivo que el sistema les bloquea el inicio de sesión con el mensaje de cuenta inactiva.",
+        "El grupo 30004 quedó en estado ABIERTO y con cupo disponible: es el grupo oficial de las pruebas de matrícula del guion ACID.",
+        "Datos abundantes no son un capricho: con volúmenes realistas las consultas, los reportes y las validaciones se comportan como lo harían en producción."
+      ],
+      "cameraPosition": [
+        0,
+        13,
+        24
+      ],
+      "cameraTarget": [
+        0,
+        4,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "d1",
+            "position": [
+              -7,
+              0,
+              0
+            ],
+            "size": [
+              1.5,
+              13,
+              1.3
+            ],
+            "label": "ASISTENCIA · 768",
+            "color": "#22c55e",
+            "entranceDelay": 0,
+            "variant": "libros"
+          },
+          {
+            "id": "d2",
+            "position": [
+              -3.5,
+              0,
+              1
+            ],
+            "size": [
+              1.5,
+              7,
+              1.3
+            ],
+            "label": "EVALUACIONES · 340",
+            "color": "#f9a03f",
+            "entranceDelay": 0.12,
+            "variant": "libros"
+          },
+          {
+            "id": "d3",
+            "position": [
+              0,
+              0,
+              2
+            ],
+            "size": [
+              1.4,
+              4.2,
+              1.2
+            ],
+            "label": "MATRICULAS · 137",
+            "color": "#f26b65",
+            "entranceDelay": 0.24,
+            "variant": "libros"
+          },
+          {
+            "id": "d4",
+            "position": [
+              3,
+              0,
+              2
+            ],
+            "size": [
+              1.4,
+              4.2,
+              1.2
+            ],
+            "label": "PAGOS · 137",
+            "color": "#FF7700",
+            "entranceDelay": 0.36,
+            "variant": "libros"
+          },
+          {
+            "id": "d5",
+            "position": [
+              6,
+              0,
+              1
+            ],
+            "size": [
+              1.4,
+              3.6,
+              1.2
+            ],
+            "label": "ESTUDIANTES · 100",
+            "color": "#525fe1",
+            "entranceDelay": 0.48,
+            "variant": "libros"
+          },
+          {
+            "id": "d6",
+            "position": [
+              8.5,
+              0,
+              -1
+            ],
+            "size": [
+              1.2,
+              2.4,
+              1.1
+            ],
+            "label": "EMPLEADOS · 30",
+            "color": "#8b93f8",
+            "entranceDelay": 0.6,
+            "variant": "libros"
+          },
+          {
+            "id": "d7",
+            "position": [
+              -8.5,
+              0,
+              3
+            ],
+            "size": [
+              1.2,
+              2.2,
+              1.1
+            ],
+            "label": "GRUPOS · 20",
+            "color": "#1a2d62",
+            "entranceDelay": 0.72,
+            "variant": "libros"
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      }
+    },
+    {
+      "id": "s5",
+      "title": "Seguridad en tres niveles",
+      "content": "Cada usuario de Oracle puede hacer únicamente lo que necesita: ni más, ni menos.",
+      "world": "Unidad 5 · The Guardians",
+      "environment": "academia",
+      "bullets": [
+        "El enunciado exige un esquema de control de acceso con dueños de tablas, desarrolladores y usuarios finales; el proyecto lo implementa con tres usuarios y dos roles, aplicando el principio de mínimo privilegio.",
+        "REALENGLISH es el dueño del esquema: posee las 15 tablas, las 14 secuencias y absolutamente todo el código PL/SQL. Con este usuario se ejecutan los scripts de instalación.",
+        "RECR_DEV es el desarrollador: a través del rol ROL_DESARROLLADOR puede leer y escribir los datos y crear objetos de programa, pero no es dueño de nada.",
+        "RECR_APP es la aplicación web: con el rol ROL_USUARIO_FINAL solo puede ejecutar procedimientos y paquetes, y consultar vistas. No tiene SELECT, INSERT, UPDATE ni DELETE sobre ninguna tabla.",
+        "Los privilegios jamás se otorgan usuario por usuario: se conceden a los roles, y los roles se asignan a los usuarios. Administrar permisos se vuelve ordenado y auditable.",
+        "La consecuencia práctica es potente: si alguien robara las credenciales del sitio web, no podría leer la lista de estudiantes ni borrar una sola fila, porque RECR_APP simplemente no tiene esos permisos.",
+        "La creación de usuarios y roles la ejecuta el ADMIN del servicio en la nube (la parte A del script 01); los grants sobre los objetos los otorga REALENGLISH al final de la instalación (parte B).",
+        "Esta separación es exactamente la que pide la regla del profesor: el front-end nunca ejecuta un SELECT directo sobre las tablas."
+      ],
+      "cameraPosition": [
+        0,
+        9,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "v1",
+            "position": [
+              0,
+              0,
+              -2
+            ],
+            "size": [
+              1.7,
+              7,
+              1.5
+            ],
+            "label": "REALENGLISH · DUEÑO",
+            "color": "#525fe1",
+            "entranceDelay": 0,
+            "variant": "lapiz"
+          },
+          {
+            "id": "v2",
+            "position": [
+              -5.5,
+              0,
+              2
+            ],
+            "size": [
+              1.5,
+              5,
+              1.3
+            ],
+            "label": "RECR_DEV · DESARROLLA",
+            "color": "#f9a03f",
+            "entranceDelay": 0.15,
+            "variant": "lapiz"
+          },
+          {
+            "id": "v3",
+            "position": [
+              5.5,
+              0,
+              2
+            ],
+            "size": [
+              1.5,
+              3.6,
+              1.3
+            ],
+            "label": "RECR_APP · SOLO EJECUTA",
+            "color": "#f26b65",
+            "entranceDelay": 0.3,
+            "variant": "lapiz"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              0,
+              7,
+              -2
+            ],
+            "to": [
+              -5.5,
+              5,
+              2
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.5
+          },
+          {
+            "from": [
+              0,
+              7,
+              -2
+            ],
+            "to": [
+              5.5,
+              3.6,
+              2
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.65
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "CREATE ROLE rol_desarrollador;",
+        "CREATE ROLE rol_usuario_final;",
+        "GRANT EXECUTE ON pkg_matricula",
+        "  TO rol_usuario_final;",
+        "-- la app nunca recibe SELECT",
+        "-- sobre las tablas base"
+      ],
+      "codeTitle": "Script 01 — Control de acceso"
+    },
+    {
+      "id": "s6",
+      "title": "Contraseñas que nadie puede leer",
+      "content": "En toda la base de datos no existe ni una contraseña en texto plano.",
+      "world": "Unidad 6 · The Secret",
+      "environment": "academia",
+      "bullets": [
+        "Al sitio entran dos tipos de personas: los estudiantes (con su cédula y contraseña) y los empleados administrativos —la directora académica y los cinco coordinadores de sede— para el módulo de administración.",
+        "Lo que se guarda en la columna CLAVE_HASH de ESTUDIANTES y EMPLEADOS no es la contraseña: es un hash SHA-256 calculado sobre la cédula concatenada con la clave.",
+        "La cédula funciona como sal criptográfica: dos personas con la misma contraseña producen hashes completamente distintos, así que las tablas precalculadas de ataque no sirven de nada.",
+        "La validación ocurre dentro de la base de datos: fn_validar_estudiante y fn_validar_admin reciben cédula y clave, calculan el hash de lo que llegó y lo comparan con el guardado.",
+        "Las funciones devuelven 1 o 0, sin pistas: nunca dicen si lo que falló fue la cédula o la contraseña, para no regalarle información a un atacante.",
+        "El PHP no ve, no compara y no almacena contraseñas: solo pregunta y recibe la respuesta. Si la función devuelve 0, muestra un mensaje genérico.",
+        "Las cuentas inactivas devuelven 0 aunque la clave sea correcta: el sistema responde con el mensaje de cuenta inactiva, otra validación que se demuestra en vivo.",
+        "Los estudiantes nuevos eligen su contraseña al registrarse en el sitio, con un mínimo de ocho caracteres y doble confirmación del campo."
+      ],
+      "cameraPosition": [
+        0,
+        8,
+        17
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "h1",
+            "position": [
+              -5,
+              0,
+              0
+            ],
+            "size": [
+              1.4,
+              4.4,
+              1.2
+            ],
+            "label": "CÉDULA + CLAVE",
+            "color": "#8b93f8",
+            "entranceDelay": 0,
+            "variant": "bloques"
+          },
+          {
+            "id": "h2",
+            "position": [
+              0,
+              0,
+              -1
+            ],
+            "size": [
+              1.6,
+              6.2,
+              1.4
+            ],
+            "label": "SHA-256 + SAL",
+            "color": "#525fe1",
+            "entranceDelay": 0.2,
+            "variant": "bloques"
+          },
+          {
+            "id": "h3",
+            "position": [
+              5,
+              0,
+              0
+            ],
+            "size": [
+              1.4,
+              4.4,
+              1.2
+            ],
+            "label": "CLAVE_HASH",
+            "color": "#1a2d62",
+            "entranceDelay": 0.4,
+            "variant": "bloques"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -5,
+              4.4,
+              0
+            ],
+            "to": [
+              0,
+              6.2,
+              -1
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "entranceDelay": 0.55
+          },
+          {
+            "from": [
+              0,
+              6.2,
+              -1
+            ],
+            "to": [
+              5,
+              4.4,
+              0
+            ],
+            "color": "#1a2d62",
+            "animated": true,
+            "entranceDelay": 0.7
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "SELECT STANDARD_HASH(",
+        "  p_cedula || '::' || p_clave,",
+        "  'SHA256')",
+        "  INTO v_hash FROM dual;"
+      ],
+      "codeTitle": "fn_hash_clave — Script 12"
+    },
+    {
+      "id": "s7",
+      "title": "La instalación: 15 scripts en orden",
+      "content": "Toda la base se reconstruye desde cero corriendo los scripts numerados.",
+      "world": "Unidad 7 · The Foundation",
+      "environment": "academia",
+      "bullets": [
+        "Todo el back-end vive en Oracle Cloud Autonomous Database bajo el esquema REALENGLISH; la conexión desde SQL Developer usa el wallet de seguridad que Oracle entrega para cifrar la comunicación.",
+        "El script 00 crea las 15 tablas con todas sus restricciones y carga las 1 592 filas; el 01 crea los usuarios y roles del esquema de seguridad.",
+        "Los scripts 02 a 06 instalan el cuerpo PL/SQL del negocio: 15 funciones, 12 procedimientos, 3 paquetes con cursores, 6 triggers y 10 vistas.",
+        "Los scripts 07 a 10 completan la entrega final: los 15 paquetes CRUD (uno por tabla), los 15 cursores explícitos, el guion de pruebas ACID y los grants definitivos.",
+        "Los scripts 11 a 14 pulen los detalles: corrección de acentos, autenticación de administradores, ajuste de secuencias y autenticación de estudiantes.",
+        "Cada script se ejecuta completo con F5 en SQL Developer, con SET SERVEROUTPUT ON activo para ver los mensajes de confirmación que imprime cada bloque.",
+        "La verificación final es una sola consulta a user_objects: todos los objetos deben aparecer con estado VALID, agrupados por tipo.",
+        "Este diseño reproducible es también la red de seguridad del grupo: si algo se daña durante las pruebas, se corre el script base y la academia vuelve a su estado original en minutos."
+      ],
+      "cameraPosition": [
+        0,
+        9,
+        19
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "r1",
+            "position": [
+              -7,
+              0,
+              0
+            ],
+            "size": [
+              1.4,
+              4.4,
+              1.2
+            ],
+            "label": "00 · BASE",
+            "color": "#22c55e",
+            "entranceDelay": 0,
+            "variant": "libros"
+          },
+          {
+            "id": "r2",
+            "position": [
+              -3.5,
+              0,
+              -1
+            ],
+            "size": [
+              1.4,
+              5.2,
+              1.2
+            ],
+            "label": "01 · SEGURIDAD",
+            "color": "#f9a03f",
+            "entranceDelay": 0.12,
+            "variant": "libros"
+          },
+          {
+            "id": "r3",
+            "position": [
+              0,
+              0,
+              -2
+            ],
+            "size": [
+              1.5,
+              6,
+              1.3
+            ],
+            "label": "02-06 · PL/SQL",
+            "color": "#525fe1",
+            "entranceDelay": 0.24,
+            "variant": "libros"
+          },
+          {
+            "id": "r4",
+            "position": [
+              3.5,
+              0,
+              -1
+            ],
+            "size": [
+              1.4,
+              5.2,
+              1.2
+            ],
+            "label": "07-10 · FINAL",
+            "color": "#f26b65",
+            "entranceDelay": 0.36,
+            "variant": "libros"
+          },
+          {
+            "id": "r5",
+            "position": [
+              7,
+              0,
+              0
+            ],
+            "size": [
+              1.4,
+              4.4,
+              1.2
+            ],
+            "label": "11-14 · EXTRAS",
+            "color": "#8b93f8",
+            "entranceDelay": 0.48,
+            "variant": "libros"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -7,
+              4.4,
+              0
+            ],
+            "to": [
+              -3.5,
+              5.2,
+              -1
+            ],
+            "color": "#22c55e",
+            "animated": true,
+            "entranceDelay": 0.6
+          },
+          {
+            "from": [
+              -3.5,
+              5.2,
+              -1
+            ],
+            "to": [
+              0,
+              6,
+              -2
+            ],
+            "color": "#22c55e",
+            "animated": true,
+            "entranceDelay": 0.7
+          },
+          {
+            "from": [
+              0,
+              6,
+              -2
+            ],
+            "to": [
+              3.5,
+              5.2,
+              -1
+            ],
+            "color": "#22c55e",
+            "animated": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              3.5,
+              5.2,
+              -1
+            ],
+            "to": [
+              7,
+              4.4,
+              0
+            ],
+            "color": "#22c55e",
+            "animated": true,
+            "entranceDelay": 0.9
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "SELECT object_type, COUNT(*)",
+        "  FROM user_objects",
+        " WHERE status = 'VALID'",
+        " GROUP BY object_type;"
+      ],
+      "codeTitle": "Verificación de la instalación"
+    },
+    {
+      "id": "s8",
+      "title": "El proceso estrella: la matrícula",
+      "content": "Una sola transacción: o se matricula con su pago, o no pasa absolutamente nada.",
+      "world": "Unidad 8 · Enrollment Day",
+      "environment": "academia",
+      "bullets": [
+        "sp_matricular_estudiante es el procedimiento más importante del proyecto: implementa la matrícula como una transacción atómica de principio a fin.",
+        "Las validaciones van en cadena y cada una lanza su propia excepción: estudiante inexistente o inactivo (ORA-20001), grupo inexistente (ORA-20002), grupo que no está ABIERTO (ORA-20003), grupo sin cupo (ORA-20004) y estudiante ya matriculado en ese grupo (ORA-20005).",
+        "Las funciones de apoyo hacen el trabajo fino: fn_cupo_disponible calcula los espacios reales del grupo y fn_precio_grupo determina el monto que se va a cobrar.",
+        "Si todas las validaciones pasan, el procedimiento inserta la matrícula en estado ACTIVA y genera automáticamente el pago asociado en estado PENDIENTE, con fecha de vencimiento a ocho días.",
+        "El cierre es con COMMIT; si cualquier paso falla, se ejecuta ROLLBACK y se propaga la excepción: es imposible que quede una matrícula sin su pago o un pago sin su matrícula.",
+        "Cada excepción viaja con su código y su mensaje hasta el front-end, que los muestra tal cual: el usuario sabe exactamente por qué no se pudo matricular.",
+        "Detalle de diseño importante: el procedimiento no toca el cupo del grupo. De eso se encarga un trigger, como se ve en la siguiente unidad.",
+        "También existen los procedimientos complementarios del ciclo: sp_retirar_matricula (libera el cupo y anula pagos pendientes), sp_registrar_pago y sp_marcar_pagos_atrasados."
+      ],
+      "cameraPosition": [
+        0,
+        9,
+        19
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "m1",
+            "position": [
+              -8,
+              0,
+              0
+            ],
+            "size": [
+              1.3,
+              3.6,
+              1.2
+            ],
+            "label": "VALIDAR ×5",
+            "color": "#8b93f8",
+            "entranceDelay": 0,
+            "variant": "globo"
+          },
+          {
+            "id": "m2",
+            "position": [
+              -4,
+              0,
+              -1.5
+            ],
+            "size": [
+              1.4,
+              4.6,
+              1.2
+            ],
+            "label": "MATRÍCULA",
+            "color": "#f472b6",
+            "entranceDelay": 0.15,
+            "variant": "globo"
+          },
+          {
+            "id": "m3",
+            "position": [
+              0,
+              0,
+              -2
+            ],
+            "size": [
+              1.4,
+              5.4,
+              1.2
+            ],
+            "label": "PAGO",
+            "color": "#FF7700",
+            "entranceDelay": 0.3,
+            "variant": "globo"
+          },
+          {
+            "id": "m4",
+            "position": [
+              4,
+              0,
+              -1.5
+            ],
+            "size": [
+              1.5,
+              6.2,
+              1.3
+            ],
+            "label": "COMMIT",
+            "color": "#22c55e",
+            "entranceDelay": 0.45,
+            "variant": "globo"
+          },
+          {
+            "id": "m5",
+            "position": [
+              8,
+              0,
+              0
+            ],
+            "size": [
+              1.3,
+              3.2,
+              1.2
+            ],
+            "label": "ROLLBACK",
+            "color": "#ef4444",
+            "entranceDelay": 0.6,
+            "variant": "globo"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -8,
+              3.6,
+              0
+            ],
+            "to": [
+              -4,
+              4.6,
+              -1.5
+            ],
+            "color": "#8b93f8",
+            "animated": true,
+            "entranceDelay": 0.7
+          },
+          {
+            "from": [
+              -4,
+              4.6,
+              -1.5
+            ],
+            "to": [
+              0,
+              5.4,
+              -2
+            ],
+            "color": "#f26b65",
+            "animated": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              0,
+              5.4,
+              -2
+            ],
+            "to": [
+              4,
+              6.2,
+              -1.5
+            ],
+            "color": "#22c55e",
+            "animated": true,
+            "entranceDelay": 0.9
+          },
+          {
+            "from": [
+              0,
+              5.4,
+              -2
+            ],
+            "to": [
+              8,
+              3.2,
+              0
+            ],
+            "color": "#ef4444",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 1.0
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "IF fn_cupo_disponible(p_grupo) <= 0",
+        "  THEN RAISE_APPLICATION_ERROR(",
+        "    -20004, 'Grupo sin cupo');",
+        "END IF;",
+        "INSERT INTO matriculas (...);",
+        "INSERT INTO pagos (...);",
+        "COMMIT;"
+      ],
+      "codeTitle": "sp_matricular_estudiante (extracto)"
+    },
+    {
+      "id": "s9",
+      "title": "Los triggers: el cupo se cuida solo",
+      "content": "Seis vigilantes automáticos reaccionan aunque nadie los llame.",
+      "world": "Unidad 9 · The Watchers",
+      "environment": "academia",
+      "bullets": [
+        "trg_cupo_matriculas es el vigilante principal: ante cualquier INSERT, UPDATE o DELETE sobre MATRICULAS actualiza el cupo_actual del grupo, y lo cierra automáticamente cuando se llena o lo reabre cuando se libera espacio.",
+        "Por eso el procedimiento de matrícula no suma ni resta cupo: aunque alguien insertara una matrícula por fuera del procedimiento, el trigger mantiene el número correcto. La regla vive en la base, no en el código de la aplicación.",
+        "El clásico error de tabla mutante (ORA-04091) no ocurre aquí, y es una pregunta casi segura del profesor: el trigger modifica GRUPOS, que es una tabla distinta de MATRICULAS, la que lo dispara. Nunca lee la tabla en plena modificación.",
+        "trg_aud_matriculas y trg_aud_pagos son los cronistas: escriben en BITACORA cada inserción, actualización y borrado, con la operación, la tabla, el usuario, la fecha y los valores involucrados.",
+        "Gracias a ellos, BITACORA —que nace vacía— se convierte en la evidencia de auditoría: después del guion de pruebas se consulta y ahí está la historia completa de lo que pasó.",
+        "Los otros tres (trg_bi_estudiantes, trg_bi_matriculas y trg_bi_pagos) autoasignan el identificador con la secuencia, pero solo cuando viene nulo: así conviven con los datos históricos que traen ID explícito.",
+        "Los seis triggers juntos cubren los tres usos clásicos: integridad del negocio (cupo), auditoría (bitácora) y generación de llaves (IDs)."
+      ],
+      "cameraPosition": [
+        0,
+        8,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "g1",
+            "position": [
+              -5,
+              0,
+              -1
+            ],
+            "size": [
+              1.5,
+              5.2,
+              1.3
+            ],
+            "label": "MATRICULAS",
+            "color": "#f26b65",
+            "entranceDelay": 0,
+            "variant": "edificio"
+          },
+          {
+            "id": "g2",
+            "position": [
+              0,
+              0,
+              -2
+            ],
+            "size": [
+              1.6,
+              6.2,
+              1.4
+            ],
+            "label": "TRIGGER",
+            "color": "#525fe1",
+            "entranceDelay": 0.2,
+            "variant": "edificio"
+          },
+          {
+            "id": "g3",
+            "position": [
+              5,
+              0,
+              -1
+            ],
+            "size": [
+              1.5,
+              5.2,
+              1.3
+            ],
+            "label": "GRUPOS",
+            "color": "#f9a03f",
+            "entranceDelay": 0.4,
+            "variant": "edificio"
+          },
+          {
+            "id": "g4",
+            "position": [
+              0,
+              0,
+              3.5
+            ],
+            "size": [
+              1.4,
+              4,
+              1.2
+            ],
+            "label": "BITACORA",
+            "color": "#1a2d62",
+            "entranceDelay": 0.55,
+            "variant": "edificio"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -5,
+              5.2,
+              -1
+            ],
+            "to": [
+              0,
+              6.2,
+              -2
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "entranceDelay": 0.7
+          },
+          {
+            "from": [
+              0,
+              6.2,
+              -2
+            ],
+            "to": [
+              5,
+              5.2,
+              -1
+            ],
+            "color": "#f9a03f",
+            "animated": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              0,
+              6.2,
+              -2
+            ],
+            "to": [
+              0,
+              4,
+              3.5
+            ],
+            "color": "#1a2d62",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.9
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "CREATE OR REPLACE TRIGGER",
+        "  trg_cupo_matriculas",
+        "AFTER INSERT OR UPDATE OR DELETE",
+        "  ON matriculas FOR EACH ROW",
+        "BEGIN",
+        "  UPDATE grupos",
+        "     SET cupo_actual = ...",
+        "END;"
+      ],
+      "codeTitle": "Script 05 — Triggers (extracto)"
+    },
+    {
+      "id": "s10",
+      "title": "Paquetes: la biblioteca del sistema",
+      "content": "Dieciocho paquetes y ochenta y siete procedimientos, ordenados como libros.",
+      "world": "Unidad 10 · The Library",
+      "environment": "academia",
+      "bullets": [
+        "Los paquetes agrupan la lógica en unidades con especificación y cuerpo, como los libros de una biblioteca: se sabe qué ofrecen por fuera sin ver cómo están escritos por dentro.",
+        "Tres paquetes de negocio: pkg_matricula encapsula el proceso estrella, pkg_reportes imprime reportes recorriendo cursores explícitos y pkg_auditoria consulta la bitácora.",
+        "Quince paquetes CRUD, uno por tabla (pkg_estudiantes_crud, pkg_pagos_crud, pkg_grupos_crud...), cada uno con listar, obtener, insertar, actualizar y eliminar: unos 75 procedimientos en total.",
+        "Sumando los 12 procedimientos sueltos del negocio, el proyecto queda con 87 procedimientos almacenados en total.",
+        "Los listados devuelven un SYS_REFCURSOR: el paquete abre el cursor y se lo entrega abierto al PHP, que lo recorre con oci_fetch sin haber visto jamás la tabla.",
+        "Los 15 cursores explícitos del script 08 muestran el control manual completo: DECLARE, OPEN, FETCH y CLOSE, con los atributos %FOUND, %NOTFOUND y %ROWCOUNT.",
+        "Todos los errores de los paquetes usan los mismos códigos del sistema (-20001 a -20005), así el front-end interpreta cualquier falla con una sola tabla de mensajes.",
+        "Las fechas viajan como texto en formato 'YYYY-MM-DD' y se convierten con TO_DATE dentro del paquete: un solo punto de conversión, cero ambigüedad de formatos."
+      ],
+      "cameraPosition": [
+        0,
+        10,
+        20
+      ],
+      "cameraTarget": [
+        0,
+        3.5,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "k1",
+            "position": [
+              -6,
+              0,
+              -1
+            ],
+            "size": [
+              1.6,
+              6.5,
+              1.4
+            ],
+            "label": "NEGOCIO ×3",
+            "color": "#525fe1",
+            "entranceDelay": 0,
+            "variant": "libros"
+          },
+          {
+            "id": "k2",
+            "position": [
+              0,
+              0,
+              -2
+            ],
+            "size": [
+              1.8,
+              8,
+              1.5
+            ],
+            "label": "CRUD ×15",
+            "color": "#f26b65",
+            "entranceDelay": 0.2,
+            "variant": "libros"
+          },
+          {
+            "id": "k3",
+            "position": [
+              6,
+              0,
+              -1
+            ],
+            "size": [
+              1.5,
+              5.2,
+              1.3
+            ],
+            "label": "CURSORES ×15",
+            "color": "#8b93f8",
+            "entranceDelay": 0.4,
+            "variant": "libros"
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "PROCEDURE listar",
+        "  (p_cursor OUT SYS_REFCURSOR) IS",
+        "BEGIN",
+        "  OPEN p_cursor FOR",
+        "    SELECT ... FROM estudiantes;",
+        "END listar;"
+      ],
+      "codeTitle": "pkg_estudiantes_crud (extracto)"
+    },
+    {
+      "id": "s11",
+      "title": "Diez vistas: los miradores",
+      "content": "La aplicación consulta por los miradores, nunca entra a la bodega de datos.",
+      "world": "Unidad 11 · The Views",
+      "environment": "academia",
+      "bullets": [
+        "Las diez vistas v_* son la única lectura directa que tiene el usuario final: RECR_APP recibe SELECT sobre las vistas y sobre nada más.",
+        "Vistas operativas para el día a día: v_estudiantes_activos, v_grupos_abiertos, v_matriculas_detalle, v_pagos_pendientes y v_pagos_atrasados.",
+        "Vistas gerenciales para tomar decisiones: v_ingresos_por_sede, v_ocupacion_grupos, v_promedio_por_grupo, v_carga_profesores y v_estudiantes_por_nivel.",
+        "Cada vista ya trae los JOIN resueltos y las columnas con nombres claros: el front-end recibe el nombre completo del estudiante y la descripción del nivel, no códigos crudos que haya que traducir.",
+        "Las vistas también son una capa de seguridad: pueden exponer exactamente las columnas necesarias y ocultar las sensibles. CLAVE_HASH, por ejemplo, no aparece en ninguna vista y jamás viaja al navegador.",
+        "Si mañana cambia la estructura interna de una tabla, la vista se ajusta y la aplicación ni se entera: la vista es el contrato estable entre la base y el sitio.",
+        "Cada una de las diez vistas tiene un propósito real: se usa en el sitio, en los reportes o en las consultas de verificación."
+      ],
+      "cameraPosition": [
+        0,
+        8,
+        17
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "w1",
+            "position": [
+              -6,
+              0,
+              0
+            ],
+            "size": [
+              1.4,
+              4.4,
+              1.2
+            ],
+            "label": "OPERATIVAS ×5",
+            "color": "#525fe1",
+            "entranceDelay": 0,
+            "variant": "edificio"
+          },
+          {
+            "id": "w2",
+            "position": [
+              0,
+              0,
+              -2
+            ],
+            "size": [
+              1.5,
+              5.4,
+              1.3
+            ],
+            "label": "GERENCIALES ×5",
+            "color": "#FF7700",
+            "entranceDelay": 0.15,
+            "variant": "edificio"
+          },
+          {
+            "id": "w3",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "size": [
+              1.4,
+              3.4,
+              1.2
+            ],
+            "label": "RECR_APP",
+            "color": "#f26b65",
+            "entranceDelay": 0.3,
+            "variant": "edificio"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -6,
+              4.4,
+              0
+            ],
+            "to": [
+              6,
+              3.4,
+              0
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.5
+          },
+          {
+            "from": [
+              0,
+              5.4,
+              -2
+            ],
+            "to": [
+              6,
+              3.4,
+              0
+            ],
+            "color": "#FF7700",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.65
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "CREATE OR REPLACE VIEW",
+        "  v_estudiantes_activos AS",
+        "SELECT e.estudiante_id, e.cedula,",
+        "       n.codigo AS nivel",
+        "  FROM estudiantes e",
+        "  LEFT JOIN niveles n",
+        "    ON n.nivel_id = e.nivel_actual_id",
+        " WHERE e.activo = 'S';"
+      ],
+      "codeTitle": "Script 06 — Vistas (extracto)"
+    },
+    {
+      "id": "s12",
+      "title": "El sitio web: el camino de un clic",
+      "content": "Del navegador a Oracle y de vuelta, sin un solo SELECT escrito en PHP.",
+      "world": "Unidad 12 · The Website",
+      "environment": "academia",
+      "bullets": [
+        "El sitio de Real English CR usa la plantilla Edulab con 18 páginas públicas: inicio, cursos, precios, contacto, registro e inicio de sesión, todas en español y con precios en colones.",
+        "Corre en XAMPP (Apache + PHP 8.2) con el patrón MVC calcado del curso paralelo SC-502: las vistas pintan, los controladores deciden y el modelo conversa con Oracle.",
+        "La conexión usa el driver oficial OCI8 con el Instant Client y el wallet de Oracle Cloud, siempre autenticado como RECR_APP, el usuario que solo puede ejecutar paquetes.",
+        "El camino de un clic en el panel de administración: el navegador llama a admin.php, el AdminController identifica la operación y la tabla, y el CrudModel arma un bloque PL/SQL anónimo con parámetros con nombre.",
+        "El bloque invoca al paquete correspondiente —por ejemplo REALENGLISH.pkg_estudiantes_crud.listar— y recibe de vuelta un SYS_REFCURSOR abierto que el modelo recorre con oci_fetch.",
+        "Entidades.php es el mapa del sistema: describe las 15 tablas con sus columnas, llaves y etiquetas, y gracias a él un único modelo genérico maneja el CRUD completo de todas las tablas.",
+        "El login del sitio valida con fn_validar_estudiante o fn_validar_admin según quién entra, y el registro de estudiantes nuevos asigna la contraseña con sp_asignar_clave_estudiante.",
+        "En todo el código PHP no existe ni un SELECT, INSERT, UPDATE o DELETE directo: la regla más estricta del curso, cumplida al pie de la letra."
+      ],
+      "cameraPosition": [
+        0,
+        9,
+        20
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "f1",
+            "position": [
+              -8,
+              0,
+              0
+            ],
+            "size": [
+              1.3,
+              3.6,
+              1.2
+            ],
+            "label": "NAVEGADOR",
+            "color": "#8b93f8",
+            "entranceDelay": 0,
+            "variant": "lapiz"
+          },
+          {
+            "id": "f2",
+            "position": [
+              -4,
+              0,
+              -1.5
+            ],
+            "size": [
+              1.4,
+              4.4,
+              1.2
+            ],
+            "label": "CONTROLLER",
+            "color": "#525fe1",
+            "entranceDelay": 0.15,
+            "variant": "lapiz"
+          },
+          {
+            "id": "f3",
+            "position": [
+              0,
+              0,
+              -2
+            ],
+            "size": [
+              1.4,
+              5.2,
+              1.2
+            ],
+            "label": "MODEL",
+            "color": "#1a2d62",
+            "entranceDelay": 0.3,
+            "variant": "lapiz"
+          },
+          {
+            "id": "f4",
+            "position": [
+              4,
+              0,
+              -1.5
+            ],
+            "size": [
+              1.4,
+              6,
+              1.2
+            ],
+            "label": "OCI8",
+            "color": "#f26b65",
+            "entranceDelay": 0.45,
+            "variant": "lapiz"
+          },
+          {
+            "id": "f5",
+            "position": [
+              8,
+              0,
+              0
+            ],
+            "size": [
+              1.5,
+              7,
+              1.3
+            ],
+            "label": "ORACLE",
+            "color": "#22c55e",
+            "entranceDelay": 0.6,
+            "variant": "lapiz"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -8,
+              3.6,
+              0
+            ],
+            "to": [
+              -4,
+              4.4,
+              -1.5
+            ],
+            "color": "#8b93f8",
+            "animated": true,
+            "entranceDelay": 0.7
+          },
+          {
+            "from": [
+              -4,
+              4.4,
+              -1.5
+            ],
+            "to": [
+              0,
+              5.2,
+              -2
+            ],
+            "color": "#525fe1",
+            "animated": true,
+            "entranceDelay": 0.8
+          },
+          {
+            "from": [
+              0,
+              5.2,
+              -2
+            ],
+            "to": [
+              4,
+              6,
+              -1.5
+            ],
+            "color": "#1a2d62",
+            "animated": true,
+            "entranceDelay": 0.9
+          },
+          {
+            "from": [
+              4,
+              6,
+              -1.5
+            ],
+            "to": [
+              8,
+              7,
+              0
+            ],
+            "color": "#f26b65",
+            "animated": true,
+            "entranceDelay": 1.0
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "$sql = 'BEGIN REALENGLISH.",
+        "  pkg_estudiantes_crud",
+        "  .listar(:cur); END;';",
+        "$stmt = oci_parse($conn, $sql);",
+        "$cur  = oci_new_cursor($conn);",
+        "oci_bind_by_name($stmt, ':cur',",
+        "  $cur, -1, OCI_B_CURSOR);",
+        "oci_execute($stmt);"
+      ],
+      "codeTitle": "CrudModel.php (extracto)"
+    },
+    {
+      "id": "s13",
+      "title": "Las pruebas ACID: el examen final",
+      "content": "Ocho pruebas en vivo; hasta el error ORA-20005 es una prueba que pasa.",
+      "world": "Unidad 13 · The Test",
+      "environment": "academia",
+      "bullets": [
+        "Como todo en una academia, el sistema también hace examen: el guion del script 09 corre ocho pruebas sobre el grupo 30004 y va imprimiendo cada resultado con DBMS_OUTPUT.",
+        "Atomicidad: la matrícula crea a la vez el registro y su pago; cuando algo falla a medio camino, el ROLLBACK garantiza que no queda nada a medias.",
+        "Integridad: matricular dos veces al mismo estudiante en el mismo grupo dispara ORA-20005 sin crear datos. Ese error en pantalla no es un fallo: es la validación funcionando, y así se explica en la defensa.",
+        "Consistencia: el trigger mantiene cupo_actual siempre coherente; sube al matricular, baja al retirar, y el grupo se cierra solo al llenarse y se reabre al liberarse un espacio.",
+        "Aislamiento: con dos sesiones de SQL Developer abiertas se demuestra que una transacción sin COMMIT es invisible para la otra sesión; al confirmar, aparece.",
+        "Durabilidad: después del COMMIT los datos y su rastro en BITACORA sobreviven al cierre de la sesión, y ahí quedan para la auditoría.",
+        "Las pruebas 6, 7 y 8 completan el cuadro: los reportes con cursores del pkg_reportes, la bitácora poblada por los triggers y las vistas devolviendo la información ya actualizada.",
+        "Este guion se corre en vivo durante la defensa y se van explicando los resultados conforme aparecen en pantalla."
+      ],
+      "cameraPosition": [
+        0,
+        9,
+        18
+      ],
+      "cameraTarget": [
+        0,
+        3,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "a1",
+            "position": [
+              -6,
+              0,
+              0
+            ],
+            "size": [
+              1.5,
+              5.2,
+              1.3
+            ],
+            "label": "ATOMICIDAD",
+            "color": "#525fe1",
+            "entranceDelay": 0,
+            "variant": "bloques"
+          },
+          {
+            "id": "a2",
+            "position": [
+              -2,
+              0,
+              -2
+            ],
+            "size": [
+              1.5,
+              5.2,
+              1.3
+            ],
+            "label": "CONSISTENCIA",
+            "color": "#22c55e",
+            "entranceDelay": 0.15,
+            "variant": "bloques"
+          },
+          {
+            "id": "a3",
+            "position": [
+              2,
+              0,
+              -2
+            ],
+            "size": [
+              1.5,
+              5.2,
+              1.3
+            ],
+            "label": "AISLAMIENTO",
+            "color": "#8b93f8",
+            "entranceDelay": 0.3,
+            "variant": "bloques"
+          },
+          {
+            "id": "a4",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "size": [
+              1.5,
+              5.2,
+              1.3
+            ],
+            "label": "DURABILIDAD",
+            "color": "#f9a03f",
+            "entranceDelay": 0.45,
+            "variant": "bloques"
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      },
+      "code": [
+        "PROMPT PRUEBA 3: duplicado",
+        "BEGIN",
+        "  sp_matricular_estudiante",
+        "    (11001, 30004);",
+        "EXCEPTION WHEN OTHERS THEN",
+        "  -- ORA-20005 esperado",
+        "  DBMS_OUTPUT.PUT_LINE(SQLERRM);",
+        "END;"
+      ],
+      "codeTitle": "Script 09 — Pruebas ACID"
+    },
+    {
+      "id": "s15",
+      "title": "Conclusiones: fin del curso",
+      "content": "Lo que queda después de construir el sistema completo.",
+      "world": "Unidad 14 · Farewell",
+      "environment": "academia",
+      "bullets": [
+        "El proyecto recorrió el ciclo completo de un sistema transaccional real: definición del problema, modelo relacional, modelo físico en la nube, control de acceso, cuerpo PL/SQL, front-end web y pruebas formales.",
+        "La seguridad quedó construida en capas que se refuerzan entre sí: roles con mínimo privilegio, acceso a datos únicamente por paquetes, contraseñas con hash y sal dentro de la base, y auditoría automática por triggers.",
+        "La lección de arquitectura más importante: las reglas del negocio viven dentro de la base de datos. El cupo, las validaciones y la auditoría funcionan igual sin importar desde dónde se toquen los datos.",
+        "Las propiedades ACID se comprueban corriendo el guion de pruebas en vivo, con sus errores esperados incluidos.",
+        "El sistema es reproducible de punta a punta: cualquier integrante del grupo lo levanta desde cero con los scripts numerados, el wallet y esta misma base en Oracle Cloud.",
+        "Trabajo futuro: pruebas formales de concurrencia con múltiples sesiones simultáneas, ampliación del módulo de reportes gerenciales y notificaciones de pagos por vencer.",
+        "La defensa es de 15 minutos con el sistema funcionando en vivo: la matrícula desde el sitio, los objetos en SQL Developer y las pruebas corriendo.",
+        "Proyecto del Grupo F: Granados, Pérez, Rodríguez y Valverde. SC-504 Lenguajes de Bases de Datos, Universidad Fidélitas, 2026."
+      ],
+      "cameraPosition": [
+        0,
+        10,
+        21
+      ],
+      "cameraTarget": [
+        0,
+        4,
+        0
+      ],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "academia",
+        "fogDensity": 0.0045,
+        "entranceDuration": 1.2,
+        "buildings": [
+          {
+            "id": "z1",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "size": [
+              1.8,
+              8,
+              1.5
+            ],
+            "label": "REAL ENGLISH CR",
+            "color": "#525fe1",
+            "entranceDelay": 0,
+            "variant": "globo"
+          },
+          {
+            "id": "z2",
+            "position": [
+              -5.5,
+              0,
+              2
+            ],
+            "size": [
+              1.4,
+              4.6,
+              1.2
+            ],
+            "label": "ORACLE CLOUD",
+            "color": "#22c55e",
+            "entranceDelay": 0.2,
+            "variant": "globo"
+          },
+          {
+            "id": "z3",
+            "position": [
+              5.5,
+              0,
+              2
+            ],
+            "size": [
+              1.4,
+              4.6,
+              1.2
+            ],
+            "label": "PHP + OCI8",
+            "color": "#f26b65",
+            "entranceDelay": 0.4,
+            "variant": "globo"
+          }
+        ],
+        "connections": [
+          {
+            "from": [
+              -5.5,
+              4.6,
+              2
+            ],
+            "to": [
+              0,
+              8,
+              0
+            ],
+            "color": "#22c55e",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.6
+          },
+          {
+            "from": [
+              5.5,
+              4.6,
+              2
+            ],
+            "to": [
+              0,
+              8,
+              0
+            ],
+            "color": "#f26b65",
+            "animated": true,
+            "curved": true,
+            "entranceDelay": 0.7
+          }
+        ],
+        "lightWorld": true,
+        "backgroundColor": "#cfd9f6",
+        "exposure": 1.0,
+        "showStars": false,
+        "showShootingStars": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "title": "Lumen Health — Ciudad de la Mente y los Datos",
+  "theme": "lumen-city",
+  "visualStyle": "mundo explorable 3d cinematico",
+  "scenes": [
+    {
+      "id": "lc1",
+      "title": "Plaza de Llegada",
+      "content": "Bienvenido a Lumen Health, la plataforma de salud mental. Esta ciudad es un Data Warehouse vivo: cada edificio es una fuente de datos, cada puente es un proceso ETL y la torre central es donde todo converge para generar conocimiento.",
+      "world": "Ciudad de la Mente",
+      "environment": "lumen-city",
+      "cameraPosition": [0, 6, -28],
+      "cameraTarget": [0, 4, 0],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-city",
+        "backgroundColor": "#0a0f1e",
+        "accentColor": "#06b6d4",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.012,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 2
+      }
+    },
+    {
+      "id": "lc2",
+      "title": "Torre de Citas Médicas",
+      "content": "La Torre de Citas representa el sistema interno que registra cada atención: quién atiende, a qué paciente, en qué fecha, con qué especialidad y qué duración. Es una de las fuentes más ricas del Data Warehouse.",
+      "world": "Ciudad de la Mente",
+      "environment": "lumen-city",
+      "cameraPosition": [-22, 10, -14],
+      "cameraTarget": [-9, 5, -5],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-city",
+        "backgroundColor": "#0a0f1e",
+        "accentColor": "#22d3ee",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.012,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lc3",
+      "title": "Canal ETL: Extracción y Transformación",
+      "content": "Los datos no pueden cruzar la ciudad en bruto. El canal ETL extrae registros de la torre, los limpia, valida duplicados, normaliza formatos y los transforma en información lista para el análisis.",
+      "world": "Ciudad de la Mente",
+      "environment": "lumen-city",
+      "cameraPosition": [-10, 5, 0],
+      "cameraTarget": [0, 7, 10],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-city",
+        "backgroundColor": "#0a0f1e",
+        "accentColor": "#f59e0b",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.012,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lc4",
+      "title": "Torre del Data Warehouse",
+      "content": "La torre central es el Data Warehouse: un repositorio unificado, histórico y orientado a análisis. Aquí convergen datos de todas las fuentes, organizados para responder preguntas estratégicas.",
+      "world": "Ciudad de la Mente",
+      "environment": "lumen-city",
+      "cameraPosition": [8, 8, 14],
+      "cameraTarget": [0, 9, 10],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-city",
+        "backgroundColor": "#0a0f1e",
+        "accentColor": "#a855f7",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.012,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lc5",
+      "title": "Núcleo de Hechos y Anillos Dimensionales",
+      "content": "En el corazón de la torre reside la tabla de hechos, con medidas como número de citas y tiempo de atención. A su alrededor orbitan las dimensiones: tiempo, paciente, profesional, especialidad, sede y estado.",
+      "world": "Ciudad de la Mente",
+      "environment": "lumen-city",
+      "cameraPosition": [0, 14, 16],
+      "cameraTarget": [0, 14, 10],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-city",
+        "backgroundColor": "#0a0f1e",
+        "accentColor": "#fbbf24",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.012,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    },
+    {
+      "id": "lc6",
+      "title": "Observatorio de KPIs",
+      "content": "En lo alto de la ciudad, el Observatorio transforma los datos en indicadores visuales: tasas de absentismo, satisfacción del paciente, ocupación de profesionales y cumplimiento de metas. Conocimiento que mejora decisiones.",
+      "world": "Ciudad de la Mente",
+      "environment": "lumen-city",
+      "cameraPosition": [18, 15, 8],
+      "cameraTarget": [12, 14, 2],
+      "interactiveElements": [],
+      "visualConfig": {
+        "theme": "lumen-city",
+        "backgroundColor": "#0a0f1e",
+        "accentColor": "#10b981",
+        "showStars": false,
+        "showShootingStars": false,
+        "fogDensity": 0.012,
+        "exposure": 0.85,
+        "isExplorable": true,
+        "entranceDuration": 1.5
+      }
+    }
+  ]
+}

@@ -10,7 +10,7 @@ body,
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #050510;
+  background: #cfd9f6;
   color: #ffffff;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, sans-serif;
@@ -709,15 +709,21 @@ body,
   min-height: 0;
   max-height: none;
   overflow-y: auto;
+  padding-bottom: 0.9rem;
+  scrollbar-gutter: stable;
 }
 
 .scene-panel.light .scene-panel-bullets li {
   color: #1a2d62;
-  font-size: clamp(15.5px, 1.28vw, 19px);
+  font-size: clamp(15px, 1.22vw, 18px);
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.42;
   text-align: justify;
-  margin-bottom: 0.55em;
+  margin-bottom: 0.45em;
+}
+
+.scene-panel.light .scene-panel-bullets li:last-child {
+  margin-bottom: 0;
 }
 
 .scene-panel.light {
@@ -734,6 +740,24 @@ body,
   flex-direction: column;
   max-height: calc(100vh - 64px);
   overflow: hidden;
+  position: relative;
+}
+
+/* Si aun asi queda texto abajo, se desvanece en vez de verse cortado */
+.scene-panel.light .scene-panel-body::after {
+  content: '';
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 1px;
+  height: 30px;
+  pointer-events: none;
+  border-radius: 0 0 16px 16px;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 .scene-panel.light .scene-panel-codeblock {

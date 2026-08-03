@@ -5,9 +5,73 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Real English CR — Presentación 3D</title>
+    <style>
+      #boot-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #cfd9f6;
+        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+        transition: opacity 0.6s ease;
+      }
+      #boot-loader.done { opacity: 0; pointer-events: none; }
+      .boot-card { text-align: center; }
+      .boot-title {
+        color: #1a2d62;
+        font-size: clamp(28px, 4vw, 52px);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      .boot-text {
+        color: #525fe1;
+        font-size: clamp(14px, 1.3vw, 18px);
+        font-weight: 600;
+        margin-top: 0.4em;
+      }
+      .boot-bar {
+        width: min(280px, 60vw);
+        height: 4px;
+        margin: 1.4em auto 0;
+        border-radius: 999px;
+        background: rgba(82, 95, 225, 0.18);
+        overflow: hidden;
+      }
+      .boot-bar span {
+        display: block;
+        width: 40%;
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #525fe1, #f26b65);
+        animation: boot-slide 1.2s ease-in-out infinite;
+      }
+      @keyframes boot-slide {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(250%); }
+      }
+    </style>
   </head>
   <body>
+    <div id="boot-loader">
+      <div class="boot-card">
+        <div class="boot-title">Real English CR</div>
+        <div class="boot-text">Cargando el campus&hellip;</div>
+        <div class="boot-bar"><span></span></div>
+      </div>
+    </div>
     <div id="root"></div>
+    <script>
+      // Por si el 3D falla: la pantalla de carga nunca se queda pegada.
+      setTimeout(function () {
+        var boot = document.getElementById('boot-loader')
+        if (boot) {
+          boot.classList.add('done')
+          setTimeout(function () { boot.remove() }, 700)
+        }
+      }, 12000)
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

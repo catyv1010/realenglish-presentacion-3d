@@ -1,7 +1,7 @@
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePresentationStore } from '../../store/usePresentationStore'
 import { SceneController } from './SceneController'
 import { PostProcessing } from './PostProcessing'
@@ -39,6 +39,27 @@ function SceneToneMapping() {
   return null
 }
 
+// Quita la pantalla de carga hasta que el mundo 3D ya dibujo sus primeros
+// cuadros. Se cuenta con useFrame porque el bucle de render no arranca sino
+// hasta que terminaron de compilarse los materiales de la escena.
+function BootLoaderGate() {
+  const frames = useRef(0)
+  const done = useRef(false)
+
+  useFrame(() => {
+    if (done.current) return
+    frames.current += 1
+    if (frames.current < 4) return
+    done.current = true
+    const boot = document.getElementById('boot-loader')
+    if (!boot) return
+    boot.classList.add('done')
+    window.setTimeout(() => boot.remove(), 700)
+  })
+
+  return null
+}
+
 export function SceneCanvas() {
   const quality = usePresentationStore((state) => state.quality)
   const currentSceneIndex = usePresentationStore((state) => state.currentSceneIndex)
@@ -61,6 +82,7 @@ export function SceneCanvas() {
         toneMappingExposure: 0.9,
       }}
     >
+      <BootLoaderGate />
       <SceneBackground />
       <SceneToneMapping />
 

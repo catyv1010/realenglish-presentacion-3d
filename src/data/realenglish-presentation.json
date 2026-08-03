@@ -549,7 +549,7 @@
       "bullets": [
         "La carga inicial no es simbólica: son 1 592 filas de datos ficticios pero verosímiles, con nombres y apellidos comunes en Costa Rica, correos realistas y fechas coherentes entre sí.",
         "Las cifras por tabla: 100 estudiantes, 30 empleados, 20 grupos, 12 cursos, 12 aulas, 10 departamentos, 10 puestos, 6 niveles, 5 regiones y 5 sedes.",
-        "El movimiento del negocio también viene cargado: 137 matrículas con sus 137 pagos asociados (uno por matrícula, como manda la regla de negocio).",
+        "El movimiento del negocio también viene cargado: la carga inicial trae 137 matrículas con sus 137 pagos asociados (uno por matrícula, como manda la regla de negocio); en la base actual son 138, porque las pruebas del front-end dejaron una matrícula más.",
         "Las tablas de mayor volumen son ASISTENCIA, con 768 registros diarios, y EVALUACIONES, con 340 entre quizzes, exámenes parciales y tareas.",
         "De los 100 estudiantes, 86 están activos y 14 inactivos; los inactivos existen a propósito para demostrar en vivo que el sistema les bloquea el inicio de sesión con el mensaje de cuenta inactiva.",
         "El grupo 30004 quedó en estado ABIERTO y con cupo disponible: es el grupo oficial de las pruebas de matrícula del guion ACID.",
@@ -971,7 +971,7 @@
       "bullets": [
         "Todo el back-end vive en Oracle Cloud Autonomous Database bajo el esquema REALENGLISH; la conexión desde SQL Developer usa el wallet de seguridad que Oracle entrega para cifrar la comunicación.",
         "El script 00 crea las 15 tablas con todas sus restricciones y carga las 1 592 filas; el 01 crea los usuarios y roles del esquema de seguridad.",
-        "Los scripts 02 a 06 instalan el cuerpo PL/SQL del negocio: 15 funciones, 12 procedimientos, 3 paquetes con cursores, 6 triggers y 10 vistas.",
+        "Los scripts 02 a 06 instalan el cuerpo PL/SQL del negocio: funciones, procedimientos, 3 paquetes con cursores, 8 disparadores y 10 vistas; los scripts 12 y 14 agregan las funciones de autenticación, para un total de 18 funciones y 15 procedimientos sueltos.",
         "Los scripts 07 a 10 completan la entrega final: los 15 paquetes CRUD (uno por tabla), los 15 cursores explícitos, el guion de pruebas ACID y los grants definitivos.",
         "Los scripts 11 a 14 pulen los detalles: corrección de acentos, autenticación de administradores, ajuste de secuencias y autenticación de estudiantes.",
         "Cada script se ejecuta completo con F5 en SQL Developer, con SET SERVEROUTPUT ON activo para ver los mensajes de confirmación que imprime cada bloque.",
@@ -1530,7 +1530,7 @@
         "Los paquetes agrupan la lógica en unidades con especificación y cuerpo, como los libros de una biblioteca: se sabe qué ofrecen por fuera sin ver cómo están escritos por dentro.",
         "Tres paquetes de negocio: pkg_matricula encapsula el proceso estrella, pkg_reportes imprime reportes recorriendo cursores explícitos y pkg_auditoria consulta la bitácora.",
         "Quince paquetes CRUD, uno por tabla (pkg_estudiantes_crud, pkg_pagos_crud, pkg_grupos_crud...), cada uno con listar, obtener, insertar, actualizar y eliminar: unos 75 procedimientos en total.",
-        "Sumando los 12 procedimientos sueltos del negocio, el proyecto queda con 87 procedimientos almacenados en total.",
+        "Sumando los 15 procedimientos sueltos del negocio, el proyecto queda con 90 procedimientos almacenados en total.",
         "Los listados devuelven un SYS_REFCURSOR: el paquete abre el cursor y se lo entrega abierto al PHP, que lo recorre con oci_fetch sin haber visto jamás la tabla.",
         "Los 15 cursores explícitos del script 08 muestran el control manual completo: DECLARE, OPEN, FETCH y CLOSE, con los atributos %FOUND, %NOTFOUND y %ROWCOUNT.",
         "Todos los errores de los paquetes usan los mismos códigos del sistema (-20001 a -20005), así el front-end interpreta cualquier falla con una sola tabla de mensajes.",

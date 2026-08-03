@@ -117,7 +117,7 @@ export function CanopyEnvironment({ scene, quality }: ThemeEnvironmentProps) {
     return layers
   }, [mistCount])
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (!mistRef.current) return
     mistRef.current.children.forEach((m, i) => {
       m.position.x += delta * mists[i % mists.length].speed

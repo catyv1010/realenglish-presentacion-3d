@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { usePresentationStore } from '../../store/usePresentationStore'
 import { getTheme } from '../../themes/registry'
 
@@ -27,12 +27,57 @@ export function SceneOverlay() {
   const togglePanel = usePresentationStore((state) => state.togglePanel)
   const collapsed = !panelOpen
   const [visible, setVisible] = useState(true)
+  const listaRef = useRef<HTMLUListElement>(null)
 
   useEffect(() => {
     setVisible(false)
     const id = window.setTimeout(() => setVisible(true), 60)
     return () => window.clearTimeout(id)
   }, [currentSceneIndex])
+
+  // Ajuste automatico del tamano del texto: arranca en el mas grande y baja de
+  // medio punto en medio punto hasta que los bullets entren sin scroll. Asi cada
+  // escena usa la letra mas grande posible y nunca hay que desplazar en vivo.
+  useLayoutEffect(() => {
+    const lista = listaRef.current
+    if (!lista) return
+
+    const MAX = 20
+    const MIN = 14
+    const COMODO = 17 // por debajo de esto ya cuesta leerlo proyectado
+
+    // Baja de medio en medio punto hasta que los bullets entren sin scroll.
+    const encoger = () => {
+      let px = MAX
+      lista.style.setProperty('--bullet-size', `${px}px`)
+      let vueltas = 0
+      while (lista.scrollHeight > lista.clientHeight + 1 && px > MIN && vueltas < 40) {
+        px -= 0.5
+        lista.style.setProperty('--bullet-size', `${px}px`)
+        vueltas += 1
+      }
+      return px
+    }
+
+    const ajustar = () => {
+      const bloque = lista.parentElement?.querySelector<HTMLElement>('.scene-panel-codeblock')
+      if (bloque) bloque.style.maxHeight = ''
+      const px = encoger()
+      // Si el texto quedo demasiado chico y hay fragmento de codigo, el codigo
+      // cede altura (conserva su scroll propio) y se reintenta con letra mayor.
+      if (px < COMODO && bloque) {
+        bloque.style.maxHeight = '92px'
+        encoger()
+      }
+    }
+
+    ajustar()
+    // Recalcular cuando terminen de cargar las tipografias y al cambiar de tamano
+    // la ventana (por ejemplo al pasar a pantalla completa para exponer).
+    document.fonts?.ready.then(ajustar).catch(() => {})
+    window.addEventListener('resize', ajustar)
+    return () => window.removeEventListener('resize', ajustar)
+  }, [currentSceneIndex, collapsed])
 
   if (!scene) return null
 
@@ -67,7 +112,7 @@ export function SceneOverlay() {
           <p className="scene-panel-sub">{scene.content}</p>
 
           {bullets.length > 0 && (
-            <ul className="scene-panel-bullets">
+            <ul className="scene-panel-bullets" ref={listaRef}>
               {bullets.map((bullet, i) => (
                 <li key={i}>{bullet}</li>
               ))}

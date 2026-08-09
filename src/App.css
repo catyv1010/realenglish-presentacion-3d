@@ -688,14 +688,16 @@ body,
 
 .scene-panel.light .scene-panel-title {
   color: #1a2d62;
-  font-size: clamp(30px, 2.9vw, 44px);
+  font-size: clamp(26px, 2.05vw, 35px);
+  line-height: 1.08;
   font-weight: 800;
   letter-spacing: -0.01em;
 }
 
 .scene-panel.light .scene-panel-sub {
   color: #3c477a;
-  font-size: clamp(16px, 1.3vw, 20px);
+  font-size: clamp(15px, 1.05vw, 17.5px);
+  line-height: 1.45;
   font-weight: 600;
 }
 
@@ -715,30 +717,37 @@ body,
 
 .scene-panel.light .scene-panel-bullets li {
   color: #1a2d62;
-  font-size: clamp(15px, 1.22vw, 18px);
-  font-weight: 700;
-  line-height: 1.42;
-  text-align: justify;
-  margin-bottom: 0.45em;
+  /* El tamano lo calcula SceneOverlay: busca el mas grande que entre sin scroll. */
+  font-size: var(--bullet-size, 18px);
+  font-weight: 600;
+  line-height: 1.46;
+  text-align: left;
+  margin-bottom: 0.6em;
 }
 
 .scene-panel.light .scene-panel-bullets li:last-child {
   margin-bottom: 0;
 }
 
+/* Columna angosta que ocupa toda la altura de la pantalla, de arriba a abajo.
+   Al fijar top y bottom a la vez, el panel se estira; el mundo 3D gana ancho. */
 .scene-panel.light {
-  left: 14px;
-  bottom: 14px;
-  max-width: min(780px, 46vw);
+  left: clamp(14px, 1.2vw, 24px);
+  top: clamp(14px, 1.6vh, 22px);
+  bottom: clamp(14px, 1.6vh, 22px);
+  width: min(600px, 36vw);
+  max-width: min(600px, 36vw);
 }
 
 .scene-panel.light .scene-panel-body {
-  max-width: min(780px, 46vw);
-  padding: 1rem 1.1rem;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  padding: 1.35rem 1.5rem 1.2rem;
   margin: 0;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 64px);
   overflow: hidden;
   position: relative;
 }
@@ -762,7 +771,7 @@ body,
 
 .scene-panel.light .scene-panel-codeblock {
   flex-shrink: 0;
-  max-height: 30vh;
+  max-height: 168px;
   overflow-y: auto;
 }
 
@@ -772,9 +781,12 @@ body,
   flex-shrink: 0;
 }
 
+/* El panel ahora llega hasta arriba: el boton va DENTRO, en la esquina superior
+   derecha, porque afuera quedaria fuera de la pantalla. */
 .scene-panel.light .scene-panel-toggle {
-  top: -38px;
-  left: 4px;
+  top: 14px;
+  left: auto;
+  right: 14px;
 }
 
 .scene-panel.light .scene-panel-sub {
@@ -786,7 +798,8 @@ body,
 }
 
 .scene-panel.light .scene-panel-code {
-  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.55;
 }
 
 .scene-panel.light .scene-panel-codeblock {

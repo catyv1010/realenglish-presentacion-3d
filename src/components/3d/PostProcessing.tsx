@@ -6,6 +6,7 @@ import {
   Noise,
   HueSaturation,
   BrightnessContrast,
+  N8AO,
 } from '@react-three/postprocessing'
 import { usePresentationStore } from '../../store/usePresentationStore'
 import type { QualityLevel } from '../../types/presentation'
@@ -56,12 +57,37 @@ function HighQualityEffects() {
  * se sube un poco el contraste y la saturación para que los colores revienten.
  */
 function LightWorldEffects({ quality }: { quality: QualityLevel }) {
+  // Dos versiones enteras en vez de un hijo condicional: EffectComposer no
+  // admite `false` ni fragmentos entre sus hijos (queda la pantalla en negro).
+  if (quality === 'low') {
+    return (
+      <EffectComposer multisampling={0}>
+        <Bloom intensity={0.32} luminanceThreshold={0.86} luminanceSmoothing={0.3} mipmapBlur />
+        <HueSaturation saturation={0.2} />
+        <BrightnessContrast brightness={-0.01} contrast={0.13} />
+        <Vignette eskil={false} offset={0.26} darkness={0.32} />
+      </EffectComposer>
+    )
+  }
+
   return (
-    <EffectComposer multisampling={quality === 'low' ? 0 : 4}>
-      <Bloom intensity={0.28} luminanceThreshold={0.88} luminanceSmoothing={0.3} mipmapBlur />
-      <HueSaturation saturation={0.22} />
-      <BrightnessContrast brightness={-0.02} contrast={0.14} />
-      <Vignette eskil={false} offset={0.28} darkness={0.28} />
+    <EffectComposer multisampling={4}>
+      {/* Oclusión ambiental: la sombra suave que aparece donde dos cosas se
+          tocan. Es lo que hace que los árboles se vean apoyados en el suelo y
+          no pegados encima. Siempre a media resolución: con este estilo de
+          polígonos planos la diferencia no se ve y cuesta la mitad. */}
+      <N8AO
+        aoRadius={2.2}
+        distanceFalloff={1.1}
+        intensity={2.4}
+        color="#2a3a5c"
+        quality={quality === 'high' ? 'medium' : 'low'}
+        halfRes
+      />
+      <Bloom intensity={0.32} luminanceThreshold={0.86} luminanceSmoothing={0.3} mipmapBlur />
+      <HueSaturation saturation={0.2} />
+      <BrightnessContrast brightness={-0.01} contrast={0.13} />
+      <Vignette eskil={false} offset={0.26} darkness={0.32} />
     </EffectComposer>
   )
 }

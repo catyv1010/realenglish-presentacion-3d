@@ -22,6 +22,12 @@ export function isFreeGround(x: number, z: number, alturaAprox = 5): boolean {
   // El monumento del libro abierto.
   if (x * x + (z + 30) * (z + 30) < 90) return false
 
+  // La laguna: ni arboles dentro del agua ni zacate flotando.
+  const dxL = x - LAGUNA[0]
+  const dzL = z - LAGUNA[1]
+  const radioLaguna = alturaAprox < 2 ? LAGUNA_R + 0.8 : LAGUNA_R + 2.5
+  if (dxL * dxL + dzL * dzL < radioLaguna * radioLaguna) return false
+
   if (alturaAprox < 2) return true
 
   // 2. Pasillo de la camara: enfrente del campus no se planta nada alto, y en
@@ -39,3 +45,7 @@ export function isFreeGround(x: number, z: number, alturaAprox = 5): boolean {
 
 /** Radio del camino circular por donde caminan los estudiantes. */
 export const RADIO_CAMINO = 11.5
+
+/** Centro y radio de la laguna, en el costado derecho del campus. */
+export const LAGUNA: [number, number] = [27, -22]
+export const LAGUNA_R = 8

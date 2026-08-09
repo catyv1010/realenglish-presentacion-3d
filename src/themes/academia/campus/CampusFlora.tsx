@@ -54,6 +54,7 @@ export function CampusFlora({ quality }: CampusFloraProps) {
   const nArboles = quality === 'high' ? 66 : quality === 'medium' ? 42 : 24
   const nZacate = quality === 'high' ? 900 : quality === 'medium' ? 480 : 200
   const nFlores = quality === 'high' ? 300 : quality === 'medium' ? 160 : 70
+  const nArbustos = quality === 'high' ? 54 : quality === 'medium' ? 30 : 14
 
   /* ---------------- Reparto de los arboles en el terreno ---------------- */
   const arboles = useMemo<Arbol[]>(() => {
@@ -131,7 +132,38 @@ export function CampusFlora({ quality }: CampusFloraProps) {
     partes.forEach((p) => p.dispose())
     return merged
   }, [])
-  const geoFlor = useMemo(() => new THREE.SphereGeometry(0.12, 6, 5), [])
+  // Una flor es tallo + botón. Solo el botón (una esfera suelta en el aire) se
+  // veía como una bolita de chicle tirada en el zacate.
+  const geoFlor = useMemo(() => {
+    const tallo = new THREE.CylinderGeometry(0.012, 0.016, 0.34, 4)
+    tallo.translate(0, 0.17, 0)
+    const boton = new THREE.SphereGeometry(0.075, 6, 5)
+    boton.translate(0, 0.36, 0)
+    const merged = mergeGeometries([tallo, boton]) ?? boton.clone()
+    tallo.dispose()
+    boton.dispose()
+    return merged
+  }, [])
+  // Arbustos: tres bolas pegadas. Llenan el hueco de altura que quedaba entre
+  // el zacate (medio metro) y los arboles (seis metros), que es justo lo que
+  // hacia que el campus se viera vacio a media altura.
+  const geoArbusto = useMemo(() => {
+    const partes: THREE.BufferGeometry[] = []
+    const posiciones: [number, number, number][] = [
+      [0, 0.5, 0],
+      [0.55, 0.34, 0.2],
+      [-0.45, 0.38, -0.25],
+    ]
+    const escalas = [0.62, 0.44, 0.48]
+    posiciones.forEach((p, i) => {
+      const b = new THREE.IcosahedronGeometry(escalas[i], 1)
+      b.translate(p[0], p[1], p[2])
+      partes.push(b)
+    })
+    const merged = mergeGeometries(partes) ?? new THREE.IcosahedronGeometry(0.6, 1)
+    partes.forEach((p) => p.dispose())
+    return merged
+  }, [])
 
   const troncos = useRef<THREE.InstancedMesh>(null)
   const copas = useRef<THREE.InstancedMesh>(null)
@@ -139,6 +171,7 @@ export function CampusFlora({ quality }: CampusFloraProps) {
   const hojas = useRef<THREE.InstancedMesh>(null)
   const zacate = useRef<THREE.InstancedMesh>(null)
   const flores = useRef<THREE.InstancedMesh>(null)
+  const arbustos = useRef<THREE.InstancedMesh>(null)
 
   // Se arma una lista por tipo de follaje para poder mecerlas por separado.
   const { copasData, conosData, hojasData } = useMemo(() => {
@@ -246,8 +279,8 @@ export function CampusFlora({ quality }: CampusFloraProps) {
         const x = Math.cos(a) * r
         const z = Math.sin(a) * r
         if (!isFreeGround(x, z, 1.2)) continue
-        const s = esFlor ? range(rng, 0.8, 1.5) : range(rng, 0.7, 1.4)
-        pos.set(x, esFlor ? range(rng, 0.14, 0.3) : 0, z)
+        const s = esFlor ? range(rng, 0.75, 1.35) : range(rng, 0.7, 1.4)
+        pos.set(x, 0, z)
         e.set(0, rng() * Math.PI, range(rng, -0.1, 0.1))
         esc.set(s, s, s)
         m.compose(pos, q.setFromEuler(e), esc)
@@ -270,7 +303,37 @@ export function CampusFlora({ quality }: CampusFloraProps) {
     }
     colocarSuelo(zacate.current, nZacate, false)
     colocarSuelo(flores.current, nFlores, true)
-  }, [arboles, copasData, conosData, hojasData, nZacate, nFlores])
+
+    // Arbustos: se apoyan en el mismo mapa de zonas libres que los arboles,
+    // pero pueden acercarse mas a la plaza porque no tapan nada.
+    if (arbustos.current) {
+      const rngA = makeRng(2024)
+      let puestos = 0
+      let intentos = 0
+      while (puestos < nArbustos && intentos < nArbustos * 40) {
+        intentos++
+        const a = rngA() * Math.PI * 2
+        const r = range(rngA, 14, 40)
+        const x = Math.cos(a) * r
+        const z = Math.sin(a) * r
+        if (!isFreeGround(x, z, 1.9)) continue
+        const t = range(rngA, 0.75, 1.6)
+        pos.set(x, 0, z)
+        e.set(0, rngA() * Math.PI * 2, 0)
+        esc.set(t, t * range(rngA, 0.8, 1.15), t)
+        m.compose(pos, q.setFromEuler(e), esc)
+        arbustos.current.setMatrixAt(puestos, m)
+        arbustos.current.setColorAt(puestos, new THREE.Color(pick(rngA, VERDES)).offsetHSL(0, 0.02, range(rngA, -0.06, 0.04)))
+        puestos++
+      }
+      for (let i = puestos; i < nArbustos; i++) {
+        m.compose(pos.set(0, -50, 0), q.identity(), esc.set(0.001, 0.001, 0.001))
+        arbustos.current.setMatrixAt(i, m)
+      }
+      arbustos.current.instanceMatrix.needsUpdate = true
+      if (arbustos.current.instanceColor) arbustos.current.instanceColor.needsUpdate = true
+    }
+  }, [arboles, copasData, conosData, hojasData, nZacate, nFlores, nArbustos])
 
   /* ---------------- El viento ---------------- */
   const tmp = useMemo(
@@ -329,6 +392,10 @@ export function CampusFlora({ quality }: CampusFloraProps) {
 
       <instancedMesh ref={flores} args={[geoFlor, undefined, nFlores]}>
         <meshStandardMaterial roughness={0.7} metalness={0} emissiveIntensity={0.1} />
+      </instancedMesh>
+
+      <instancedMesh ref={arbustos} args={[geoArbusto, undefined, nArbustos]} castShadow receiveShadow>
+        <meshStandardMaterial roughness={0.92} metalness={0} flatShading />
       </instancedMesh>
     </group>
   )

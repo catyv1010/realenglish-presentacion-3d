@@ -173,9 +173,84 @@ function Conejo({ centro, radio, velocidad, fase }: { centro: [number, number]; 
 }
 
 /* ------------------------------------------------------------------ */
-/* Arbol protagonista con tucan y perezoso                              */
+/* Mono carablanca: uno sentado en la rama y otro colgando de la cola   */
 /* ------------------------------------------------------------------ */
-function ArbolConVida({ position, giro, conTucan, conPerezoso }: { position: [number, number, number]; giro: number; conTucan: boolean; conPerezoso: boolean }) {
+function MonoSentado({ position }: { position: [number, number, number] }) {
+  const cabeza = useRef<THREE.Group>(null)
+  const cola = useRef<THREE.Group>(null)
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime
+    if (cabeza.current) cabeza.current.rotation.y = Math.sin(t * 0.9) * 0.6
+    if (cola.current) cola.current.rotation.x = -0.9 + Math.sin(t * 1.4) * 0.3
+  })
+
+  const oscuro = mat('#4a3728', { roughness: 0.95 })
+  const claro = mat('#e8dcc4', { roughness: 0.9 })
+
+  return (
+    <group position={position}>
+      <mesh geometry={GEO.cuerpoConejo} material={oscuro} scale={[0.85, 1.05, 0.8]} castShadow />
+      <mesh geometry={GEO.cuerpoConejo} material={claro} position={[0, 0.02, 0.1]} scale={[0.6, 0.75, 0.5]} />
+      <group ref={cabeza} position={[0, 0.24, 0.02]}>
+        <mesh geometry={GEO.cabezaConejo} material={oscuro} scale={1.1} />
+        <mesh geometry={GEO.cabezaConejo} material={claro} position={[0, -0.01, 0.07]} scale={[0.85, 0.85, 0.7]} />
+        <mesh geometry={GEO.cola} material={oscuro} position={[-0.12, 0.02, 0]} scale={0.55} />
+        <mesh geometry={GEO.cola} material={oscuro} position={[0.12, 0.02, 0]} scale={0.55} />
+      </group>
+      {/* La cola, larga y enroscada: es lo que lo hace mono y no oso */}
+      <group ref={cola} position={[0, -0.05, -0.14]}>
+        <mesh geometry={GEO.garra} material={oscuro} position={[0, -0.18, -0.02]} scale={[1.3, 2.6, 1.3]} />
+        <mesh geometry={GEO.garra} material={oscuro} position={[0.06, -0.42, 0.05]} rotation={[0.8, 0, 0.4]} scale={[1.2, 2, 1.2]} />
+      </group>
+      {/* Bracitos agarrados a la rama */}
+      <mesh geometry={GEO.garra} material={oscuro} position={[-0.14, -0.02, 0.06]} rotation={[0, 0, 0.5]} scale={[1, 1.8, 1]} />
+      <mesh geometry={GEO.garra} material={oscuro} position={[0.14, -0.02, 0.06]} rotation={[0, 0, -0.5]} scale={[1, 1.8, 1]} />
+    </group>
+  )
+}
+
+function MonoColgando({ position }: { position: [number, number, number] }) {
+  const grupo = useRef<THREE.Group>(null)
+
+  useFrame((state) => {
+    // Se hamaquea despacio, colgado de un brazo.
+    if (grupo.current) grupo.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.85) * 0.32
+  })
+
+  const oscuro = mat('#4a3728', { roughness: 0.95 })
+  const claro = mat('#e8dcc4', { roughness: 0.9 })
+
+  return (
+    <group ref={grupo} position={position}>
+      <mesh geometry={GEO.garra} material={oscuro} position={[0, -0.16, 0]} scale={[1.2, 2.4, 1.2]} />
+      <mesh geometry={GEO.cuerpoConejo} material={oscuro} position={[0, -0.5, 0]} scale={[0.72, 0.95, 0.7]} castShadow />
+      <mesh geometry={GEO.cuerpoConejo} material={claro} position={[0, -0.5, 0.08]} scale={[0.5, 0.65, 0.45]} />
+      <mesh geometry={GEO.cabezaConejo} material={oscuro} position={[0, -0.78, 0.02]} scale={1} />
+      <mesh geometry={GEO.cabezaConejo} material={claro} position={[0, -0.79, 0.08]} scale={[0.8, 0.8, 0.65]} />
+      {/* Piernas recogidas */}
+      <mesh geometry={GEO.garra} material={oscuro} position={[-0.1, -0.72, 0.06]} rotation={[0.9, 0, 0.4]} scale={[1.1, 1.8, 1.1]} />
+      <mesh geometry={GEO.garra} material={oscuro} position={[0.1, -0.72, 0.06]} rotation={[0.9, 0, -0.4]} scale={[1.1, 1.8, 1.1]} />
+    </group>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Arbol protagonista con tucan, perezoso y monos                       */
+/* ------------------------------------------------------------------ */
+function ArbolConVida({
+  position,
+  giro,
+  conTucan,
+  conPerezoso,
+  conMonos = false,
+}: {
+  position: [number, number, number]
+  giro: number
+  conTucan: boolean
+  conPerezoso: boolean
+  conMonos?: boolean
+}) {
   const tucan = useRef<THREE.Group>(null)
   const perezoso = useRef<THREE.Group>(null)
   const cabezaTucan = useRef<THREE.Group>(null)
@@ -200,6 +275,18 @@ function ArbolConVida({ position, giro, conTucan, conPerezoso }: { position: [nu
 
       {/* La rama donde se para el tucan y cuelga el perezoso */}
       <mesh geometry={GEO.rama} material={mat('#5c3f2d', { roughness: 0.95 })} position={[1.5, 3.6, 0.7]} rotation={[0, 0, -Math.PI / 2.3]} castShadow />
+
+      {/* Segunda rama, al otro lado, para los monos */}
+      {conMonos && (
+        <mesh geometry={GEO.rama} material={mat('#5c3f2d', { roughness: 0.95 })} position={[-1.6, 4.6, -0.5]} rotation={[0, 0.5, Math.PI / 2.2]} castShadow />
+      )}
+
+      {conMonos && (
+        <>
+          <MonoSentado position={[-2.4, 4.95, -0.85]} />
+          <MonoColgando position={[-3.3, 4.35, -0.95]} />
+        </>
+      )}
 
       {conTucan && (
         <group ref={tucan} position={[2.6, 3.62, 0.7]} rotation={[0, -0.5, 0]}>
@@ -290,9 +377,9 @@ export function CampusWildlife({ quality }: CampusWildlifeProps) {
       {/* El arbol de los animales va pegado al borde derecho de la plaza: es
           la unica franja donde ni el panel de texto de la izquierda ni el
           bosque del fondo lo pueden tapar. Lleva el tucan Y el perezoso. */}
-      <ArbolConVida position={[14, 0, -8]} giro={-0.75} conTucan conPerezoso />
+      <ArbolConVida position={[14, 0, -8]} giro={-0.75} conTucan conPerezoso conMonos />
       {/* Otro al fondo, para que el de la derecha no parezca puesto a mano. */}
-      <ArbolConVida position={[-20, 0, -16]} giro={2.2} conTucan conPerezoso={false} />
+      <ArbolConVida position={[-20, 0, -16]} giro={2.2} conTucan conPerezoso={false} conMonos />
     </group>
   )
 }

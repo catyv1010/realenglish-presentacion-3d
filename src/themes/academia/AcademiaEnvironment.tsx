@@ -7,6 +7,10 @@ import { CampusFlora } from './campus/CampusFlora'
 import { CampusPeople } from './campus/CampusPeople'
 import { CampusWildlife } from './campus/CampusWildlife'
 import { CampusProps } from './campus/CampusProps'
+import { CampusSky } from './campus/CampusSky'
+import { CampusPond } from './campus/CampusPond'
+import { CampusFauna } from './campus/CampusFauna'
+import { CampusLeaves } from './campus/CampusLeaves'
 
 const NIVELES = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 const NIVEL_COLORS = ['#22c55e', '#84cc16', '#f59e0b', '#FF7700', '#f26b65', '#525fe1']
@@ -17,9 +21,12 @@ export function AcademiaEnvironment({ scene, quality }: ThemeEnvironmentProps) {
   const cloudsRef = useRef<THREE.Group>(null)
 
   useEffect(() => {
+    // La niebla tiene que ser del color del HORIZONTE de la cúpula, no del
+    // cenit: si no, los volcanes del fondo se recortan contra un cielo de otro
+    // color y se ve el truco.
     const fogDensity = config?.fogDensity ?? 0.0045
-    scene3d.background = new THREE.Color('#dbe4ff')
-    scene3d.fog = new THREE.FogExp2('#dbe4ff', fogDensity)
+    scene3d.background = new THREE.Color('#dfe9ff')
+    scene3d.fog = new THREE.FogExp2('#dfe9ff', fogDensity)
   }, [config?.fogDensity, scene3d])
 
   const cloudCount = quality === 'high' ? 10 : quality === 'medium' ? 7 : 4
@@ -111,15 +118,8 @@ export function AcademiaEnvironment({ scene, quality }: ThemeEnvironmentProps) {
       {/* Relleno frío desde el lado opuesto: quita los negros sucios. */}
       <directionalLight position={[-30, 24, -20]} intensity={0.28} color="#cfd9f6" />
 
-      {/* Sol */}
-      <mesh position={[42, 46, -70]}>
-        <sphereGeometry args={[5, 24, 24]} />
-        <meshBasicMaterial color="#ffe9a3" />
-      </mesh>
-      <mesh position={[42, 46, -70]}>
-        <sphereGeometry args={[7.5, 24, 24]} />
-        <meshBasicMaterial color="#fff3c4" transparent opacity={0.16} depthWrite={false} />
-      </mesh>
+      {/* El cielo, el sol y la cordillera del fondo */}
+      <CampusSky quality={quality} />
 
       {/* El zacate de todo el campus */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.07, 0]} receiveShadow>
@@ -228,11 +228,14 @@ export function AcademiaEnvironment({ scene, quality }: ThemeEnvironmentProps) {
         </Billboard>
       </group>
 
-      {/* La vida del campus: bosque, gente, fauna y mobiliario */}
+      {/* La vida del campus: bosque, laguna, gente, fauna y mobiliario */}
       <CampusFlora quality={quality} />
       <CampusProps quality={quality} />
+      <CampusPond quality={quality} />
       <CampusPeople quality={quality} />
       <CampusWildlife quality={quality} />
+      <CampusFauna quality={quality} />
+      <CampusLeaves quality={quality} />
 
       {/* Nubes que pasean */}
       <group ref={cloudsRef}>

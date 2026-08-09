@@ -10,13 +10,12 @@
       "world": "Unidad 1 · Welcome!",
       "environment": "academia",
       "bullets": [
-        "Real English CR es una academia ficticia de enseñanza del idioma inglés con presencia en cinco sedes distribuidas estratégicamente en Costa Rica: San José, Heredia, Cartago, Alajuela y Liberia.",
-        "Este es el proyecto final del curso SC-504 Lenguajes de Bases de Datos de la Universidad Fidélitas, desarrollado por el Grupo F: Granados González, Pérez Calderón, Rodríguez Arroyo y Valverde Arroyo.",
-        "La academia organiza toda su oferta con el Marco Común Europeo de Referencia (MCER): seis niveles que van desde A1 (principiante) hasta C2 (dominio pleno).",
-        "El corazón técnico es una base de datos transaccional en Oracle Cloud Autonomous Database, con todo el cuerpo del negocio programado en PL/SQL: funciones, procedimientos, paquetes, triggers, cursores y vistas.",
-        "El sitio web de la academia está construido con la plantilla Edulab (HTML5, CSS3, Bootstrap) en PHP con patrón MVC, y se conecta a Oracle mediante el driver oficial OCI8.",
-        "El diseño de datos parte de los esquemas didácticos HR y Academic de Oracle, adaptados al contexto costarricense: cédulas, teléfonos de ocho dígitos, montos en colones y pagos por SINPE Móvil.",
-        "El recorrido de hoy: el problema del negocio, el modelo de 15 tablas, la seguridad en tres niveles, el proceso estrella de matrícula, el sitio web y las pruebas ACID que demuestran que todo funciona."
+        "Real English CR es una academia ficticia de inglés con cinco sedes: San José, Heredia, Cartago, Alajuela y Liberia.",
+        "Proyecto final de SC-504, Universidad Fidélitas. Grupo F: Granados, Pérez, Rodríguez y Valverde.",
+        "La oferta se organiza con el MCER: seis niveles, de A1 principiante hasta C2 dominio pleno.",
+        "El back-end es Oracle Cloud Autonomous Database, con todo el negocio programado en PL/SQL.",
+        "El sitio es PHP con patrón MVC sobre la plantilla Edulab, conectado por el driver oficial OCI8.",
+        "El recorrido: el problema, las 15 tablas, la seguridad, la matrícula, el sitio y las pruebas ACID."
       ],
       "cameraPosition": [
         0,
@@ -200,13 +199,12 @@
       "world": "Unidad 2 · The Problem",
       "environment": "academia",
       "bullets": [
-        "La academia necesita administrar procesos que se cruzan entre sí todo el tiempo: registro de estudiantes clasificados por nivel MCER, contratación y asignación de profesores, apertura de grupos por horario y modalidad, matrícula, pagos, control de asistencia y evaluaciones.",
-        "Los grupos se ofrecen en tres modalidades (presencial, virtual e híbrida) y en distintos horarios, lo que multiplica las combinaciones posibles y los choques potenciales de aulas y profesores.",
-        "Sin un sistema integrado los riesgos son concretos y caros: grupos con sobrecupo porque dos personas matricularon al mismo tiempo, pagos que nadie registró, estudiantes matriculados sin cumplir prerrequisitos y cero trazabilidad de quién hizo qué.",
-        "Los pagos deben manejar los métodos reales del mercado costarricense: efectivo, tarjeta, transferencia bancaria y SINPE Móvil, siempre en colones.",
-        "El proceso más complejo del negocio —y por eso el elegido como proceso estrella del proyecto— es la matrícula: exige validar al estudiante, al grupo, el cupo y los duplicados, y generar el cobro, todo como una sola operación indivisible.",
-        "El enunciado del proyecto pide exactamente eso: implementar el proceso de mayor complejidad mediante procedimientos almacenados, funciones y triggers, codificados en el lenguaje del motor de base de datos.",
-        "La meta final: que las cinco sedes trabajen sobre los mismos datos, con las reglas del negocio guardadas dentro de la base de datos y no en la memoria de los empleados."
+        "La academia cruza siete procesos: estudiantes, profesores, grupos, matrícula, pagos, asistencia y evaluaciones.",
+        "Los grupos se abren en tres modalidades —presencial, virtual e híbrida— y en distintos horarios.",
+        "Sin un sistema integrado: grupos con sobrecupo, pagos que nadie registró, matrículas sin prerrequisitos y cero trazabilidad.",
+        "Los pagos usan los métodos reales del país: efectivo, tarjeta, transferencia y SINPE Móvil, siempre en colones.",
+        "El proceso más complejo es la matrícula: valida estudiante, grupo, cupo y duplicados, y genera el cobro.",
+        "Todo eso tiene que ocurrir como una sola operación indivisible. Por eso es el proceso estrella."
       ],
       "cameraPosition": [
         0,
@@ -324,14 +322,14 @@
       "world": "Unidad 3 · The Blueprint",
       "environment": "academia",
       "bullets": [
-        "El modelo se organiza en tres familias. Los catálogos: REGIONES, SEDES, NIVELES (los seis del MCER), DEPARTAMENTOS, PUESTOS, AULAS y CURSOS, que definen la estructura de la academia.",
-        "Las personas: EMPLEADOS (30, entre profesores nativos, bilingües y personal administrativo) y ESTUDIANTES (100, cada uno con su cédula, correo, teléfono y nivel actual).",
-        "Las transaccionales, donde ocurre el negocio: GRUPOS, MATRICULAS, PAGOS, ASISTENCIA, EVALUACIONES y BITACORA.",
-        "Las entidades base provienen del esquema HR de Oracle (REGIONES, SEDES, DEPARTAMENTOS, PUESTOS, EMPLEADOS) y del esquema Academic (ESTUDIANTES, CURSOS, MATRICULAS); el resto se diseñó desde cero para el dominio de una academia de idiomas.",
-        "La adaptación costarricense está en los detalles: cédula con formato 1-XXXX-XXXX para nacionales, teléfonos de ocho dígitos, salarios y precios en colones, y SINPE Móvil como método de pago.",
-        "Toda la integridad referencial está garantizada con llaves foráneas, y cada restricción se nombró con la convención del curso: PK_ para primarias, FK_ para foráneas, UQ_ para únicas y CK_ para checks.",
-        "BITACORA es la única tabla que nace vacía, y es a propósito: la van llenando los triggers de auditoría con cada movimiento del sistema, como se verá en la Unidad 9.",
-        "Catorce secuencias generan los identificadores; los rangos son reconocibles a simple vista: estudiantes desde 11001, empleados desde 2001, grupos desde 30001."
+        "Catálogos (7): REGIONES, SEDES, NIVELES del MCER, DEPARTAMENTOS, PUESTOS, AULAS y CURSOS.",
+        "Personas (2): EMPLEADOS, con 30 registros, y ESTUDIANTES, con 100.",
+        "Transaccionales (6), donde ocurre el negocio: GRUPOS, MATRICULAS, PAGOS, ASISTENCIA, EVALUACIONES y BITACORA.",
+        "Las entidades base vienen de los esquemas HR y Academic de Oracle; el resto se diseñó desde cero.",
+        "Adaptación costarricense: cédula 1-XXXX-XXXX, teléfonos de ocho dígitos, colones y SINPE Móvil.",
+        "Restricciones nombradas con la convención del curso: PK_, FK_, UQ_ y CK_.",
+        "Catorce secuencias generan los IDs: estudiantes desde 11001, empleados desde 2001, grupos desde 30001.",
+        "BITACORA nace vacía a propósito: la llenan los triggers de auditoría, como se ve en la Unidad 9."
       ],
       "cameraPosition": [
         0,
@@ -547,13 +545,12 @@
       "world": "Unidad 4 · The Numbers",
       "environment": "academia",
       "bullets": [
-        "La carga inicial no es simbólica: son 1 592 filas de datos ficticios pero verosímiles, con nombres y apellidos comunes en Costa Rica, correos realistas y fechas coherentes entre sí.",
-        "Las cifras por tabla: 100 estudiantes, 30 empleados, 20 grupos, 12 cursos, 12 aulas, 10 departamentos, 10 puestos, 6 niveles, 5 regiones y 5 sedes.",
-        "El movimiento del negocio también viene cargado: la carga inicial trae 137 matrículas con sus 137 pagos asociados (uno por matrícula, como manda la regla de negocio); en la base actual son 138, porque las pruebas del front-end dejaron una matrícula más.",
-        "Las tablas de mayor volumen son ASISTENCIA, con 768 registros diarios, y EVALUACIONES, con 340 entre quizzes, exámenes parciales y tareas.",
-        "De los 100 estudiantes, 86 están activos y 14 inactivos; los inactivos existen a propósito para demostrar en vivo que el sistema les bloquea el inicio de sesión con el mensaje de cuenta inactiva.",
-        "El grupo 30004 quedó en estado ABIERTO y con cupo disponible: es el grupo oficial de las pruebas de matrícula del guion ACID.",
-        "Datos abundantes no son un capricho: con volúmenes realistas las consultas, los reportes y las validaciones se comportan como lo harían en producción."
+        "La carga inicial trae 1 592 filas ficticias pero verosímiles: nombres ticos, correos realistas y fechas coherentes.",
+        "Por tabla: 100 estudiantes, 30 empleados, 20 grupos, 12 cursos, 12 aulas, 10 departamentos, 10 puestos, 6 niveles, 5 regiones y 5 sedes.",
+        "El movimiento: 137 matrículas con sus 137 pagos. En la base hay 138, porque las pruebas del sitio dejaron una más.",
+        "Las tablas de mayor volumen son ASISTENCIA, con 768 registros, y EVALUACIONES, con 340.",
+        "De los 100 estudiantes, 86 están activos y 14 inactivos: los inactivos sirven para demostrar el bloqueo de inicio de sesión.",
+        "El grupo 30004 quedó ABIERTO y con cupo: es el grupo oficial de las pruebas de matrícula."
       ],
       "cameraPosition": [
         0,
@@ -705,14 +702,13 @@
       "world": "Unidad 5 · The Guardians",
       "environment": "academia",
       "bullets": [
-        "El enunciado exige un esquema de control de acceso con dueños de tablas, desarrolladores y usuarios finales; el proyecto lo implementa con tres usuarios y dos roles, aplicando el principio de mínimo privilegio.",
-        "REALENGLISH es el dueño del esquema: posee las 15 tablas, las 14 secuencias y absolutamente todo el código PL/SQL. Con este usuario se ejecutan los scripts de instalación.",
-        "RECR_DEV es el desarrollador: a través del rol ROL_DESARROLLADOR puede leer y escribir los datos y crear objetos de programa, pero no es dueño de nada.",
-        "RECR_APP es la aplicación web: con el rol ROL_USUARIO_FINAL solo puede ejecutar procedimientos y paquetes, y consultar vistas. No tiene SELECT, INSERT, UPDATE ni DELETE sobre ninguna tabla.",
-        "Los privilegios jamás se otorgan usuario por usuario: se conceden a los roles, y los roles se asignan a los usuarios. Administrar permisos se vuelve ordenado y auditable.",
-        "La consecuencia práctica es potente: si alguien robara las credenciales del sitio web, no podría leer la lista de estudiantes ni borrar una sola fila, porque RECR_APP simplemente no tiene esos permisos.",
-        "La creación de usuarios y roles la ejecuta el ADMIN del servicio en la nube (la parte A del script 01); los grants sobre los objetos los otorga REALENGLISH al final de la instalación (parte B).",
-        "Esta separación es exactamente la que pide la regla del profesor: el front-end nunca ejecuta un SELECT directo sobre las tablas."
+        "Tres usuarios y dos roles, aplicando el principio de mínimo privilegio.",
+        "REALENGLISH es el dueño: las 15 tablas, las 14 secuencias y todo el código PL/SQL. Con él se instalan los scripts.",
+        "RECR_DEV es el desarrollador: con ROL_DESARROLLADOR lee y escribe datos y crea programas, pero no es dueño de nada.",
+        "RECR_APP es la aplicación web: con ROL_USUARIO_FINAL solo ejecuta paquetes y consulta vistas. Sin SELECT, INSERT, UPDATE ni DELETE sobre tablas.",
+        "Los privilegios se otorgan a los roles, nunca usuario por usuario: administrarlos queda ordenado y auditable.",
+        "Si robaran las credenciales del sitio, no podrían leer ni borrar nada: RECR_APP no tiene esos permisos.",
+        "Los usuarios y roles los crea el ADMIN de la nube (script 01, parte A); los grants los da REALENGLISH al final (parte B)."
       ],
       "cameraPosition": [
         0,
@@ -839,14 +835,13 @@
       "world": "Unidad 6 · The Secret",
       "environment": "academia",
       "bullets": [
-        "Al sitio entran dos tipos de personas: los estudiantes (con su cédula y contraseña) y los empleados administrativos —la directora académica y los cinco coordinadores de sede— para el módulo de administración.",
-        "Lo que se guarda en la columna CLAVE_HASH de ESTUDIANTES y EMPLEADOS no es la contraseña: es un hash SHA-256 calculado sobre la cédula concatenada con la clave.",
-        "La cédula funciona como sal criptográfica: dos personas con la misma contraseña producen hashes completamente distintos, así que las tablas precalculadas de ataque no sirven de nada.",
-        "La validación ocurre dentro de la base de datos: fn_validar_estudiante y fn_validar_admin reciben cédula y clave, calculan el hash de lo que llegó y lo comparan con el guardado.",
-        "Las funciones devuelven 1 o 0, sin pistas: nunca dicen si lo que falló fue la cédula o la contraseña, para no regalarle información a un atacante.",
-        "El PHP no ve, no compara y no almacena contraseñas: solo pregunta y recibe la respuesta. Si la función devuelve 0, muestra un mensaje genérico.",
-        "Las cuentas inactivas devuelven 0 aunque la clave sea correcta: el sistema responde con el mensaje de cuenta inactiva, otra validación que se demuestra en vivo.",
-        "Los estudiantes nuevos eligen su contraseña al registrarse en el sitio, con un mínimo de ocho caracteres y doble confirmación del campo."
+        "Al sitio entran dos tipos de personas: los estudiantes con su cédula, y los empleados administrativos al módulo de administración.",
+        "En CLAVE_HASH no se guarda la contraseña, sino un hash SHA-256 de la cédula concatenada con la clave.",
+        "La cédula funciona como sal: dos personas con la misma contraseña producen hashes distintos, así las tablas de ataque no sirven.",
+        "fn_validar_estudiante y fn_validar_admin calculan el hash de lo que llega y lo comparan con el guardado, dentro de la base.",
+        "Devuelven el identificador si todo está bien y 0 en cualquier otro caso: nunca dicen qué falló, para no darle pistas a un atacante.",
+        "Una cuenta inactiva también devuelve 0 aunque la clave sea correcta. El PHP nunca ve ni compara contraseñas.",
+        "Los estudiantes nuevos eligen su clave al registrarse: mínimo ocho caracteres y doble confirmación."
       ],
       "cameraPosition": [
         0,
@@ -969,14 +964,13 @@
       "world": "Unidad 7 · The Foundation",
       "environment": "academia",
       "bullets": [
-        "Todo el back-end vive en Oracle Cloud Autonomous Database bajo el esquema REALENGLISH; la conexión desde SQL Developer usa el wallet de seguridad que Oracle entrega para cifrar la comunicación.",
-        "El script 00 crea las 15 tablas con todas sus restricciones y carga las 1 592 filas; el 01 crea los usuarios y roles del esquema de seguridad.",
-        "Los scripts 02 a 06 instalan el cuerpo PL/SQL del negocio: funciones, procedimientos, 3 paquetes con cursores, 8 disparadores y 10 vistas; los scripts 12 y 14 agregan las funciones de autenticación, para un total de 18 funciones y 15 procedimientos sueltos.",
-        "Los scripts 07 a 10 completan la entrega final: los 15 paquetes CRUD (uno por tabla), los 15 cursores explícitos, el guion de pruebas ACID y los grants definitivos.",
-        "Los scripts 11 a 14 pulen los detalles: corrección de acentos, autenticación de administradores, ajuste de secuencias y autenticación de estudiantes.",
-        "Cada script se ejecuta completo con F5 en SQL Developer, con SET SERVEROUTPUT ON activo para ver los mensajes de confirmación que imprime cada bloque.",
-        "La verificación final es una sola consulta a user_objects: todos los objetos deben aparecer con estado VALID, agrupados por tipo.",
-        "Este diseño reproducible es también la red de seguridad del grupo: si algo se daña durante las pruebas, se corre el script base y la academia vuelve a su estado original en minutos."
+        "Todo el back-end vive en Oracle Cloud Autonomous Database, bajo el esquema REALENGLISH, con wallet de seguridad.",
+        "El script 00 crea las 15 tablas con sus restricciones y carga las 1 592 filas; el 01 crea los usuarios y roles.",
+        "Los scripts 02 a 06 instalan el negocio: funciones, procedimientos, paquetes con cursores, los 8 triggers y las 10 vistas.",
+        "Los scripts 07 a 10 completan la entrega: los 15 paquetes CRUD, los 15 cursores explícitos, las pruebas ACID y los grants finales.",
+        "Los scripts 11 a 14 pulen detalles: acentos, autenticación de administradores y de estudiantes, y ajuste de secuencias.",
+        "Cada script se corre completo con F5 y SET SERVEROUTPUT ON, para ver los mensajes de confirmación.",
+        "La verificación final es una consulta a user_objects: todos los objetos deben quedar en estado VALID."
       ],
       "cameraPosition": [
         0,
@@ -1163,14 +1157,14 @@
       "world": "Unidad 8 · Enrollment Day",
       "environment": "academia",
       "bullets": [
-        "sp_matricular_estudiante es el procedimiento más importante del proyecto: implementa la matrícula como una transacción atómica de principio a fin.",
-        "Las validaciones van en cadena y cada una lanza su propia excepción: estudiante inexistente o inactivo (ORA-20001), grupo inexistente (ORA-20002), grupo que no está ABIERTO (ORA-20003), grupo sin cupo (ORA-20004) y estudiante ya matriculado en ese grupo (ORA-20005).",
-        "Las funciones de apoyo hacen el trabajo fino: fn_cupo_disponible calcula los espacios reales del grupo y fn_precio_grupo determina el monto que se va a cobrar.",
-        "Si todas las validaciones pasan, el procedimiento inserta la matrícula en estado ACTIVA y genera automáticamente el pago asociado en estado PENDIENTE, con fecha de vencimiento a ocho días.",
-        "El cierre es con COMMIT; si cualquier paso falla, se ejecuta ROLLBACK y se propaga la excepción: es imposible que quede una matrícula sin su pago o un pago sin su matrícula.",
-        "Cada excepción viaja con su código y su mensaje hasta el front-end, que los muestra tal cual: el usuario sabe exactamente por qué no se pudo matricular.",
-        "Detalle de diseño importante: el procedimiento no toca el cupo del grupo. De eso se encarga un trigger, como se ve en la siguiente unidad.",
-        "También existen los procedimientos complementarios del ciclo: sp_retirar_matricula (libera el cupo y anula pagos pendientes), sp_registrar_pago y sp_marcar_pagos_atrasados."
+        "sp_matricular_estudiante implementa la matrícula como una transacción atómica de principio a fin.",
+        "Cinco validaciones en cadena, cada una con su excepción: estudiante inactivo (-20001), grupo inexistente (-20002), grupo no ABIERTO (-20003), sin cupo (-20004) y ya matriculado (-20005).",
+        "fn_cupo_disponible calcula los espacios reales del grupo y fn_precio_grupo determina el monto a cobrar.",
+        "Si todo pasa, inserta la matrícula en estado ACTIVA y genera el pago PENDIENTE, con vencimiento a ocho días.",
+        "Al entrar planta un SAVEPOINT; si algo falla hace ROLLBACK a ese savepoint y propaga la excepción. Deshace lo suyo y nada más.",
+        "No hace COMMIT: quien confirma es el llamador, porque es él quien sabe si el proceso completo salió bien.",
+        "El procedimiento no toca el cupo del grupo. De eso se encarga un trigger, en la siguiente unidad.",
+        "El ciclo se completa con sp_retirar_matricula, sp_registrar_pago y sp_marcar_pagos_atrasados."
       ],
       "cameraPosition": [
         0,
@@ -1357,17 +1351,18 @@
     {
       "id": "s9",
       "title": "Los triggers: el cupo se cuida solo",
-      "content": "Seis vigilantes automáticos reaccionan aunque nadie los llame.",
+      "content": "Ocho vigilantes automáticos reaccionan aunque nadie los llame.",
       "world": "Unidad 9 · The Watchers",
       "environment": "academia",
       "bullets": [
-        "trg_cupo_matriculas es el vigilante principal: ante cualquier INSERT, UPDATE o DELETE sobre MATRICULAS actualiza el cupo_actual del grupo, y lo cierra automáticamente cuando se llena o lo reabre cuando se libera espacio.",
-        "Por eso el procedimiento de matrícula no suma ni resta cupo: aunque alguien insertara una matrícula por fuera del procedimiento, el trigger mantiene el número correcto. La regla vive en la base, no en el código de la aplicación.",
-        "El clásico error de tabla mutante (ORA-04091) no ocurre aquí, y es una pregunta casi segura del profesor: el trigger modifica GRUPOS, que es una tabla distinta de MATRICULAS, la que lo dispara. Nunca lee la tabla en plena modificación.",
-        "trg_aud_matriculas y trg_aud_pagos son los cronistas: escriben en BITACORA cada inserción, actualización y borrado, con la operación, la tabla, el usuario, la fecha y los valores involucrados.",
-        "Gracias a ellos, BITACORA —que nace vacía— se convierte en la evidencia de auditoría: después del guion de pruebas se consulta y ahí está la historia completa de lo que pasó.",
-        "Los otros tres (trg_bi_estudiantes, trg_bi_matriculas y trg_bi_pagos) autoasignan el identificador con la secuencia, pero solo cuando viene nulo: así conviven con los datos históricos que traen ID explícito.",
-        "Los seis triggers juntos cubren los tres usos clásicos: integridad del negocio (cupo), auditoría (bitácora) y generación de llaves (IDs)."
+        "trg_cupo_matriculas es el vigilante principal: ante INSERT, UPDATE o DELETE en MATRICULAS actualiza el cupo, cierra el grupo al llenarse y lo reabre al liberarse.",
+        "Por eso el procedimiento no toca el cupo: aunque alguien insertara por fuera, el trigger mantiene el número correcto.",
+        "No hay tabla mutante (ORA-04091) porque el trigger modifica GRUPOS, no MATRICULAS, que es la que lo dispara.",
+        "trg_aud_matriculas y trg_aud_pagos escriben en BITACORA cada operación, con tabla, usuario, fecha y valores.",
+        "Otros tres asignan el ID con la secuencia, pero solo cuando viene nulo: así conviven con los datos históricos.",
+        "trg_biu_grupos_aula valida que el cupo quepa en el aula: un CHECK no puede consultar otra tabla.",
+        "trg_bi_matriculas_act rechaza matricular a un estudiante inactivo, incluso con un INSERT directo.",
+        "Los ocho cubren los tres usos clásicos: integridad, auditoría y generación de llaves. La rúbrica pedía cinco."
       ],
       "cameraPosition": [
         0,
@@ -1523,18 +1518,17 @@
     {
       "id": "s10",
       "title": "Paquetes: la biblioteca del sistema",
-      "content": "Dieciocho paquetes y ochenta y siete procedimientos, ordenados como libros.",
+      "content": "Dieciocho paquetes y noventa procedimientos, ordenados como libros.",
       "world": "Unidad 10 · The Library",
       "environment": "academia",
       "bullets": [
-        "Los paquetes agrupan la lógica en unidades con especificación y cuerpo, como los libros de una biblioteca: se sabe qué ofrecen por fuera sin ver cómo están escritos por dentro.",
-        "Tres paquetes de negocio: pkg_matricula encapsula el proceso estrella, pkg_reportes imprime reportes recorriendo cursores explícitos y pkg_auditoria consulta la bitácora.",
-        "Quince paquetes CRUD, uno por tabla (pkg_estudiantes_crud, pkg_pagos_crud, pkg_grupos_crud...), cada uno con listar, obtener, insertar, actualizar y eliminar: unos 75 procedimientos en total.",
-        "Sumando los 15 procedimientos sueltos del negocio, el proyecto queda con 90 procedimientos almacenados en total.",
-        "Los listados devuelven un SYS_REFCURSOR: el paquete abre el cursor y se lo entrega abierto al PHP, que lo recorre con oci_fetch sin haber visto jamás la tabla.",
-        "Los 15 cursores explícitos del script 08 muestran el control manual completo: DECLARE, OPEN, FETCH y CLOSE, con los atributos %FOUND, %NOTFOUND y %ROWCOUNT.",
-        "Todos los errores de los paquetes usan los mismos códigos del sistema (-20001 a -20005), así el front-end interpreta cualquier falla con una sola tabla de mensajes.",
-        "Las fechas viajan como texto en formato 'YYYY-MM-DD' y se convierten con TO_DATE dentro del paquete: un solo punto de conversión, cero ambigüedad de formatos."
+        "Un paquete agrupa lógica en especificación y cuerpo: se ve qué ofrece por fuera sin ver cómo está hecho por dentro.",
+        "Tres paquetes de negocio: pkg_matricula, pkg_reportes (recorre cursores explícitos) y pkg_auditoria.",
+        "Quince paquetes CRUD, uno por tabla, cada uno con listar, obtener, insertar, actualizar y eliminar: unos 75 procedimientos.",
+        "Con los 15 procedimientos sueltos del negocio, el proyecto llega a 90 procedimientos almacenados.",
+        "Los listados devuelven un SYS_REFCURSOR: el paquete lo abre y el PHP lo recorre con oci_fetch, sin ver jamás la tabla.",
+        "Los 15 cursores explícitos del script 08 muestran el control manual: DECLARE, OPEN, FETCH y CLOSE, con %FOUND, %NOTFOUND y %ROWCOUNT.",
+        "Todos los errores usan los mismos códigos (-20001 a -20005): el front-end los interpreta con una sola tabla de mensajes."
       ],
       "cameraPosition": [
         0,
@@ -1627,13 +1621,12 @@
       "world": "Unidad 11 · The Views",
       "environment": "academia",
       "bullets": [
-        "Las diez vistas v_* son la única lectura directa que tiene el usuario final: RECR_APP recibe SELECT sobre las vistas y sobre nada más.",
-        "Vistas operativas para el día a día: v_estudiantes_activos, v_grupos_abiertos, v_matriculas_detalle, v_pagos_pendientes y v_pagos_atrasados.",
-        "Vistas gerenciales para tomar decisiones: v_ingresos_por_sede, v_ocupacion_grupos, v_promedio_por_grupo, v_carga_profesores y v_estudiantes_por_nivel.",
-        "Cada vista ya trae los JOIN resueltos y las columnas con nombres claros: el front-end recibe el nombre completo del estudiante y la descripción del nivel, no códigos crudos que haya que traducir.",
-        "Las vistas también son una capa de seguridad: pueden exponer exactamente las columnas necesarias y ocultar las sensibles. CLAVE_HASH, por ejemplo, no aparece en ninguna vista y jamás viaja al navegador.",
-        "Si mañana cambia la estructura interna de una tabla, la vista se ajusta y la aplicación ni se entera: la vista es el contrato estable entre la base y el sitio.",
-        "Cada una de las diez vistas tiene un propósito real: se usa en el sitio, en los reportes o en las consultas de verificación."
+        "Las diez vistas v_* son la única lectura directa del usuario final: RECR_APP tiene SELECT sobre ellas y sobre nada más.",
+        "Operativas: v_estudiantes_activos, v_grupos_abiertos, v_matriculas_detalle, v_pagos_pendientes y v_pagos_atrasados.",
+        "Gerenciales: v_ingresos_por_sede, v_ocupacion_grupos, v_promedio_por_grupo, v_carga_profesores y v_estudiantes_por_nivel.",
+        "Cada vista trae los JOIN resueltos y nombres claros: el sitio recibe el nombre del estudiante, no códigos crudos.",
+        "También son seguridad: CLAVE_HASH no aparece en ninguna vista y jamás viaja al navegador.",
+        "Si cambia la estructura interna de una tabla, la vista se ajusta y la aplicación ni se entera."
       ],
       "cameraPosition": [
         0,
@@ -1762,14 +1755,14 @@
       "world": "Unidad 12 · The Website",
       "environment": "academia",
       "bullets": [
-        "El sitio de Real English CR usa la plantilla Edulab con 18 páginas públicas: inicio, cursos, precios, contacto, registro e inicio de sesión, todas en español y con precios en colones.",
-        "Corre en XAMPP (Apache + PHP 8.2) con el patrón MVC calcado del curso paralelo SC-502: las vistas pintan, los controladores deciden y el modelo conversa con Oracle.",
-        "La conexión usa el driver oficial OCI8 con el Instant Client y el wallet de Oracle Cloud, siempre autenticado como RECR_APP, el usuario que solo puede ejecutar paquetes.",
-        "El camino de un clic en el panel de administración: el navegador llama a admin.php, el AdminController identifica la operación y la tabla, y el CrudModel arma un bloque PL/SQL anónimo con parámetros con nombre.",
-        "El bloque invoca al paquete correspondiente —por ejemplo REALENGLISH.pkg_estudiantes_crud.listar— y recibe de vuelta un SYS_REFCURSOR abierto que el modelo recorre con oci_fetch.",
-        "Entidades.php es el mapa del sistema: describe las 15 tablas con sus columnas, llaves y etiquetas, y gracias a él un único modelo genérico maneja el CRUD completo de todas las tablas.",
-        "El login del sitio valida con fn_validar_estudiante o fn_validar_admin según quién entra, y el registro de estudiantes nuevos asigna la contraseña con sp_asignar_clave_estudiante.",
-        "En todo el código PHP no existe ni un SELECT, INSERT, UPDATE o DELETE directo: la regla más estricta del curso, cumplida al pie de la letra."
+        "El sitio usa la plantilla Edulab con 18 páginas públicas, todas en español y con precios en colones.",
+        "Corre en XAMPP (Apache + PHP 8.2) con patrón MVC: las vistas pintan, los controladores deciden y el modelo habla con Oracle.",
+        "La conexión usa el driver OCI8 con el Instant Client y el wallet, siempre autenticada como RECR_APP.",
+        "El camino de un clic: admin.php, el AdminController identifica operación y tabla, y el CrudModel arma un bloque PL/SQL con parámetros con nombre.",
+        "El bloque llama al paquete —por ejemplo pkg_estudiantes_crud.listar— y recibe un SYS_REFCURSOR abierto que recorre con oci_fetch.",
+        "Entidades.php describe las 15 tablas con sus columnas y llaves: por eso un solo modelo genérico maneja todo el CRUD.",
+        "El login llama a fn_validar_estudiante o fn_validar_admin; el registro usa sp_asignar_clave_estudiante.",
+        "En todo el PHP no hay ni un SELECT, INSERT, UPDATE o DELETE directo: la regla más estricta del curso."
       ],
       "cameraPosition": [
         0,
@@ -1956,18 +1949,17 @@
     {
       "id": "s13",
       "title": "Las pruebas ACID: el examen final",
-      "content": "Ocho pruebas en vivo; hasta el error ORA-20005 es una prueba que pasa.",
+      "content": "Diez pruebas en vivo; hasta el error ORA-20005 es una prueba que pasa.",
       "world": "Unidad 13 · The Test",
       "environment": "academia",
       "bullets": [
-        "Como todo en una academia, el sistema también hace examen: el guion del script 09 corre ocho pruebas sobre el grupo 30004 y va imprimiendo cada resultado con DBMS_OUTPUT.",
-        "Atomicidad: la matrícula crea a la vez el registro y su pago; cuando algo falla a medio camino, el ROLLBACK garantiza que no queda nada a medias.",
-        "Integridad: matricular dos veces al mismo estudiante en el mismo grupo dispara ORA-20005 sin crear datos. Ese error en pantalla no es un fallo: es la validación funcionando, y así se explica en la defensa.",
-        "Consistencia: el trigger mantiene cupo_actual siempre coherente; sube al matricular, baja al retirar, y el grupo se cierra solo al llenarse y se reabre al liberarse un espacio.",
-        "Aislamiento: con dos sesiones de SQL Developer abiertas se demuestra que una transacción sin COMMIT es invisible para la otra sesión; al confirmar, aparece.",
-        "Durabilidad: después del COMMIT los datos y su rastro en BITACORA sobreviven al cierre de la sesión, y ahí quedan para la auditoría.",
-        "Las pruebas 6, 7 y 8 completan el cuadro: los reportes con cursores del pkg_reportes, la bitácora poblada por los triggers y las vistas devolviendo la información ya actualizada.",
-        "Este guion se corre en vivo durante la defensa y se van explicando los resultados conforme aparecen en pantalla."
+        "El script 09 corre diez pruebas numeradas sobre el grupo 30004, imprimiendo cada resultado con DBMS_OUTPUT.",
+        "Atomicidad: la matrícula crea a la vez el registro y su pago; si algo falla, el ROLLBACK no deja nada a medias.",
+        "Integridad: matricular dos veces al mismo estudiante dispara ORA-20005 sin crear datos. Ese error es la validación funcionando.",
+        "Consistencia: el trigger mantiene cupo_actual coherente; sube al matricular, baja al retirar, y el grupo se cierra y reabre solo.",
+        "Aislamiento: con dos sesiones abiertas, una transacción sin COMMIT es invisible para la otra; al confirmar, aparece.",
+        "Durabilidad: después del COMMIT los datos y su rastro en BITACORA sobreviven al cierre de la sesión.",
+        "Las últimas prueban que las llaves foráneas rechazan filas huérfanas y que BITACORA es de solo agregado."
       ],
       "cameraPosition": [
         0,
@@ -2073,20 +2065,18 @@
       "codeTitle": "Script 09 — Pruebas ACID"
     },
     {
-      "id": "s15",
+      "id": "s14",
       "title": "Conclusiones: fin del curso",
       "content": "Lo que queda después de construir el sistema completo.",
       "world": "Unidad 14 · Farewell",
       "environment": "academia",
       "bullets": [
-        "El proyecto recorrió el ciclo completo de un sistema transaccional real: definición del problema, modelo relacional, modelo físico en la nube, control de acceso, cuerpo PL/SQL, front-end web y pruebas formales.",
-        "La seguridad quedó construida en capas que se refuerzan entre sí: roles con mínimo privilegio, acceso a datos únicamente por paquetes, contraseñas con hash y sal dentro de la base, y auditoría automática por triggers.",
-        "La lección de arquitectura más importante: las reglas del negocio viven dentro de la base de datos. El cupo, las validaciones y la auditoría funcionan igual sin importar desde dónde se toquen los datos.",
-        "Las propiedades ACID se comprueban corriendo el guion de pruebas en vivo, con sus errores esperados incluidos.",
-        "El sistema es reproducible de punta a punta: cualquier integrante del grupo lo levanta desde cero con los scripts numerados, el wallet y esta misma base en Oracle Cloud.",
-        "Trabajo futuro: pruebas formales de concurrencia con múltiples sesiones simultáneas, ampliación del módulo de reportes gerenciales y notificaciones de pagos por vencer.",
-        "La defensa es de 15 minutos con el sistema funcionando en vivo: la matrícula desde el sitio, los objetos en SQL Developer y las pruebas corriendo.",
-        "Proyecto del Grupo F: Granados, Pérez, Rodríguez y Valverde. SC-504 Lenguajes de Bases de Datos, Universidad Fidélitas, 2026."
+        "El proyecto recorrió el ciclo completo: problema, modelo relacional, modelo físico en la nube, control de acceso, PL/SQL, sitio web y pruebas.",
+        "La seguridad quedó en capas: roles con mínimo privilegio, acceso solo por paquetes, contraseñas con hash y sal, y auditoría automática.",
+        "La lección de arquitectura: las reglas del negocio viven dentro de la base, así que funcionan sin importar desde dónde se toquen los datos.",
+        "El sistema es reproducible de punta a punta: cualquier integrante lo levanta desde cero con los scripts numerados y el wallet.",
+        "Trabajo futuro: pruebas de concurrencia con sesiones simultáneas, más reportes gerenciales y avisos de pagos por vencer.",
+        "Grupo F: Granados, Pérez, Rodríguez y Valverde. SC-504 Lenguajes de Bases de Datos, Universidad Fidélitas, 2026."
       ],
       "cameraPosition": [
         0,

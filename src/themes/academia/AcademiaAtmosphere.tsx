@@ -48,11 +48,13 @@ function StarRain({ count }: { count: number }) {
 
   const mat = useMemo(
     () =>
+      // Puntitos discretos. Con size 0.22 los mas cercanos se veian como
+      // cuadros de colores flotando encima del campus, no como destellos.
       new THREE.PointsMaterial({
-        size: 0.22,
+        size: 0.11,
         vertexColors: true,
         transparent: true,
-        opacity: 0.9,
+        opacity: 0.62,
         depthWrite: false,
         sizeAttenuation: true,
       }),
@@ -69,7 +71,7 @@ function StarRain({ count }: { count: number }) {
       if (arr[i * 3 + 1] < 0.3) arr[i * 3 + 1] = 24 + Math.random() * 6
     }
     pos.needsUpdate = true
-    ;(pointsRef.current.material as THREE.PointsMaterial).size = 0.19 + Math.sin(state.clock.elapsedTime * 3) * 0.05
+    ;(pointsRef.current.material as THREE.PointsMaterial).size = 0.1 + Math.sin(state.clock.elapsedTime * 3) * 0.025
   })
 
   return <points ref={pointsRef} geometry={geo} material={mat} frustumCulled={false} />

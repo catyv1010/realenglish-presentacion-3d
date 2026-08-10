@@ -12,6 +12,12 @@ import type { QualityLevel } from '../../../types/presentation'
  * el colibri se queda clavado en el aire, el gato solo respira. Que se muevan
  * a distinta velocidad es lo que hace que el campus parezca vivo y no un
  * carrusel.
+ *
+ * SOBRE EL TAMAÑO: los animales NO van a escala real. Una ardilla de veinte
+ * centimetros, vista desde donde esta la camara, mide tres pixeles: existe
+ * pero nadie la ve. Van agrandados entre dos y cuatro veces, como en las
+ * maquetas y los dibujos animados, y colocados en la franja de adelante del
+ * campus, que es la que la camara siempre tiene cerca.
  */
 
 const GEO = {
@@ -47,7 +53,7 @@ function mat(color: string, opts: { rough?: number; emissive?: string; ei?: numb
 /* ------------------------------------------------------------------ */
 /* Ardilla: corre a tirones y se queda quieta oliendo el aire           */
 /* ------------------------------------------------------------------ */
-function Ardilla({ centro, radio, fase }: { centro: [number, number]; radio: number; fase: number }) {
+function Ardilla({ centro, radio, fase, escala = 2 }: { centro: [number, number]; radio: number; fase: number; escala?: number }) {
   const grupo = useRef<THREE.Group>(null)
   const cuerpo = useRef<THREE.Group>(null)
   const cola = useRef<THREE.Group>(null)
@@ -73,7 +79,7 @@ function Ardilla({ centro, radio, fase }: { centro: [number, number]; radio: num
   })
 
   return (
-    <group ref={grupo}>
+    <group ref={grupo} scale={escala}>
       <group ref={cuerpo}>
         <mesh geometry={GEO.esfera} material={mat('#9a5f34', { rough: 0.95 })} scale={[0.11, 0.1, 0.17]} castShadow />
         <mesh geometry={GEO.esfera} material={mat('#a86b3d', { rough: 0.95 })} position={[0, 0.09, 0.14]} scale={0.08} />
@@ -91,7 +97,7 @@ function Ardilla({ centro, radio, fase }: { centro: [number, number]; radio: num
 /* ------------------------------------------------------------------ */
 /* Colibri: se queda clavado en el aire y salta de flor en flor         */
 /* ------------------------------------------------------------------ */
-function Colibri({ base, fase, color }: { base: [number, number, number]; fase: number; color: string }) {
+function Colibri({ base, fase, color, escala = 4 }: { base: [number, number, number]; fase: number; color: string; escala?: number }) {
   const grupo = useRef<THREE.Group>(null)
   const alaIzq = useRef<THREE.Mesh>(null)
   const alaDer = useRef<THREE.Mesh>(null)
@@ -119,7 +125,7 @@ function Colibri({ base, fase, color }: { base: [number, number, number]; fase: 
   })
 
   return (
-    <group ref={grupo} position={base}>
+    <group ref={grupo} position={base} scale={escala}>
       <mesh geometry={GEO.capsula} material={mat(color, { rough: 0.45, emissive: color, ei: 0.25 })} scale={[0.05, 0.05, 0.05]} rotation={[Math.PI / 2, 0, 0]} />
       <mesh geometry={GEO.esfera} material={mat('#2b2b2b', { rough: 0.6 })} position={[0, 0.04, 0.07]} scale={0.035} />
       <mesh geometry={GEO.cono} material={mat('#3b3b3b', { rough: 0.5 })} position={[0, 0.04, 0.15]} rotation={[Math.PI / 2, 0, 0]} scale={[0.012, 0.12, 0.012]} />
@@ -132,7 +138,7 @@ function Colibri({ base, fase, color }: { base: [number, number, number]; fase: 
 /* ------------------------------------------------------------------ */
 /* Perro: corre por el zacate con la cola dando vueltas                 */
 /* ------------------------------------------------------------------ */
-function Perro({ radio, velocidad }: { radio: number; velocidad: number }) {
+function Perro({ radio, velocidad, escala = 1.3 }: { radio: number; velocidad: number; escala?: number }) {
   const grupo = useRef<THREE.Group>(null)
   const cuerpo = useRef<THREE.Group>(null)
   const cola = useRef<THREE.Group>(null)
@@ -143,7 +149,9 @@ function Perro({ radio, velocidad }: { radio: number; velocidad: number }) {
     const a = t * velocidad
     if (grupo.current) {
       grupo.current.position.set(Math.cos(a) * radio, 0, Math.sin(a) * radio * 0.8)
-      grupo.current.rotation.y = -a + Math.PI / 2
+      // Con velocidad negativa el perro recorre la elipse al reves: si no se
+      // le da la vuelta tambien al hocico, corre de espaldas.
+      grupo.current.rotation.y = -a + (velocidad > 0 ? Math.PI / 2 : -Math.PI / 2)
     }
     if (cuerpo.current) cuerpo.current.position.y = 0.3 + Math.abs(Math.sin(t * 9)) * 0.05
     if (cola.current) cola.current.rotation.y = Math.sin(t * 11) * 0.55
@@ -157,7 +165,7 @@ function Perro({ radio, velocidad }: { radio: number; velocidad: number }) {
   const cueroOscuro = mat('#a86f38', { rough: 0.95 })
 
   return (
-    <group ref={grupo}>
+    <group ref={grupo} scale={escala}>
       <group ref={cuerpo}>
         <mesh geometry={GEO.capsula} material={cuero} scale={[0.15, 0.16, 0.15]} rotation={[Math.PI / 2, 0, 0]} castShadow />
         <mesh geometry={GEO.esfera} material={cuero} position={[0, 0.14, 0.32]} scale={0.14} />
@@ -192,7 +200,7 @@ function Perro({ radio, velocidad }: { radio: number; velocidad: number }) {
 /* ------------------------------------------------------------------ */
 /* Gato dormido: solo respira                                           */
 /* ------------------------------------------------------------------ */
-function Gato({ position, giro }: { position: [number, number, number]; giro: number }) {
+function Gato({ position, giro, escala = 1.4 }: { position: [number, number, number]; giro: number; escala?: number }) {
   const cuerpo = useRef<THREE.Mesh>(null)
   const oreja = useRef<THREE.Group>(null)
 
@@ -212,7 +220,7 @@ function Gato({ position, giro }: { position: [number, number, number]; giro: nu
   const gris = mat('#7c7f8a', { rough: 1 })
 
   return (
-    <group position={position} rotation={[0, giro, 0]}>
+    <group position={position} rotation={[0, giro, 0]} scale={escala}>
       <mesh ref={cuerpo} geometry={GEO.esfera} material={gris} position={[0, 0.16, 0]} scale={[0.26, 0.17, 0.3]} castShadow />
       <mesh geometry={GEO.esfera} material={gris} position={[0, 0.2, 0.24]} scale={0.13} />
       <group ref={oreja}>
@@ -228,7 +236,7 @@ function Gato({ position, giro }: { position: [number, number, number]; giro: nu
 /* ------------------------------------------------------------------ */
 /* Iguana sobre su piedra, tomando sol                                  */
 /* ------------------------------------------------------------------ */
-function Iguana({ position, giro }: { position: [number, number, number]; giro: number }) {
+function Iguana({ position, giro, escala = 1.6 }: { position: [number, number, number]; giro: number; escala?: number }) {
   const cabeza = useRef<THREE.Group>(null)
 
   useFrame((state) => {
@@ -244,7 +252,7 @@ function Iguana({ position, giro }: { position: [number, number, number]; giro: 
   const verdeOsc = mat('#557c38', { rough: 0.9 })
 
   return (
-    <group position={position} rotation={[0, giro, 0]}>
+    <group position={position} rotation={[0, giro, 0]} scale={escala}>
       <mesh geometry={GEO.piedra} material={mat('#b9b3a6', { rough: 1 })} scale={[0.9, 0.5, 0.8]} position={[0, 0.22, 0]} castShadow receiveShadow />
       <group position={[0, 0.6, 0]}>
         <mesh geometry={GEO.capsula} material={verde} scale={[0.1, 0.16, 0.1]} rotation={[Math.PI / 2, 0, 0]} castShadow />
@@ -265,7 +273,7 @@ function Iguana({ position, giro }: { position: [number, number, number]; giro: 
 /* ------------------------------------------------------------------ */
 /* Ranita roja: el guiño tico, chiquitita sobre una hoja                */
 /* ------------------------------------------------------------------ */
-function RanitaRoja({ position }: { position: [number, number, number] }) {
+function RanitaRoja({ position, escala = 2.2 }: { position: [number, number, number]; escala?: number }) {
   const cuerpo = useRef<THREE.Mesh>(null)
   const grupo = useRef<THREE.Group>(null)
 
@@ -280,7 +288,7 @@ function RanitaRoja({ position }: { position: [number, number, number] }) {
   })
 
   return (
-    <group ref={grupo} position={position}>
+    <group ref={grupo} position={position} scale={escala}>
       <mesh geometry={GEO.circulo} material={mat('#3f8a45', { rough: 0.9 })} rotation={[-Math.PI / 2, 0, 0]} scale={0.28} />
       <mesh ref={cuerpo} geometry={GEO.esfera} material={mat('#4fbf5a', { rough: 0.6 })} position={[0, 0.07, 0]} scale={[0.1, 0.075, 0.12]} />
       <mesh geometry={GEO.esfera} material={mat('#e23b3b', { rough: 0.4, emissive: '#e23b3b', ei: 0.35 })} position={[-0.05, 0.14, 0.03]} scale={0.045} />
@@ -299,23 +307,33 @@ export function CampusFauna({ quality }: CampusFaunaProps) {
   const alto = quality === 'high'
   const medio = quality !== 'low'
 
+  // La franja de adelante (Z entre 10 y 17, X entre -10 y 12) es la que la
+  // camara siempre tiene mas cerca en las catorce escenas. Ahi es donde se
+  // ponen los animales que se tienen que ver si o si.
   const ardillas = useMemo(
     () =>
       [
-        { centro: [18.5, 1] as [number, number], radio: 1.6, fase: 0 },
-        { centro: [22, -13] as [number, number], radio: 2.1, fase: 2.4 },
-        { centro: [-17.5, 4] as [number, number], radio: 1.4, fase: 4.1 },
-      ].slice(0, alto ? 3 : medio ? 2 : 1),
+        { centro: [6, 11] as [number, number], radio: 1.8, fase: 0 },
+        { centro: [-12, 9] as [number, number], radio: 2.2, fase: 2.4 },
+        { centro: [16, -5] as [number, number], radio: 1.6, fase: 4.1 },
+        { centro: [-17, 4] as [number, number], radio: 2.0, fase: 1.3 },
+        { centro: [20, 8] as [number, number], radio: 1.7, fase: 5.2 },
+        { centro: [-6, 16] as [number, number], radio: 2.4, fase: 3.3 },
+        { centro: [12, 14] as [number, number], radio: 1.9, fase: 0.8 },
+      ].slice(0, alto ? 7 : medio ? 3 : 1),
     [alto, medio]
   )
 
   const colibries = useMemo(
     () =>
       [
-        { base: [16.5, 1.5, -2] as [number, number, number], fase: 0, color: '#2fb56f' },
-        { base: [23, 1.4, -14] as [number, number, number], fase: 2.2, color: '#c94fb5' },
-        { base: [-14, 1.5, -9] as [number, number, number], fase: 4.4, color: '#2f8fd0' },
-      ].slice(0, alto ? 3 : medio ? 2 : 0),
+        { base: [9, 1.6, 10] as [number, number, number], fase: 0, color: '#2fb56f' },
+        { base: [-8, 1.5, 11] as [number, number, number], fase: 2.2, color: '#c94fb5' },
+        { base: [15, 1.6, -5] as [number, number, number], fase: 4.4, color: '#2f8fd0' },
+        { base: [-15, 1.7, 8] as [number, number, number], fase: 1.1, color: '#e0703a' },
+        { base: [19, 1.5, 3] as [number, number, number], fase: 3.6, color: '#7c5cff' },
+        { base: [-19, 1.6, -4] as [number, number, number], fase: 5.1, color: '#2fb56f' },
+      ].slice(0, alto ? 6 : medio ? 3 : 0),
     [alto, medio]
   )
 
@@ -329,13 +347,20 @@ export function CampusFauna({ quality }: CampusFaunaProps) {
         <Colibri key={`col-${i}`} {...c} />
       ))}
 
-      {medio && <Perro radio={19} velocidad={0.16} />}
+      {/* El perro corre en una elipse que cruza justo por delante del campus */}
+      {medio && <Perro radio={17} velocidad={0.16} />}
+      {/* El segundo va al reves y por fuera, para que no parezcan un espejo */}
+      {alto && <Perro radio={25} velocidad={-0.12} escala={1.15} />}
 
-      {medio && <Gato position={[15.5, 0, 7.5]} giro={-0.9} />}
+      {medio && <Gato position={[-6, 0, 12]} giro={-0.6} />}
+      {alto && <Gato position={[17, 0, 12]} giro={1.9} escala={1.25} />}
 
-      {alto && <Iguana position={[19.5, 0, -3.5]} giro={0.7} />}
+      {alto && <Iguana position={[11, 0, 9]} giro={0.7} />}
+      {alto && <Iguana position={[-18, 0, -2]} giro={-1.3} escala={1.4} />}
 
-      {alto && <RanitaRoja position={[22.5, 0.02, -15.5]} />}
+      {alto && <RanitaRoja position={[-11, 0.02, 10]} />}
+      {alto && <RanitaRoja position={[13, 0.02, 16]} escala={2} />}
+      {medio && <RanitaRoja position={[-16, 0.02, 14]} escala={1.9} />}
     </group>
   )
 }

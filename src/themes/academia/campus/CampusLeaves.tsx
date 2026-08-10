@@ -44,20 +44,34 @@ export function CampusLeaves({ quality }: CampusLeavesProps) {
 
   const hojas = useMemo<Hoja[]>(() => {
     const rng = makeRng(60606)
-    return Array.from({ length: n }, () => {
+    const lista: Hoja[] = []
+    let intentos = 0
+
+    while (lista.length < n && intentos < n * 40) {
+      intentos++
       const a = rng() * Math.PI * 2
       const r = range(rng, 8, 48)
-      return {
-        x: Math.cos(a) * r,
-        z: Math.sin(a) * r,
+      const x = Math.cos(a) * r
+      const z = Math.sin(a) * r
+
+      // Las camaras de las catorce escenas estan todas alrededor de (0, 22), y
+      // el disco de reparto pasa justo por encima de ese punto: una hoja de
+      // veinte centimetros a un metro del lente tapa media pantalla como una
+      // mancha rosada. Se deja libre ese pedazo.
+      if (x * x + (z - 22) * (z - 22) < 81) continue
+
+      lista.push({
+        x,
+        z,
         y: range(rng, 0.5, 11),
         giro: rng() * Math.PI * 2,
         vel: range(rng, 0.5, 1.4),
         balanceo: range(rng, 1.1, 3.2),
         fase: rng() * Math.PI * 2,
         escala: range(rng, 0.7, 1.5),
-      }
-    })
+      })
+    }
+    return lista
   }, [n])
 
   useLayoutEffect(() => {
@@ -69,7 +83,21 @@ export function CampusLeaves({ quality }: CampusLeavesProps) {
       malla.current.setColorAt(i, c)
     }
     if (malla.current.instanceColor) malla.current.instanceColor.needsUpdate = true
-  }, [hojas])
+
+    // El descarte de la zona de la camara puede dejar menos hojas que
+    // instancias reservadas. Las sobrantes se encogen y se entierran: si no,
+    // se quedan en el origen con la matriz identidad, apiladas en el centro
+    // de la plaza.
+    if (hojas.length < n) {
+      const m = new THREE.Matrix4().compose(
+        new THREE.Vector3(0, -50, 0),
+        new THREE.Quaternion(),
+        new THREE.Vector3(0.0001, 0.0001, 0.0001)
+      )
+      for (let i = hojas.length; i < n; i++) malla.current.setMatrixAt(i, m)
+      malla.current.instanceMatrix.needsUpdate = true
+    }
+  }, [hojas, n])
 
   const tmp = useMemo(
     () => ({ m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), p: new THREE.Vector3(), s: new THREE.Vector3() }),

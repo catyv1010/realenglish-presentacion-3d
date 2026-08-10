@@ -1,6 +1,7 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import type { QualityLevel } from '../../../types/presentation'
 import { LAGUNA, LAGUNA_R } from './layout'
 import { makeRng, pick, range } from './rng'
@@ -120,7 +121,9 @@ function Pato({ radio, velocidad, fase, colorCabeza }: { radio: number; velocida
   })
 
   return (
-    <group ref={grupo}>
+    // Agrandados: la laguna esta lejos de la camara y a escala real los patos
+    // serian tres pixeles blancos sobre el agua.
+    <group ref={grupo} scale={1.8}>
       <mesh geometry={GEO.cuerpoPato} material={MAT.patoCuerpo} scale={[1, 0.72, 1.45]} castShadow />
       {/* La cola, un poquito levantada */}
       <mesh geometry={GEO.cuerpoPato} material={MAT.patoCuerpo} position={[0, 0.06, -0.35]} scale={[0.42, 0.3, 0.5]} />
@@ -176,6 +179,77 @@ function Libelula({ base, fase }: { base: [number, number, number]; fase: number
   )
 }
 
+/* ------------------------------------------------------------------ */
+/* Peces: sombras de colores girando bajo la superficie                 */
+/* ------------------------------------------------------------------ */
+
+/** Cuerpo alargado con cola, apuntando hacia +Z (el sentido de la marcha). */
+const GEO_PEZ = (() => {
+  const cuerpo = new THREE.CapsuleGeometry(0.11, 0.22, 3, 7)
+  cuerpo.rotateX(Math.PI / 2)
+  const cola = new THREE.ConeGeometry(0.13, 0.2, 3)
+  cola.scale(1, 1, 0.25)
+  cola.rotateX(-Math.PI / 2)
+  cola.translate(0, 0, -0.26)
+  const merged = mergeGeometries([cuerpo, cola]) ?? cuerpo.clone()
+  cuerpo.dispose()
+  cola.dispose()
+  return merged
+})()
+
+const COLORES_PEZ = ['#f28f3b', '#e8543f', '#f2c14e', '#d9d9d9', '#e07a5f']
+
+function Peces({ n }: { n: number }) {
+  const malla = useRef<THREE.InstancedMesh>(null)
+
+  const peces = useMemo(() => {
+    const rng = makeRng(7373)
+    return Array.from({ length: n }, () => ({
+      radio: range(rng, 1.1, LAGUNA_R - 1.9),
+      // La profundidad importa: todos al mismo nivel se veian como calcomanias
+      // pegadas al fondo en vez de un cardumen.
+      hondura: range(rng, -0.16, -0.04),
+      velocidad: (rng() > 0.5 ? 1 : -1) * range(rng, 0.22, 0.55),
+      fase: rng() * Math.PI * 2,
+      escala: range(rng, 0.8, 1.4),
+      color: new THREE.Color(pick(rng, COLORES_PEZ)),
+    }))
+  }, [n])
+
+  useLayoutEffect(() => {
+    if (!malla.current) return
+    peces.forEach((p, i) => malla.current!.setColorAt(i, p.color))
+    if (malla.current.instanceColor) malla.current.instanceColor.needsUpdate = true
+  }, [peces])
+
+  const tmp = useMemo(
+    () => ({ m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), p: new THREE.Vector3(), s: new THREE.Vector3() }),
+    []
+  )
+
+  useFrame((state) => {
+    if (!malla.current) return
+    const t = state.clock.elapsedTime
+    for (let i = 0; i < peces.length; i++) {
+      const pez = peces[i]
+      const a = pez.fase + t * pez.velocidad
+      tmp.p.set(Math.cos(a) * pez.radio, pez.hondura, Math.sin(a) * pez.radio)
+      // Nariz hacia donde nada, y un coleteo lateral que se nota desde arriba.
+      tmp.e.set(0, -a + (pez.velocidad > 0 ? Math.PI / 2 : -Math.PI / 2), Math.sin(t * 6 + pez.fase) * 0.22)
+      tmp.s.setScalar(pez.escala)
+      tmp.m.compose(tmp.p, tmp.q.setFromEuler(tmp.e), tmp.s)
+      malla.current.setMatrixAt(i, tmp.m)
+    }
+    malla.current.instanceMatrix.needsUpdate = true
+  })
+
+  return (
+    <instancedMesh ref={malla} args={[GEO_PEZ, undefined, Math.max(1, n)]}>
+      <meshStandardMaterial roughness={0.45} metalness={0.1} />
+    </instancedMesh>
+  )
+}
+
 interface CampusPondProps {
   quality: QualityLevel
 }
@@ -190,12 +264,13 @@ interface CampusPondProps {
  */
 export function CampusPond({ quality }: CampusPondProps) {
   const [cx, cz] = LAGUNA
-  const nPiedras = quality === 'high' ? 26 : quality === 'medium' ? 16 : 9
-  const nHojas = quality === 'high' ? 16 : quality === 'medium' ? 10 : 5
-  const nJuncos = quality === 'high' ? 34 : quality === 'medium' ? 20 : 10
-  const nPatos = quality === 'low' ? 2 : 3
-  const nLibelulas = quality === 'high' ? 4 : quality === 'medium' ? 2 : 0
-  const nOndas = quality === 'high' ? 6 : 3
+  const nPiedras = quality === 'high' ? 38 : quality === 'medium' ? 22 : 9
+  const nHojas = quality === 'high' ? 26 : quality === 'medium' ? 14 : 5
+  const nJuncos = quality === 'high' ? 56 : quality === 'medium' ? 30 : 10
+  const nPatos = quality === 'high' ? 6 : quality === 'medium' ? 4 : 2
+  const nPeces = quality === 'high' ? 16 : quality === 'medium' ? 9 : 4
+  const nLibelulas = quality === 'high' ? 7 : quality === 'medium' ? 3 : 0
+  const nOndas = quality === 'high' ? 8 : 3
 
   const piedras = useRef<THREE.InstancedMesh>(null)
   const hojas = useRef<THREE.InstancedMesh>(null)
@@ -281,11 +356,15 @@ export function CampusPond({ quality }: CampusPondProps) {
         <mesh key={`nen-${i}`} geometry={GEO.florNenufar} material={MAT.flor} position={p} scale={1.1} />
       ))}
 
+      <Peces n={nPeces} />
+
       {Array.from({ length: nPatos }, (_, i) => (
         <Pato
           key={`pato-${i}`}
-          radio={2.2 + i * 1.1}
-          velocidad={(i % 2 === 0 ? 1 : -1) * (0.13 + i * 0.03)}
+          // Anillos mas juntos que antes: con seis patos, el paso de 1.1 sacaba
+          // al ultimo fuera del agua.
+          radio={1.6 + i * 0.95}
+          velocidad={(i % 2 === 0 ? 1 : -1) * (0.13 + i * 0.025)}
           fase={i * 2.1}
           colorCabeza={pick(makeRng(100 + i), ['#2f6b4f', '#3a5f8a', '#6b4a34'])}
         />

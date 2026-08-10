@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { QualityLevel } from '../../../types/presentation'
-import { RADIO_CAMINO } from './layout'
+import { BANCAS, RADIO_CAMINO } from './layout'
 
 const GEO = {
   tabla: new THREE.BoxGeometry(1.6, 0.07, 0.42),
@@ -110,15 +110,13 @@ export function CampusProps({ quality }: CampusPropsProps) {
   const nBancas = quality === 'high' ? 8 : quality === 'medium' ? 5 : 3
   const nFaroles = quality === 'high' ? 8 : quality === 'medium' ? 5 : 3
 
-  const bancas = useMemo(
-    () =>
-      Array.from({ length: nBancas }, (_, i) => {
-        const a = (i / nBancas) * Math.PI * 2 + 0.35
-        const r = RADIO_CAMINO + 2.9
-        return { pos: [Math.cos(a) * r, 0, Math.sin(a) * r] as [number, number, number], giro: -a + Math.PI / 2 }
-      }),
-    [nBancas]
-  )
+  // Se toman de la lista fija de ocho, salteadas: con calidad baja quedan tres
+  // bancas repartidas por todo el sendero y no tres juntas en un mismo lado.
+  const bancas = useMemo(() => {
+    const paso = BANCAS.length / nBancas
+    const indices = new Set(Array.from({ length: nBancas }, (_, i) => Math.round(i * paso) % BANCAS.length))
+    return [...indices].map((i) => BANCAS[i])
+  }, [nBancas])
 
   const faroles = useMemo(
     () =>

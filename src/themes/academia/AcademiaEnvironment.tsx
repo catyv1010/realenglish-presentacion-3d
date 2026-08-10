@@ -11,6 +11,8 @@ import { CampusSky } from './campus/CampusSky'
 import { CampusPond } from './campus/CampusPond'
 import { CampusFauna } from './campus/CampusFauna'
 import { CampusLeaves } from './campus/CampusLeaves'
+import { CampusCrowd } from './campus/CampusCrowd'
+import { CampusDatabase } from './campus/CampusDatabase'
 
 const NIVELES = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 const NIVEL_COLORS = ['#22c55e', '#84cc16', '#f59e0b', '#FF7700', '#f26b65', '#525fe1']
@@ -228,11 +230,17 @@ export function AcademiaEnvironment({ scene, quality }: ThemeEnvironmentProps) {
         </Billboard>
       </group>
 
+      {/* El monumento a la base de datos, al fondo a la derecha */}
+      <CampusDatabase quality={quality} />
+
       {/* La vida del campus: bosque, laguna, gente, fauna y mobiliario */}
       <CampusFlora quality={quality} />
       <CampusProps quality={quality} />
       <CampusPond quality={quality} />
       <CampusPeople quality={quality} />
+      {/* La multitud instanciada va aparte de CampusPeople: son otras setenta
+          personas por seis llamadas de dibujo. Ver CampusCrowd.tsx. */}
+      <CampusCrowd quality={quality} />
       <CampusWildlife quality={quality} />
       <CampusFauna quality={quality} />
       <CampusLeaves quality={quality} />

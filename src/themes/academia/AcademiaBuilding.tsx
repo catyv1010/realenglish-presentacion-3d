@@ -1,8 +1,9 @@
-import { useRef, useLayoutEffect, useMemo } from 'react'
+import { useRef, useLayoutEffect, useMemo, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Text, Billboard } from '@react-three/drei'
 import gsap from 'gsap'
 import * as THREE from 'three'
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import type { ThemeBuildingProps } from '../types'
 import { useAudioStore } from '../../store/useAudioStore'
 
@@ -48,32 +49,238 @@ function Libros({ w, h, d, seed }: VariantProps) {
 }
 
 /* ---------- Variante: edificio de escuela ---------- */
+
+/**
+ * Prisma triangular con la base plana y el vertice arriba: el fronton del
+ * portico.
+ *
+ * Un cilindro de tres lados ya es un prisma triangular, pero nace con el eje
+ * en Y. Three.js reparte los vertices con `x = r·sin(t)` y `z = r·cos(t)`, o
+ * sea que el primero apunta a +Z (no a +X, que es lo que uno supondria). Con
+ * eso, un solo cuarto de vuelta sobre X basta: acuesta el prisma sobre Z y
+ * deja el vertice arriba y la base horizontal. La rotacion se hornea en la
+ * geometria y no en el mesh para que la escala del mesh siga siendo
+ * ancho/alto/fondo y no haya que pensar en ejes rotados al usarlo.
+ *
+ * Medidas de la pieza sin escalar: vertice en y=1, base en y=-0.5, medio
+ * ancho 0.866, fondo 1.
+ */
+const GEO_FRONTON = (() => {
+  const g = new THREE.CylinderGeometry(1, 1, 1, 3)
+  g.rotateX(-Math.PI / 2)
+  return g
+})()
+
+const CREMA = '#f6f3ea'
+const TECHO = '#1a2d62'
+
 function Edificio({ w, h, d, color }: VariantProps) {
-  const floors = Math.max(2, Math.round(h / 1.6))
-  const windows = useMemo(() => {
-    const list: [number, number][] = []
-    for (let f = 0; f < floors; f++) for (let c = -1; c <= 1; c++) list.push([c * w * 0.5, 0.9 + f * (h / floors)])
-    return list
-  }, [floors, w, h])
+  const ancho = w * 1.9
+  const fondo = d * 1.5
+  const frente = fondo / 2
+
+  const pisos = Math.max(2, Math.min(4, Math.round(h / 1.8)))
+  const altoPiso = h / pisos
+  const yBase = 0.34
+
+  // El portico llega hasta la mitad del edificio: mas alto se come la fachada,
+  // mas bajo parece un porche de casa.
+  const altoColumna = Math.min(h * 0.52, altoPiso * 1.9)
+  const anchoPortico = ancho * 0.56
+  const fondoPortico = Math.max(0.6, d * 0.5)
+  const altoFronton = anchoPortico * 0.34
+
+  const anchoVentana = ancho * 0.19
+  const altoVentana = altoPiso * 0.46
+
+  /**
+   * Ventanas y columnas, fundidas en tres geometrias.
+   *
+   * Una fachada son once ventanas, y cada ventana quiere marco, vidrio y
+   * parteluz: treinta y tres mallas por edificio, por siete edificios que
+   * llega a poner una escena. Como ninguna se mueve, se fusionan de una vez
+   * en tres piezas (marcos, vidrios y columnas) y el edificio entero pasa de
+   * unas cuarenta llamadas de dibujo a menos de veinte.
+   */
+  const piezas = useMemo(() => {
+    const marcos: THREE.BufferGeometry[] = []
+    const vidrios: THREE.BufferGeometry[] = []
+
+    // Tres ventanas por piso en la fachada. En la planta baja el hueco del
+    // centro es la puerta, asi que esa se salta.
+    for (let f = 0; f < pisos; f++) {
+      for (let c = -1; c <= 1; c++) {
+        if (f === 0 && c === 0) continue
+        const x = c * ancho * 0.3
+        const y = yBase + altoPiso * (f + 0.55)
+
+        const marco = new THREE.PlaneGeometry(anchoVentana * 1.24, altoVentana * 1.22)
+        marco.translate(x, y, frente + 0.02)
+        marcos.push(marco)
+
+        // El vidrio va partido en dos hojas con una junta al medio: de una
+        // sola pieza, las ventanas son rectangulos amarillos y el edificio
+        // parece una hoja de calculo.
+        for (const lado of [-1, 1]) {
+          const hoja = new THREE.PlaneGeometry(anchoVentana * 0.45, altoVentana)
+          hoja.translate(x + lado * anchoVentana * 0.26, y, frente + 0.035)
+          vidrios.push(hoja)
+        }
+      }
+    }
+
+    // Ventanas de los costados, para que el edificio no sea plano de perfil.
+    for (const lado of [-1, 1]) {
+      for (let f = 0; f < pisos; f++) {
+        const g = new THREE.PlaneGeometry(fondo * 0.3, altoVentana)
+        g.rotateY((lado * Math.PI) / 2)
+        g.translate(lado * (ancho / 2 + 0.02), yBase + altoPiso * (f + 0.55), 0)
+        vidrios.push(g)
+      }
+    }
+
+    // Las cuatro columnas del portico, tambien en una sola pieza.
+    const columnas: THREE.BufferGeometry[] = []
+    for (const k of [-1.5, -0.5, 0.5, 1.5]) {
+      const g = new THREE.CylinderGeometry(anchoPortico * 0.062, anchoPortico * 0.07, altoColumna, 10)
+      g.translate((k * anchoPortico) / 3.4, yBase + altoColumna / 2, frente + fondoPortico * 0.72)
+      columnas.push(g)
+    }
+
+    const unir = (lista: THREE.BufferGeometry[]) => {
+      const merged = mergeGeometries(lista)
+      lista.forEach((g) => g.dispose())
+      return merged
+    }
+    return { marcos: unir(marcos), vidrios: unir(vidrios), columnas: unir(columnas) }
+  }, [pisos, ancho, altoPiso, anchoVentana, altoVentana, fondo, frente, anchoPortico, altoColumna, fondoPortico])
+
+  // Las geometrias fusionadas se crean a mano, asi que hay que soltarlas a
+  // mano: la presentacion cambia de escena catorce veces y cada cambio monta
+  // edificios nuevos.
+  useEffect(
+    () => () => {
+      piezas.marcos?.dispose()
+      piezas.vidrios?.dispose()
+      piezas.columnas?.dispose()
+    },
+    [piezas]
+  )
+
   return (
     <>
-      <mesh position={[0, h / 2 + 0.16, 0]} castShadow>
-        <boxGeometry args={[w * 1.9, h, d * 1.5]} />
-        <meshStandardMaterial color={color} roughness={0.7} />
+      {/* Zocalo y gradas de entrada */}
+      <mesh position={[0, yBase / 2, 0]} receiveShadow castShadow>
+        <boxGeometry args={[ancho * 1.1, yBase, fondo * 1.14]} />
+        <meshStandardMaterial color="#e4e7f4" roughness={0.9} />
       </mesh>
-      {windows.map(([wx, wy], i) => (
-        <mesh key={i} position={[wx, wy, (d * 1.5) / 2 + 0.02]}>
-          <planeGeometry args={[w * 0.34, 0.5]} />
-          <meshStandardMaterial color="#fff7d6" emissive="#ffe9a3" emissiveIntensity={0.35} roughness={0.4} />
+      {[0, 1, 2].map((i) => (
+        <mesh key={`grada-${i}`} position={[0, 0.055 + i * 0.11, frente + 0.62 - i * 0.2]} receiveShadow>
+          <boxGeometry args={[anchoPortico * 1.15, 0.11, 0.42 - i * 0.06]} />
+          <meshStandardMaterial color="#eceff8" roughness={0.9} />
         </mesh>
       ))}
-      <mesh position={[0, 0.55, (d * 1.5) / 2 + 0.02]}>
-        <planeGeometry args={[w * 0.5, 1.0]} />
-        <meshStandardMaterial color="#1a2d62" roughness={0.6} />
+
+      {/* El cuerpo */}
+      <mesh position={[0, h / 2 + yBase, 0]} castShadow receiveShadow>
+        <boxGeometry args={[ancho, h, fondo]} />
+        <meshStandardMaterial color={color} roughness={0.72} />
       </mesh>
-      <mesh position={[0, h + 0.16 + 0.55, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
+
+      {/* Nada de alas laterales: las escenas colocan hasta siete edificios en
+          una plaza de quince metros, y cualquier volumen que se salga del
+          ancho original los hace chocar unos con otros. Todo el caracter del
+          edificio tiene que caber dentro de la misma huella de antes. */}
+
+      {/* Cornisa: la linea clara que separa el cuerpo del techo */}
+      <mesh position={[0, h + yBase + 0.13, 0]} castShadow>
+        <boxGeometry args={[ancho * 1.07, 0.26, fondo * 1.07]} />
+        <meshStandardMaterial color={CREMA} roughness={0.8} />
+      </mesh>
+      {/* Banda entre plantas */}
+      {pisos > 2 && (
+        <mesh position={[0, yBase + altoPiso * Math.floor(pisos / 2), 0]}>
+          <boxGeometry args={[ancho * 1.012, 0.13, fondo * 1.012]} />
+          <meshStandardMaterial color={CREMA} roughness={0.85} />
+        </mesh>
+      )}
+
+      {/* Ventanas: marcos claros y vidrios encendidos, cada grupo en una malla */}
+      {piezas.marcos && (
+        <mesh geometry={piezas.marcos}>
+          <meshStandardMaterial color={CREMA} roughness={0.85} side={THREE.DoubleSide} />
+        </mesh>
+      )}
+      {piezas.vidrios && (
+        <mesh geometry={piezas.vidrios}>
+          <meshStandardMaterial
+            color="#fff7d6"
+            emissive="#ffe9a3"
+            emissiveIntensity={0.4}
+            roughness={0.35}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      )}
+
+      {/* El portico: cuatro columnas, arquitrabe y fronton */}
+      {piezas.columnas && (
+        <mesh geometry={piezas.columnas} castShadow>
+          <meshStandardMaterial color={CREMA} roughness={0.7} />
+        </mesh>
+      )}
+      <mesh position={[0, yBase + altoColumna + 0.13, frente + fondoPortico * 0.4]} castShadow>
+        <boxGeometry args={[anchoPortico * 1.06, 0.26, fondoPortico * 1.5]} />
+        <meshStandardMaterial color={CREMA} roughness={0.75} />
+      </mesh>
+      <mesh
+        geometry={GEO_FRONTON}
+        // La base del prisma esta en y=-0.5 de su escala: se sube esa mitad
+        // para que apoye justo encima del arquitrabe.
+        position={[
+          0,
+          yBase + altoColumna + 0.26 + (altoFronton / 1.5) * 0.5,
+          frente + fondoPortico * 0.4,
+        ]}
+        scale={[anchoPortico / 1.732, altoFronton / 1.5, fondoPortico * 1.5]}
+        castShadow
+      >
+        <meshStandardMaterial color={CREMA} roughness={0.75} />
+      </mesh>
+      {/* El ojo de buey del fronton */}
+      <mesh position={[0, yBase + altoColumna + 0.26 + altoFronton * 0.3, frente + fondoPortico * 1.16]}>
+        <circleGeometry args={[altoFronton * 0.19, 14]} />
+        <meshStandardMaterial color={TECHO} roughness={0.6} />
+      </mesh>
+
+      {/* La puerta, bajo el portico */}
+      <mesh position={[0, yBase + altoPiso * 0.42, frente + 0.02]}>
+        <planeGeometry args={[ancho * 0.2, altoPiso * 0.84]} />
+        <meshStandardMaterial color={TECHO} roughness={0.55} />
+      </mesh>
+      <mesh position={[0, yBase + altoPiso * 0.84, frente + 0.03]}>
+        <circleGeometry args={[ancho * 0.1, 16, 0, Math.PI]} />
+        <meshStandardMaterial color={TECHO} roughness={0.55} />
+      </mesh>
+
+      {/* El techo a cuatro aguas y su reloj */}
+      <mesh position={[0, h + yBase + 0.81, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
         <coneGeometry args={[w * 1.55, 1.1, 4]} />
-        <meshStandardMaterial color="#1a2d62" roughness={0.65} />
+        <meshStandardMaterial color={TECHO} roughness={0.65} />
+      </mesh>
+      <mesh position={[0, h + yBase + 1.62, 0]} castShadow>
+        <cylinderGeometry args={[w * 0.27, w * 0.3, 1, 10]} />
+        <meshStandardMaterial color={CREMA} roughness={0.7} />
+      </mesh>
+      <mesh position={[0, h + yBase + 1.72, w * 0.28]}>
+        <circleGeometry args={[w * 0.17, 16]} />
+        <meshStandardMaterial color="#fff7d6" emissive="#ffe9a3" emissiveIntensity={0.5} roughness={0.4} />
+      </mesh>
+      {/* La aguja NO puede ser mas ancha que la torre: con el radio mayor que
+          el del campanario, el remate parecia un hongo en vez de un chapitel. */}
+      <mesh position={[0, h + yBase + 2.62, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
+        <coneGeometry args={[w * 0.28, 1, 4]} />
+        <meshStandardMaterial color={TECHO} roughness={0.6} />
       </mesh>
     </>
   )
@@ -207,8 +414,23 @@ export function AcademiaBuilding({ config, entranceDuration = 1 }: ThemeBuilding
 
   const vp: VariantProps = { w, h, d, color, label: config.label ?? '', seed }
   const esGlobo = variant === 'globo'
-  const signY = esGlobo ? h + Math.max(1.5, w * 1.35) * 2 + 0.9 : h + 3
-  const flagY = esGlobo ? 0 : 0.16 + h + 1.05
+  const esEdificio = variant === 'edificio'
+  // El edificio termina en torre de reloj y aguja: el rotulo y el banderin
+  // tienen que apartarse o quedan clavados dentro del campanario.
+  // Los rotulos se escalonan segun lo atras que este el edificio: los del
+  // fondo suben y los de adelante bajan. Sin esto, cinco sedes repartidas en
+  // dos filas dentro de una plaza de quince metros acaban con los cinco
+  // carteles amontonados en la misma franja de pantalla y no se lee ninguno.
+  const escalonRotulo = Math.max(0, 6 - z) * 0.22
+  const signY = esGlobo
+    ? h + Math.max(1.5, w * 1.35) * 2 + 0.9
+    : // El edificio termina en aguja a h + 3.46; el rotulo arranca por encima.
+      (esEdificio ? h + 4 : h + 3) + escalonRotulo
+  const flagPos: [number, number, number] = esEdificio
+    ? // Asta plantada al lado de la entrada: sobre el techo chocaba con el
+      // campanario, y la fachada ya tiene bastante encima.
+      [-(w * 1.9 * 0.5 + 0.55), 1.05, d * 1.5 * 0.4]
+    : [0, 0.16 + h + 1.05, 0]
 
   return (
     <group ref={groupRef} position={[x, 0, z]}>
@@ -226,16 +448,16 @@ export function AcademiaBuilding({ config, entranceDuration = 1 }: ThemeBuilding
       {(variant === 'libros' || !['edificio', 'lapiz', 'bloques', 'globo'].includes(variant)) && <Libros {...vp} />}
 
       {!esGlobo && (
-        <>
-          <mesh position={[0, flagY, 0]} castShadow>
+        <group position={flagPos}>
+          <mesh castShadow>
             <cylinderGeometry args={[0.045, 0.055, 2.1, 8]} />
             <meshStandardMaterial color="#1a2d62" roughness={0.5} />
           </mesh>
-          <mesh ref={flagRef} position={[0.62, flagY + 0.7, 0]}>
+          <mesh ref={flagRef} position={[0.62, 0.7, 0]}>
             <coneGeometry args={[0.34, 1.15, 3]} />
             <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.2} roughness={0.5} side={THREE.DoubleSide} />
           </mesh>
-        </>
+        </group>
       )}
 
       {config.label && (

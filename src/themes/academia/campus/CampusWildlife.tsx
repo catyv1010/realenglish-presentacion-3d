@@ -131,7 +131,7 @@ function Mariposa({ centro, radio, altura, velocidad, fase, color }: { centro: [
   })
 
   return (
-    <group ref={grupo}>
+    <group ref={grupo} scale={2}>
       <mesh ref={alaIzq} geometry={GEO.alaMariposa} material={mat(color, { roughness: 0.35, emissive: color, emissiveIntensity: 0.35, side: THREE.DoubleSide })} />
       <mesh ref={alaDer} geometry={GEO.alaMariposa} material={mat(color, { roughness: 0.35, emissive: color, emissiveIntensity: 0.35, side: THREE.DoubleSide })} />
     </group>
@@ -160,7 +160,8 @@ function Conejo({ centro, radio, velocidad, fase }: { centro: [number, number]; 
   })
 
   return (
-    <group ref={grupo}>
+    // Agrandado: a escala real un conejo se pierde en el zacate.
+    <group ref={grupo} scale={1.7}>
       <group ref={cuerpo}>
         <mesh geometry={GEO.cuerpoConejo} material={mat('#e8e2d8', { roughness: 0.95 })} scale={[1, 0.85, 1.35]} castShadow />
         <mesh geometry={GEO.cabezaConejo} material={mat('#efe9df', { roughness: 0.95 })} position={[0, 0.1, 0.2]} />
@@ -282,14 +283,14 @@ function ArbolConVida({
       )}
 
       {conMonos && (
-        <>
-          <MonoSentado position={[-2.4, 4.95, -0.85]} />
-          <MonoColgando position={[-3.3, 4.35, -0.95]} />
-        </>
+        <group scale={2.2}>
+          <MonoSentado position={[-1.05, 2.05, -0.35]} />
+          <MonoColgando position={[-1.45, 1.85, -0.4]} />
+        </group>
       )}
 
       {conTucan && (
-        <group ref={tucan} position={[2.6, 3.62, 0.7]} rotation={[0, -0.5, 0]}>
+        <group ref={tucan} position={[2.6, 3.62, 0.7]} rotation={[0, -0.5, 0]} scale={2.2}>
           <mesh geometry={GEO.garra} material={mat('#4b5563', { roughness: 0.7 })} position={[0, -0.12, 0]} />
           <mesh geometry={GEO.cuerpoAve} material={mat('#161616', { roughness: 0.6 })} scale={[1.3, 1.6, 1.3]} position={[0, 0.14, 0]} castShadow />
           <mesh geometry={GEO.cuerpoAve} material={mat('#ffe08a', { roughness: 0.6 })} scale={[0.95, 1.1, 0.7]} position={[0, 0.2, 0.09]} />
@@ -301,7 +302,7 @@ function ArbolConVida({
       )}
 
       {conPerezoso && (
-        <group ref={perezoso} position={[0.55, 3.5, 0.7]}>
+        <group ref={perezoso} position={[0.2, 3.5, 0.7]} scale={2.2}>
           {/* Los brazos agarrados a la rama */}
           <mesh geometry={GEO.garra} material={mat('#8a7a63', { roughness: 0.95 })} position={[-0.16, -0.06, 0]} rotation={[0, 0, 0.5]} scale={[1, 1.6, 1]} />
           <mesh geometry={GEO.garra} material={mat('#8a7a63', { roughness: 0.95 })} position={[0.16, -0.06, 0]} rotation={[0, 0, -0.5]} scale={[1, 1.6, 1]} />
@@ -325,16 +326,17 @@ interface CampusWildlifeProps {
  * protagonistas, uno con tucan y otro con perezoso.
  */
 export function CampusWildlife({ quality }: CampusWildlifeProps) {
-  const nMariposas = quality === 'high' ? 10 : quality === 'medium' ? 6 : 3
-  const nConejos = quality === 'high' ? 5 : quality === 'medium' ? 3 : 1
-  const bandadas = quality === 'high' ? 3 : quality === 'medium' ? 2 : 1
+  const nMariposas = quality === 'high' ? 24 : quality === 'medium' ? 12 : 4
+  const nConejos = quality === 'high' ? 9 : quality === 'medium' ? 5 : 2
+  const bandadas = quality === 'high' ? 5 : quality === 'medium' ? 3 : 1
 
   const mariposas = useMemo(() => {
     const rng = makeRng(6060)
     const colores = ['#4f6cf7', '#5b8cff', '#7c5cff', '#f26b65', '#ffd166']
     return Array.from({ length: nMariposas }, () => {
       const a = range(rng, 0, Math.PI * 2)
-      const r = range(rng, 15, 30)
+      // Cerca de la plaza, no perdidas en el bosque del fondo.
+      const r = range(rng, 12.5, 26)
       return {
         centro: [Math.cos(a) * r, Math.sin(a) * r] as [number, number],
         radio: range(rng, 1.6, 3.4),
@@ -348,23 +350,37 @@ export function CampusWildlife({ quality }: CampusWildlifeProps) {
 
   const conejos = useMemo(() => {
     const rng = makeRng(1212)
-    return Array.from({ length: nConejos }, () => {
-      const a = range(rng, 0, Math.PI * 2)
-      const r = range(rng, 16, 26)
-      return {
-        centro: [Math.cos(a) * r, Math.sin(a) * r] as [number, number],
-        radio: range(rng, 1.2, 2.6),
-        velocidad: range(rng, 0.18, 0.34),
-        fase: rng() * 6,
-      }
-    })
+    // En la franja de adelante y a los costados de la plaza, que es donde la
+    // camara los tiene cerca en las catorce escenas.
+    const sitios: [number, number][] = [
+      [-8, 12],
+      [10, 9],
+      [-14, 6],
+      [14, 4],
+      [-16, -6],
+      [18, -2],
+      [-19, 13],
+      [6, 15],
+      [-4, 16],
+      [22, 6],
+    ]
+    return Array.from({ length: nConejos }, (_, i) => ({
+      centro: sitios[i % sitios.length],
+      radio: range(rng, 1.2, 2.4),
+      velocidad: range(rng, 0.18, 0.34),
+      fase: rng() * 6,
+    }))
   }, [nConejos])
 
   return (
     <group>
-      {bandadas >= 1 && <Bandada radio={32} altura={17} velocidad={0.09} fase={0} n={6} color="#6b7a9e" />}
-      {bandadas >= 2 && <Bandada radio={24} altura={22} velocidad={-0.07} fase={2.1} n={5} color="#7c8bab" />}
-      {bandadas >= 3 && <Bandada radio={40} altura={14} velocidad={0.05} fase={4.2} n={7} color="#5b6b8f" />}
+      {bandadas >= 1 && <Bandada radio={32} altura={17} velocidad={0.09} fase={0} n={7} color="#6b7a9e" />}
+      {bandadas >= 2 && <Bandada radio={24} altura={22} velocidad={-0.07} fase={2.1} n={6} color="#7c8bab" />}
+      {bandadas >= 3 && <Bandada radio={40} altura={14} velocidad={0.05} fase={4.2} n={8} color="#5b6b8f" />}
+      {/* Loras: bajitas, verdes y ruidosas. Cruzan por delante del bosque, que
+          es donde se les nota el color contra el verde oscuro. */}
+      {bandadas >= 4 && <Bandada radio={19} altura={11} velocidad={-0.14} fase={1.2} n={6} color="#4fbf5a" />}
+      {bandadas >= 5 && <Bandada radio={47} altura={26} velocidad={0.04} fase={5.5} n={9} color="#8494b5" />}
 
       {mariposas.map((m, i) => (
         <Mariposa key={`mar-${i}`} {...m} />
@@ -380,6 +396,11 @@ export function CampusWildlife({ quality }: CampusWildlifeProps) {
       <ArbolConVida position={[14, 0, -8]} giro={-0.75} conTucan conPerezoso conMonos />
       {/* Otro al fondo, para que el de la derecha no parezca puesto a mano. */}
       <ArbolConVida position={[-20, 0, -16]} giro={2.2} conTucan conPerezoso={false} conMonos />
+      {/* Con calidad alta, otros dos: uno a la izquierda cerca de la plaza y
+          otro al fondo. Cuatro arboles habitados hacen que el bosque parezca
+          lleno de bichos en vez de tener dos vitrinas con animales. */}
+      {quality === 'high' && <ArbolConVida position={[-28, 0, 2]} giro={0.9} conTucan={false} conPerezoso conMonos />}
+      {quality === 'high' && <ArbolConVida position={[26, 0, -14]} giro={-2.4} conTucan conPerezoso conMonos={false} />}
     </group>
   )
 }

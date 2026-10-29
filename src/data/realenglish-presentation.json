@@ -1523,12 +1523,12 @@
       "environment": "academia",
       "bullets": [
         "Un paquete agrupa lógica en especificación y cuerpo: se ve qué ofrece por fuera sin ver cómo está hecho por dentro.",
-        "Tres paquetes de negocio: pkg_matricula, pkg_reportes (recorre cursores explícitos) y pkg_auditoria.",
+        "Tres paquetes de negocio: pkg_matricula, pkg_reportes (cinco cursores declarados, recorridos con cursor FOR loop) y pkg_auditoria.",
         "Quince paquetes CRUD, uno por tabla, cada uno con listar, obtener, insertar, actualizar y eliminar: unos 75 procedimientos.",
         "Con los 15 procedimientos sueltos del negocio, el proyecto llega a 90 procedimientos almacenados.",
         "Los listados devuelven un SYS_REFCURSOR: el paquete lo abre y el PHP lo recorre con oci_fetch, sin ver jamás la tabla.",
         "Los 15 cursores explícitos del script 08 muestran el control manual: DECLARE, OPEN, FETCH y CLOSE, con %FOUND, %NOTFOUND y %ROWCOUNT.",
-        "Todos los errores usan los mismos códigos (-20001 a -20005): el front-end los interpreta con una sola tabla de mensajes."
+        "Cada error tiene su rango: -20001 a -20018 en los procedimientos y -20020 a -20023 en los triggers; el front-end los traduce con una sola tabla de mensajes."
       ],
       "cameraPosition": [
         0,
@@ -1621,9 +1621,10 @@
       "world": "Unidad 11 · The Views",
       "environment": "academia",
       "bullets": [
-        "Las diez vistas v_* son la única lectura directa del usuario final: RECR_APP tiene SELECT sobre ellas y sobre nada más.",
+        "Las vistas son la única lectura directa que existe para el usuario final: RECR_APP tiene SELECT sobre seis de ellas y sobre ninguna tabla.",
         "Operativas: v_estudiantes_activos, v_grupos_abiertos, v_matriculas_detalle, v_pagos_pendientes y v_pagos_atrasados.",
-        "Gerenciales: v_ingresos_por_sede, v_ocupacion_grupos, v_promedio_por_grupo, v_carga_profesores y v_estudiantes_por_nivel.",
+        "Gerenciales: v_ingresos_por_sede, v_ocupacion_grupos (la única de las cinco que ve el usuario final), v_promedio_por_grupo, v_carga_profesores y v_estudiantes_por_nivel.",
+        "Las otras cuatro gerenciales quedaron solo para ROL_DESARROLLADOR: un estudiante no tiene por qué ver los ingresos de la academia.",
         "Cada vista trae los JOIN resueltos y nombres claros: el sitio recibe el nombre del estudiante, no códigos crudos.",
         "También son seguridad: CLAVE_HASH no aparece en ninguna vista y jamás viaja al navegador.",
         "Si cambia la estructura interna de una tabla, la vista se ajusta y la aplicación ni se entera."
@@ -1959,7 +1960,7 @@
         "Consistencia: el trigger mantiene cupo_actual coherente; sube al matricular, baja al retirar, y el grupo se cierra y reabre solo.",
         "Aislamiento: con dos sesiones abiertas, una transacción sin COMMIT es invisible para la otra; al confirmar, aparece.",
         "Durabilidad: después del COMMIT los datos y su rastro en BITACORA sobreviven al cierre de la sesión.",
-        "Las últimas prueban que las llaves foráneas rechazan filas huérfanas y que BITACORA es de solo agregado."
+        "Las últimas prueban que las llaves foráneas rechazan huérfanos (ORA-02291, nombrando la constraint) y que por la vía de la aplicación la bitácora es intocable: pkg_bitacora_crud rechaza con ORA-20030 y ORA-20031."
       ],
       "cameraPosition": [
         0,
